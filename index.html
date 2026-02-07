@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>MarketingUB | Your Growth Partner - Digital Marketing & Consulting</title>
+    <meta name="title" content="MarketingUB | Your Growth Partner - Digital Marketing & Consulting">
+    <meta name="description" content="MarketingUB helps small businesses and startups grow with expert digital marketing, lead generation, and business consulting. Led by Manohar Ray (Mano). Driven by ROI and sustainable growth.">
+    <meta name="keywords" content="digital marketing India, business consulting, lead generation, MarketingUB, Manohar Ray, small business growth, sales funnel consultant, marketing strategy India">
+    <meta name="author" content="Manohar Ray (Mano)">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://marketingub.com/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://marketingub.com/">
+    <meta property="og:title" content="MarketingUB | Your Growth Partner - Digital Marketing & Consulting">
+    <meta property="og:description" content="Help your business grow faster with smart marketing, high-intent lead generation, and professional consulting. Scale sustainably with MarketingUB.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://marketingub.com/">
+    <meta property="twitter:title" content="MarketingUB | Your Growth Partner - Digital Marketing & Consulting">
+    <meta property="twitter:description" content="Help your business grow faster with smart marketing, high-intent lead generation, and professional consulting. Scale sustainably with MarketingUB.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#003366">
+    
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for lightweight interactions -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#003366', // Deep Professional Blue
+                        secondary: '#FF6600', // Vibrant Growth Orange
+                        accent: '#F3F4F6'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001f3f 100%); }
+        .service-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .floating-wa { bottom: 20px; right: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900" x-data="{ mobileMenu: false, isSubmitting: false, submitted: false, ledId: '' }">
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919355650312?text=Hello%20MarketingUB,%20I%20want%20to%20grow%20my%20business!" target="_blank" class="fixed floating-wa z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center">
+        <i data-lucide="message-circle" class="w-6 h-6"></i>
+    </a>
+
+    <!-- Header / Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary rounded flex items-center justify-center">
+                    <span class="text-secondary font-bold text-xl italic">M</span>
+                </div>
+                <span class="text-2xl font-bold text-primary tracking-tight">Marketing<span class="text-secondary">UB</span></span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#home" class="hover:text-secondary transition">Home</a>
+                <a href="#about" class="hover:text-secondary transition">About</a>
+                <a href="#services" class="hover:text-secondary transition">Services</a>
+                <a href="#why-us" class="hover:text-secondary transition">Why Choose Us</a>
+                <a href="#contact" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition">Contact Now</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-primary">
+                <i data-lucide="menu" x-show="!mobileMenu"></i>
+                <i data-lucide="x" x-show="mobileMenu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" @click.away="mobileMenu = false" x-cloak class="md:hidden bg-white border-t px-4 py-4 space-y-4 shadow-lg">
+            <a href="#home" @click="mobileMenu = false" class="block py-2 border-b">Home</a>
+            <a href="#about" @click="mobileMenu = false" class="block py-2 border-b">About</a>
+            <a href="#services" @click="mobileMenu = false" class="block py-2 border-b">Services</a>
+            <a href="#contact" @click="mobileMenu = false" class="block py-2 font-bold text-secondary">Contact Now</a>
+        </div>
+    </nav>
+
+    <!-- 1?? Hero Section -->
+    <section id="home" class="gradient-bg text-white py-16 md:py-32 relative overflow-hidden">
+        <div class="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-3/5 z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                    We Help Businesses Grow Faster with <span class="text-secondary">Smart Marketing</span> & Consulting
+                </h1>
+                <p class="text-lg md:text-xl text-blue-100 mb-8 max-w-xl">
+                    From leads to loyal customers — MarketingUB is your growth partner. Scale your local shop, startup, or coaching business today.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="bg-secondary text-white px-8 py-4 rounded-lg font-bold text-center hover:scale-105 transition shadow-lg flex items-center justify-center">
+                        Get Free Consultation <i data-lucide="chevron-right" class="ml-2 w-5 h-5"></i>
+                    </a>
+                    <a href="https://wa.me/919355650312" class="bg-white text-primary px-8 py-4 rounded-lg font-bold text-center hover:bg-gray-100 transition shadow-lg flex items-center justify-center">
+                        <i data-lucide="message-circle" class="mr-2 w-5 h-5 text-green-500"></i> WhatsApp Now
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-2/5 mt-12 md:mt-0 relative">
+                <div class="relative w-full h-64 md:h-96 flex items-center justify-center">
+                    <div class="absolute w-48 h-48 md:w-64 md:h-64 border-4 border-secondary rounded-full opacity-20 animate-pulse"></div>
+                    <div class="absolute w-32 h-32 md:w-48 md:h-48 border-2 border-blue-400 rounded-full opacity-30"></div>
+                    <i data-lucide="trending-up" class="w-32 h-32 text-secondary opacity-90 z-20"></i>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 right-0 opacity-10">
+            <i data-lucide="bar-chart" class="w-96 h-96 -mb-24 -mr-24"></i>
+        </div>
+    </section>
+
+    <!-- 2?? About Us Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-secondary font-bold tracking-widest uppercase text-sm">Our Mission</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-6 text-primary">Focused on Your Success</h2>
+                <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                    MarketingUB is a growth-focused digital marketing and consulting agency helping businesses build visibility, generate leads, and scale sustainably. Led by <strong>Manohar Ray (Mano)</strong>, a dedicated Sales & Growth Consultant, we combine strategy, execution, and a sales-first mindset to deliver measurable results.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                    <div class="p-6 bg-blue-50 rounded-xl">
+                        <h3 class="text-primary font-bold text-xl mb-2">Strategy</h3>
+                        <p class="text-gray-500">Tailored plans that match your specific business goals.</p>
+                    </div>
+                    <div class="p-6 bg-orange-50 rounded-xl">
+                        <h3 class="text-secondary font-bold text-xl mb-2">Execution</h3>
+                        <p class="text-gray-500">High-quality implementation with attention to detail.</p>
+                    </div>
+                    <div class="p-6 bg-blue-50 rounded-xl">
+                        <h3 class="text-primary font-bold text-xl mb-2">Growth</h3>
+                        <p class="text-gray-500">Continuous optimization to ensure scaling is sustainable.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3?? Services Section -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">Our Core Services</h2>
+                <div class="h-1 w-20 bg-secondary mx-auto mt-4"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="globe" class="text-primary w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Digital Marketing</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Social Media Marketing</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Brand Awareness</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Online Presence Setup</li>
+                    </ul>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-14 h-14 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="users" class="text-secondary w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Lead Generation</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> WhatsApp Leads</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Local Business Leads</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> High-Intent Customers</li>
+                    </ul>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="briefcase" class="text-primary w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Business Consulting</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Growth Strategy</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Sales Funnel Guidance</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Marketing Planning</li>
+                    </ul>
+                </div>
+
+                <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="w-14 h-14 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="monitor" class="text-secondary w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Website Setup</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Business Websites</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Conversion Landing Pages</li>
+                        <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Digital Identity Setup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4?? Why Choose MarketingUB -->
+    <section id="why-us" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-primary mb-8">Why Partner with Us?</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white mt-1">
+                                <i data-lucide="star" class="w-4 h-4"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">Result-Oriented Approach</h4>
+                                <p class="text-gray-500">We don't just provide services; we provide measurable business growth.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white mt-1">
+                                <i data-lucide="zap" class="w-4 h-4"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">Affordable for Small Businesses</h4>
+                                <p class="text-gray-500">Premium quality marketing strategies tailored for local shops and startups.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white mt-1">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">One-to-One Consulting</h4>
+                                <p class="text-gray-500">Direct access to Manohar Ray (Mano) for personalized guidance.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white mt-1">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold text-lg">Honest & Transparent</h4>
+                                <p class="text-gray-500">No fake promises. Just hard work and data-backed growth mindsets.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Consulting Session" class="rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5?? Free Consultation CTA -->
+    <section class="py-16 gradient-bg text-white text-center">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4">Ready to Scale Your Business?</h2>
+            <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">Get a Free Business Growth Consultation today. Let's build your success together.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="tel:+919355650312" class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 transition flex items-center justify-center">
+                    <i data-lucide="phone" class="mr-2 w-5 h-5"></i> Call Now
+                </a>
+                <a href="https://wa.me/919355650312" class="bg-secondary text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:scale-105 transition flex items-center justify-center">
+                    <i data-lucide="message-square" class="mr-2 w-5 h-5"></i> WhatsApp Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6?? Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16">
+                <!-- Contact Info Updated -->
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold text-primary mb-6">Contact Information</h2>
+                    <p class="text-gray-600 mb-10">Reach out to our specialized teams for faster support and growth guidance.</p>
+                    
+                    <div class="space-y-6">
+                        <!-- Sales & Inquiry Number -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-orange-100 text-secondary rounded-full flex items-center justify-center mr-4">
+                                <i data-lucide="shopping-cart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Sales & Inquiry</h4>
+                                <a href="tel:+919355650312" class="text-gray-600 hover:text-secondary font-medium">+91 9355650312</a>
+                            </div>
+                        </div>
+
+                        <!-- Technical Support Number -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-blue-100 text-primary rounded-full flex items-center justify-center mr-4">
+                                <i data-lucide="settings"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Technical Support</h4>
+                                <a href="tel:+919355250312" class="text-gray-600 hover:text-secondary font-medium">+91 9355250312</a>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center mr-4">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Email Support</h4>
+                                <a href="mailto:inquiry.MarketingUb@gmail.com" class="text-gray-600 hover:text-secondary font-medium">inquiry.MarketingUb@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <!-- WhatsApp Quick Link -->
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-4">
+                                <i data-lucide="message-circle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">WhatsApp</h4>
+                                <a href="https://wa.me/919355650312" class="text-gray-600 hover:text-secondary font-medium">Chat with Growth Expert</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:w-1/2 bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100">
+                    <form 
+                        @submit.prevent="
+                            isSubmitting = true;
+                            const formData = new FormData($el);
+                            fetch('https://script.google.com/macros/s/AKfycbwDy5YHjfbv7z0qc4FNrpkLVdBudi2TJS5ZZ5oEGa-DdIH4K6RpvZbRaVwmcamDUJ_R/exec', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                isSubmitting = false;
+                                if (data.result === 'success') {
+                                    submitted = true;
+                                    ledId = data.ledId;
+                                    $el.reset();
+                                } else {
+                                    throw new Error(data.error);
+                                }
+                            })
+                            .catch(err => {
+                                isSubmitting = false;
+                                alert('Error during submission! Please call us directly.');
+                                console.error(err);
+                            })
+                        " 
+                        class="space-y-4"
+                    >
+                        <div x-show="!submitted">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Your Full Name</label>
+                                <input type="text" name="name" required placeholder="Ex: Rahul Sharma" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition">
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" name="phone" required placeholder="Ex: +91 99999 88888" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition">
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">Business Type</label>
+                                <select name="businessType" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition">
+                                    <option>Local Shop</option>
+                                    <option>Startup</option>
+                                    <option>Coaching/Service</option>
+                                    <option>Restaurant</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm font-semibold text-gray-700 mb-1">How can we help you?</label>
+                                <textarea name="message" rows="4" placeholder="Briefly describe your business goals..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none transition"></textarea>
+                            </div>
+                            <button type="submit" :disabled="isSubmitting" class="w-full bg-primary text-white font-bold py-4 rounded-lg hover:bg-opacity-90 shadow-lg transition transform hover:-translate-y-1 mt-6 disabled:opacity-50">
+                                <span x-show="!isSubmitting">Send Inquiry</span>
+                                <span x-show="isSubmitting" class="flex items-center justify-center">
+                                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    Processing Submission...
+                                </span>
+                            </button>
+                        </div>
+
+                        <!-- English Success Message -->
+                        <div x-show="submitted" x-cloak class="text-center py-10">
+                            <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="check-circle" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">Inquiry Sent Successfully!</h3>
+                            <div class="mt-4 p-4 bg-blue-50 rounded-lg inline-block border border-blue-100">
+                                <p class="text-gray-600 text-sm">Your unique Lead ID is:</p>
+                                <p class="text-2xl font-bold text-primary tracking-widest" x-text="ledId"></p>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-6">Manohar Ray (Mano) will contact you shortly.</p>
+                            <button @click="submitted = false" type="button" class="mt-6 text-secondary font-bold hover:underline">Submit Another Inquiry</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7?? Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-secondary font-bold text-lg italic">M</span>
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">Marketing<span class="text-secondary">UB</span></span>
+                    </div>
+                    <p class="text-gray-400">Your Growth Partner for modern digital marketing and high-conversion strategies.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-6 text-lg">Services</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#services" class="hover:text-secondary transition">Lead Generation</a></li>
+                        <li><a href="#services" class="hover:text-secondary transition">Digital Marketing</a></li>
+                        <li><a href="#services" class="hover:text-secondary transition">Business Consulting</a></li>
+                        <li><a href="#services" class="hover:text-secondary transition">Website Setup</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-6 text-lg">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#home" class="hover:text-secondary transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-secondary transition">About Us</a></li>
+                        <li><a href="#why-us" class="hover:text-secondary transition">Why Choose Us</a></li>
+                        <li><a href="#contact" class="hover:text-secondary transition">Contact Now</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-6 text-lg">Contact Info</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center"><i data-lucide="shopping-cart" class="w-4 h-4 mr-2"></i> Sales: +91 9355650312</li>
+                        <li class="flex items-center"><i data-lucide="settings" class="w-4 h-4 mr-2"></i> Tech: +91 9355250312</li>
+                        <li class="flex items-center"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> inquiry.MarketingUb@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; <span id="year"></span> MarketingUB. All rights reserved. | Founded by Manohar Ray (Mano)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Update year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
