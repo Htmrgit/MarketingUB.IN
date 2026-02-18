@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | MarketingUB</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#003366',
+                        secondary: '#FF6600'
+                    }
+                }
+            }
+        }
+
+        /**
+         * Alpine.js App Logic
+         */
+        function portfolioApp() {
+            return {
+                loading: true,
+                error: false,
+                errorMessage: '',
+                projects: [],
+                // New Web App URL Updated Here
+                apiUrl: 'https://script.google.com/macros/s/AKfycbw--qrSUaDe14oGriyzbI_bhf8WHjSjGsB-W593Iu4zjbLMb67JwwUMC8YkFKRWrTHsOQ/exec',
+
+                async fetchData() {
+                    this.loading = true;
+                    this.error = false;
+                    this.errorMessage = '';
+                    
+                    try {
+                        // Using 'follow' to handle Google Apps Script redirects automatically
+                        const res = await fetch(this.apiUrl, {
+                            method: 'GET',
+                            redirect: 'follow'
+                        });
+                        
+                        if (!res.ok) {
+                            throw new Error(`Server responded with ${res.status}: ${res.statusText}`);
+                        }
+                        
+                        const data = await res.json();
+                        
+                        if (data.error) {
+                            console.error('Apps Script Backend Error:', data.error);
+                            this.error = true;
+                            this.errorMessage = data.error;
+                        } else if (Array.isArray(data)) {
+                            // Sanitizing data: Ensure imageUrls is always an array for the slider
+                            this.projects = data.map(project => ({
+                                ...project,
+                                imageUrls: Array.isArray(project.imageUrls) 
+                                    ? project.imageUrls 
+                                    : (typeof project.imageUrls === 'string' ? project.imageUrls.split(',').map(s => s.trim()).filter(s => s !== '') : [])
+                            }));
+                            this.error = false;
+                        } else {
+                            throw new Error("Invalid data format received from the database.");
+                        }
+                    } catch (e) {
+                        console.error('Connection Error:', e);
+                        this.error = true;
+                        this.errorMessage = "Unable to connect to the database. Please verify your Google Script is deployed as 'Anyone' and the URL is active.";
+                    } finally {
+                        this.loading = false;
+                        // Refresh Lucide icons once Alpine renders the template
+                        this.$nextTick(() => {
+                            if (window.lucide) lucide.createIcons();
+                        });
+                    }
+                },
+                init() { 
+                    this.fetchData(); 
+                    const yearEl = document.getElementById('year');
+                    if (yearEl) yearEl.textContent = new Date().getFullYear();
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001f3f 100%); }
+        .project-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .project-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gray-50" x-data="portfolioApp()">
+
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-md">
+                    <span class="text-secondary font-bold text-xl italic">M</span>
+                </div>
+                <span class="text-2xl font-bold text-primary tracking-tight">Marketing<span class="text-secondary">UB</span></span>
+            </a>
+            <div class="hidden md:flex space-x-8 font-semibold text-gray-600">
+                <a href="index.html" class="hover:text-secondary transition">Home</a>
+                <a href="portfolio.html" class="text-secondary border-b-2 border-secondary">Portfolio</a>
+                <a href="index.html#contact" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition shadow-md">Inquiry</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-24 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Our <span class="text-secondary">Success Stories</span></h1>
+            <p class="text-blue-100 max-w-2xl mx-auto text-lg opacity-90 leading-relaxed">
+                Empowering businesses through custom automation, high-converting lead generation, and strategic growth consulting.
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-20">
+        <!-- Loading State -->
+        <div x-show="loading" class="flex flex-col items-center justify-center py-24">
+            <div class="w-16 h-16 border-4 border-gray-200 border-t-secondary rounded-full animate-spin mb-6"></div>
+            <p class="text-gray-500 font-bold tracking-widest animate-pulse">FETCHING PROJECTS...</p>
+        </div>
+
+        <!-- Error State -->
+        <div x-show="error && !loading" x-cloak class="max-w-xl mx-auto bg-white p-10 rounded-[2.5rem] shadow-2xl text-center border border-red-50">
+            <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="cloud-off" class="w-10 h-10"></i>
+            </div>
+            <h3 class="font-bold text-2xl mb-3 text-gray-800">Connection Failed</h3>
+            <p class="text-gray-500 text-base mb-8" x-text="errorMessage"></p>
+            <div class="flex flex-col space-y-4">
+                <button @click="fetchData()" class="w-full bg-primary text-white font-bold py-4 rounded-2xl hover:bg-opacity-95 transition shadow-lg flex items-center justify-center">
+                    <i data-lucide="refresh-cw" class="w-5 h-5 mr-2"></i> Retry Connection
+                </button>
+                <p class="text-xs text-gray-400 font-medium">Verify that your Apps Script is deployed with access set to 'Anyone'.</p>
+            </div>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div x-show="!loading && !error" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12" x-cloak>
+            <template x-for="(project, idx) in projects" :key="idx">
+                <div class="project-card bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col h-full border border-gray-100">
+                    
+                    <!-- Slider Component -->
+                    <div class="h-64 relative group bg-gray-100" x-data="{ active: 0 }">
+                        <template x-for="(img, i) in project.imageUrls" :key="i">
+                            <img x-show="active === i" 
+                                 :src="img" 
+                                 class="w-full h-full object-cover transition-all duration-700" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'">
+                        </template>
+
+                        <!-- Slider Controls -->
+                        <template x-if="project.imageUrls && project.imageUrls.length > 1">
+                            <div class="absolute inset-0 flex items-center justify-between px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <button @click="active = active === 0 ? project.imageUrls.length - 1 : active - 1" class="bg-white/95 p-2.5 rounded-full shadow-xl text-primary hover:bg-secondary hover:text-white transition-colors">
+                                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                                </button>
+                                <button @click="active = active === project.imageUrls.length - 1 ? 0 : active + 1" class="bg-white/95 p-2.5 rounded-full shadow-xl text-primary hover:bg-secondary hover:text-white transition-colors">
+                                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </template>
+
+                        <!-- Slider Dots -->
+                        <template x-if="project.imageUrls && project.imageUrls.length > 1">
+                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 bg-black/10 backdrop-blur-sm p-1.5 rounded-full">
+                                <template x-for="(img, i) in project.imageUrls" :key="i">
+                                    <div @click="active = i" :class="active === i ? 'w-5 bg-secondary' : 'w-2 bg-white/60'" class="h-2 rounded-full transition-all cursor-pointer"></div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Project Info -->
+                    <div class="p-8 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-5">
+                            <h3 class="text-2xl font-extrabold text-primary leading-tight" x-text="project.projectName"></h3>
+                            <template x-if="project.projectUrl">
+                                <a :href="project.projectUrl" target="_blank" class="text-secondary hover:scale-110 transition-transform p-2.5 bg-orange-50 rounded-xl">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                </a>
+                            </template>
+                        </div>
+
+                        <!-- Tech Stack Tags -->
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <template x-for="tech in (project.techUsed ? project.techUsed.split(',') : [])">
+                                <span class="text-[10px] bg-blue-50 text-primary border border-blue-100 px-3 py-1.5 rounded-lg font-bold uppercase tracking-wider" x-text="tech.trim()"></span>
+                            </template>
+                        </div>
+
+                        <!-- Client Review Box -->
+                        <div class="bg-slate-50/80 p-6 rounded-2xl italic text-gray-600 text-sm border-l-4 border-secondary mb-8 shadow-inner relative overflow-hidden">
+                            <i data-lucide="quote" class="absolute -top-2 -left-1 w-10 h-10 text-blue-100 fill-current opacity-30"></i>
+                            <p class="relative z-10 leading-relaxed" x-text="project.review"></p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-primary/5 rounded-lg flex items-center justify-center">
+                                    <i data-lucide="user" class="w-4 h-4 text-primary opacity-40"></i>
+                                </div>
+                                <span class="text-sm font-bold text-gray-400" x-text="project.clientName"></span>
+                            </div>
+                            <span class="text-[10px] text-gray-300 font-black uppercase tracking-[0.2em]">Verified Project</span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16 text-center">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center space-x-2 mb-6">
+                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-secondary font-black italic">M</div>
+                <span class="text-2xl font-bold">Marketing<span class="text-secondary">UB</span></span>
+            </div>
+            <p class="text-sm text-gray-500 mb-2">© <span id="year"></span> MarketingUB | All rights reserved.</p>
+            <p class="text-xs text-gray-600 font-medium">Empowering Businesses with Smart Automation</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initial setup for Lucide icons for any static DOM elements
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
