@@ -49,12 +49,47 @@
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001f3f 100%); }
         .service-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        .project-card:hover { transform: translateY(-10px); transition: all 0.4s ease; }
         .floating-wa { bottom: 20px; right: 20px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900" x-data="{ mobileMenu: false, isSubmitting: false, submitted: false, ledId: '', waMessage: 'Hi%20Mano,%20I%20visited%20the%20MarketingUB%20website.I%20want%20a%20free%20business%20consultation.' }">
+<body class="bg-gray-50 text-gray-900" 
+    x-data="{ 
+        mobileMenu: false, 
+        isSubmitting: false, 
+        submitted: false, 
+        ledId: '', 
+        waMessage: 'Hi%20Mano,%20I%20visited%20the%20MarketingUB%20website.I%20want%20a%20free%20business%20consultation.',
+        projects: [],
+        loadingProjects: true,
+        errorProjects: false,
+        currentYear: new Date().getFullYear(),
+        apiUrl: 'https://script.google.com/macros/s/AKfycbw--qrSUaDe14oGriyzbI_bhf8WHjSjGsB-W593Iu4zjbLMb67JwwUMC8YkFKRWrTHsOQ/exec',
+        async fetchProjects() {
+            try {
+                const res = await fetch(this.apiUrl);
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                this.projects = data.map(p => ({
+                    ...p,
+                    imageUrls: Array.isArray(p.imageUrls) ? p.imageUrls : (typeof p.imageUrls === 'string' ? p.imageUrls.split(',').map(s => s.trim()) : [])
+                }));
+                this.loadingProjects = false;
+            } catch (e) {
+                console.error('Project fetch error:', e);
+                this.errorProjects = true;
+                this.loadingProjects = false;
+            } finally {
+                this.$nextTick(() => lucide.createIcons());
+            }
+        },
+        init() {
+            this.fetchProjects();
+            lucide.createIcons();
+        }
+    }">
 
     <!-- WhatsApp Floating Button -->
     <a :href="'https://wa.me/919355650312?text=' + waMessage" target="_blank" class="fixed floating-wa z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center">
@@ -65,20 +100,22 @@
     <nav class="bg-white shadow-sm sticky top-0 z-40">
         <div class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-primary rounded flex items-center justify-center">
-                    <span class="text-secondary font-bold text-xl italic">M</span>
-                </div>
-                <span class="text-2xl font-bold text-primary tracking-tight">Marketing<span class="text-secondary">UB</span></span>
+                <a href="index.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-primary rounded flex items-center justify-center">
+                        <span class="text-secondary font-bold text-xl italic">M</span>
+                    </div>
+                    <span class="text-2xl font-bold text-primary tracking-tight">Marketing<span class="text-secondary">UB</span></span>
+                </a>
             </div>
             
             <div class="hidden md:flex items-center space-x-8 font-medium text-sm lg:text-base">
                 <a href="#home" class="hover:text-secondary transition">Home</a>
                 <a href="#about" class="hover:text-secondary transition">About</a>
                 <a href="#services" class="hover:text-secondary transition">Services</a>
-                <!-- NEW PORTFOLIO LINK -->
-                <a href="https://marketingub.in/portfolio" class="hover:text-secondary transition">Portfolio</a>
+                <!-- Updated to Anchor Link -->
+                <a href="#portfolio" class="hover:text-secondary transition">Portfolio</a>
                 <a href="#why-us" class="hover:text-secondary transition">Why Us</a>
-                <a href="#contact" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition">Contact Now</a>
+                <a href="#contact" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-90 transition shadow-md">Contact Now</a>
             </div>
 
             <button @click="mobileMenu = !mobileMenu" class="md:hidden text-primary">
@@ -89,16 +126,15 @@
 
         <!-- Mobile Menu -->
         <div x-show="mobileMenu" @click.away="mobileMenu = false" x-cloak class="md:hidden bg-white border-t px-4 py-6 space-y-4 shadow-lg absolute w-full left-0 z-50">
-            <a href="#home" @click="mobileMenu = false" class="block px-4 py-2 font-semibold">Home</a>
-            <a href="#about" @click="mobileMenu = false" class="block px-4 py-2 font-semibold">About Us</a>
-            <a href="#services" @click="mobileMenu = false" class="block px-4 py-2 font-semibold">Our Services</a>
-            <!-- NEW PORTFOLIO LINK MOBILE -->
-            <a href="https://marketingub.in/portfolio" @click="mobileMenu = false" class="block px-4 py-2 font-semibold">Portfolio</a>
-            <a href="#contact" @click="mobileMenu = false" class="block px-4 py-3 font-bold text-secondary text-lg">Contact Now</a>
+            <a href="#home" @click="mobileMenu = false" class="block px-4 py-2 font-semibold hover:bg-gray-50 rounded-lg">Home</a>
+            <a href="#about" @click="mobileMenu = false" class="block px-4 py-2 font-semibold hover:bg-gray-50 rounded-lg">About Us</a>
+            <a href="#services" @click="mobileMenu = false" class="block px-4 py-2 font-semibold hover:bg-gray-50 rounded-lg">Our Services</a>
+            <a href="#portfolio" @click="mobileMenu = false" class="block px-4 py-2 font-semibold hover:bg-gray-50 rounded-lg">Portfolio</a>
+            <a href="#contact" @click="mobileMenu = false" class="block px-4 py-3 font-bold bg-primary text-white text-center rounded-xl">Contact Now</a>
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
+    <!-- Hero Section -->
     <section id="home" class="gradient-bg text-white py-16 md:py-32 relative overflow-hidden">
         <div class="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center">
             <div class="md:w-3/5 z-10 text-center md:text-left">
@@ -126,8 +162,8 @@
         </div>
     </section>
 
-    <!-- 3. About Us Section -->
-    <section id="about" class="py-20 bg-white">
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-white border-b">
         <div class="container mx-auto px-4 md:px-8 text-left">
             <div class="max-w-4xl">
                 <h2 class="text-3xl md:text-4xl font-bold mb-8 text-primary">About MarketingUB</h2>
@@ -141,7 +177,7 @@
         </div>
     </section>
 
-    <!-- 2. Services Section -->
+    <!-- Services Section -->
     <section id="services" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 md:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4 text-center">Our 5 Core Services</h2>
@@ -188,12 +224,12 @@
                 </div>
 
                 <!-- 4. Consulting -->
-                <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full text-left">
+                <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
                     <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6 text-purple-600">
                         <i data-lucide="layers" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 text-left">Automation Consulting</h3>
-                    <ul class="space-y-3 text-gray-600 mb-6 flex-grow text-left">
+                    <h3 class="text-xl font-bold mb-4">Automation Consulting</h3>
+                    <ul class="space-y-3 text-gray-600 mb-6 flex-grow">
                         <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Growth roadmap</li>
                         <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Sales system design</li>
                         <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Process optimization</li>
@@ -202,90 +238,148 @@
 
                 <!-- 5. Support -->
                 <div class="service-card bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col h-full">
-                    <div class="w-14 h-14 bg-pink-100 rounded-lg flex items-center justify-center mb-6 text-pink-600 text-left">
+                    <div class="w-14 h-14 bg-pink-100 rounded-lg flex items-center justify-center mb-6 text-pink-600">
                         <i data-lucide="heart-handshake" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 text-left">Monthly Support</h3>
-                    <ul class="space-y-3 text-gray-600 mb-6 flex-grow text-left">
+                    <h3 class="text-xl font-bold mb-4">Monthly Support</h3>
+                    <ul class="space-y-3 text-gray-600 mb-6 flex-grow">
                         <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> System updates</li>
                         <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Continuous improvement</li>
                         <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 text-secondary mr-2"></i> Long-term growth</li>
                     </ul>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="mt-16 text-center">
-                <a href="#contact" class="bg-primary text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-opacity-90 shadow-xl transition inline-block">
-                    Get a Free Business Growth Consultation
-                </a>
+    <!-- Dynamic Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4 text-center">Our Portfolio</h2>
+            <p class="text-gray-500 mb-12 max-w-2xl mx-auto text-center">Successful stories of businesses scaled through our automation systems.</p>
+            
+            <!-- Loading State -->
+            <div x-show="loadingProjects" class="flex flex-col items-center justify-center py-20">
+                <div class="w-12 h-12 border-4 border-gray-200 border-t-secondary rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">Syncing Projects...</p>
+            </div>
+
+            <!-- Error State -->
+            <div x-show="errorProjects" x-cloak class="max-w-md mx-auto bg-red-50 p-8 rounded-3xl text-center border border-red-100">
+                <i data-lucide="alert-circle" class="mx-auto w-10 h-10 text-red-500 mb-4"></i>
+                <h3 class="font-bold text-red-600 mb-2">Sync Failed</h3>
+                <p class="text-red-400 text-sm">Please check your network or spreadsheet permissions.</p>
+            </div>
+
+            <!-- Project Grid -->
+            <div x-show="!loadingProjects && !errorProjects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" x-cloak>
+                <template x-for="(project, idx) in projects" :key="idx">
+                    <div class="project-card bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col h-full border border-gray-100">
+                        <!-- Image Slider -->
+                        <div class="h-60 relative group bg-gray-100" x-data="{ active: 0 }">
+                            <template x-for="(img, i) in project.imageUrls" :key="i">
+                                <img x-show="active === i" :src="img" class="w-full h-full object-cover transition-all duration-500" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'">
+                            </template>
+
+                            <template x-if="project.imageUrls.length > 1">
+                                <div class="absolute inset-0 flex items-center justify-between px-2 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                                    <button @click="active = active === 0 ? project.imageUrls.length - 1 : active - 1" class="bg-white/90 p-2.5 rounded-full shadow text-primary hover:bg-secondary hover:text-white transition"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                                    <button @click="active = active === project.imageUrls.length - 1 ? 0 : active + 1" class="bg-white/90 p-2.5 rounded-full shadow text-primary hover:bg-secondary hover:text-white transition"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="p-8 flex-grow flex flex-col text-left">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-2xl font-extrabold text-primary leading-tight" x-text="project.projectName"></h3>
+                                <template x-if="project.projectUrl">
+                                    <a :href="project.projectUrl" target="_blank" class="text-secondary p-2.5 bg-orange-50 rounded-xl hover:scale-110 transition shadow-sm"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                                </template>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <template x-for="tech in (project.techUsed ? project.techUsed.split(',') : [])">
+                                    <span class="text-[10px] bg-blue-50 text-primary border border-blue-100 px-3 py-1.5 rounded-lg font-bold uppercase tracking-wider" x-text="tech.trim()"></span>
+                                </template>
+                            </div>
+
+                            <div class="bg-slate-50 p-5 rounded-2xl italic text-gray-600 text-sm border-l-4 border-secondary mb-8 shadow-inner relative">
+                                <i data-lucide="quote" class="absolute -top-2 -left-1 w-8 h-8 text-blue-100 fill-current opacity-30"></i>
+                                <p class="relative z-10 leading-relaxed" x-text="project.review"></p>
+                            </div>
+
+                            <div class="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
+                                <span class="text-sm font-bold text-gray-400" x-text="project.clientName"></span>
+                                <span class="text-[9px] text-gray-300 font-black uppercase tracking-widest">Case Study</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </section>
 
-    <!-- 4. Why Choose Us -->
-    <section id="why-us" class="py-20 bg-white">
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 md:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-primary text-center mb-16">Why Choose MarketingUB?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6">
-                    <div class="flex items-center bg-gray-50 p-5 rounded-2xl border-l-4 border-secondary">
+                    <div class="flex items-center bg-white p-5 rounded-2xl border-l-4 border-secondary shadow-sm">
                         <i data-lucide="trending-up" class="w-6 h-6 text-secondary mr-4"></i>
                         <span class="font-bold text-lg">Result-oriented growth approach</span>
                     </div>
-                    <div class="flex items-center bg-gray-50 p-5 rounded-2xl border-l-4 border-secondary">
+                    <div class="flex items-center bg-white p-5 rounded-2xl border-l-4 border-secondary shadow-sm">
                         <i data-lucide="command" class="w-6 h-6 text-secondary mr-4"></i>
                         <span class="font-bold text-lg">Automation-focused solutions</span>
                     </div>
-                    <div class="flex items-center bg-gray-50 p-5 rounded-2xl border-l-4 border-secondary">
+                    <div class="flex items-center bg-white p-5 rounded-2xl border-l-4 border-secondary shadow-sm">
                         <i data-lucide="wallet" class="w-6 h-6 text-secondary mr-4"></i>
                         <span class="font-bold text-lg">Affordable for small businesses</span>
                     </div>
-                    <div class="flex items-center bg-gray-50 p-5 rounded-2xl border-l-4 border-secondary">
-                        <i data-lucide="headphones" class="w-6 h-6 text-secondary mr-4"></i>
-                        <span class="font-bold text-lg">One-to-one consulting support</span>
-                    </div>
-                    <div class="flex items-center bg-gray-50 p-5 rounded-2xl border-l-4 border-secondary">
+                    <div class="flex items-center bg-white p-5 rounded-2xl border-l-4 border-secondary shadow-sm">
                         <i data-lucide="shield-check" class="w-6 h-6 text-secondary mr-4"></i>
                         <span class="font-bold text-lg">Honest & transparent work</span>
                     </div>
                 </div>
                 <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80" alt="Team" class="rounded-3xl shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80" alt="Success Team" class="rounded-3xl shadow-2xl">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Repeat -->
+    <!-- Final CTA Section -->
     <section class="py-20 gradient-bg text-white text-center">
         <div class="container mx-auto px-4 md:px-8">
             <h2 class="text-3xl md:text-5xl font-extrabold mb-6">Ready to Scale Your Business?</h2>
             <p class="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-                Book a free consultation and discover how smart systems can grow your business.
+                Discover how our smart systems can automate your sales and marketing journey.
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <a href="#contact" class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:bg-gray-100 transition flex items-center justify-center">
                     <i data-lucide="phone" class="mr-2 w-5 h-5"></i> Book Free Call
                 </a>
                 <a :href="'https://wa.me/919355650312?text=' + waMessage" target="_blank" class="bg-secondary text-white px-10 py-4 rounded-full font-bold text-lg shadow-xl hover:scale-105 transition flex items-center justify-center">
-                    <i data-lucide="message-square" class="mr-2 w-5 h-5"></i> WhatsApp Now
+                    <i data-lucide="message-circle" class="mr-2 w-5 h-5 text-green-500"></i> WhatsApp Now
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 6. Contact Section -->
+    <!-- Contact Section -->
     <section id="contact" class="py-24 bg-gray-50">
         <div class="container mx-auto px-4 md:px-8">
-            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16">
-                <div class="lg:w-1/2 text-left">
+            <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 text-left">
+                <div class="lg:w-1/2">
                     <h2 class="text-4xl font-bold text-primary mb-8 tracking-tight">Contact Information</h2>
                     <p class="text-gray-600 mb-12 text-lg">Get in touch to learn how we can automate your customer journey.</p>
                     
                     <div class="space-y-10">
                         <div class="flex items-center">
-                            <div class="w-14 h-14 bg-orange-100 text-secondary rounded-full flex items-center justify-center mr-6 shrink-0">
-                                <i data-lucide="shopping-cart"></i>
+                            <div class="w-14 h-14 bg-orange-100 text-secondary rounded-full flex items-center justify-center mr-6 shrink-0 shadow-sm">
+                                <i data-lucide="phone-call"></i>
                             </div>
                             <div>
                                 <h4 class="font-bold text-xl">Sales & Inquiry</h4>
@@ -294,27 +388,17 @@
                         </div>
 
                         <div class="flex items-center">
-                            <div class="w-14 h-14 bg-blue-100 text-primary rounded-full flex items-center justify-center mr-6 shrink-0">
-                                <i data-lucide="settings"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xl">Technical Support</h4>
-                                <a href="tel:+919355250312" class="text-gray-600 hover:text-secondary font-medium text-lg">+91 9355250312</a>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center">
-                            <div class="w-14 h-14 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center mr-6 shrink-0 text-left">
+                            <div class="w-14 h-14 bg-blue-100 text-primary rounded-full flex items-center justify-center mr-6 shrink-0 shadow-sm">
                                 <i data-lucide="mail"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-xl text-left">Email Support</h4>
+                                <h4 class="font-bold text-xl">Email Support</h4>
                                 <a href="mailto:inquiry.MarketingUb@gmail.com" class="text-gray-600 hover:text-secondary font-medium text-lg">inquiry.MarketingUb@gmail.com</a>
                             </div>
                         </div>
 
                         <a :href="'https://wa.me/919355650312?text=' + waMessage" target="_blank" class="flex items-center group">
-                            <div class="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-6 group-hover:scale-110 transition shrink-0">
+                            <div class="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-6 group-hover:scale-110 transition shrink-0 shadow-sm">
                                 <i data-lucide="message-circle"></i>
                             </div>
                             <span class="font-bold text-xl text-green-600">WhatsApp Manohar Ray (Mano)</span>
@@ -368,10 +452,6 @@
                                     <option>Other</option>
                                 </select>
                             </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-2">Message</label>
-                                <textarea name="message" rows="4" placeholder="How can we help you grow?" class="w-full px-5 py-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary outline-none transition"></textarea>
-                            </div>
                             <button type="submit" :disabled="isSubmitting" class="w-full bg-primary text-white font-bold py-5 rounded-xl hover:bg-opacity-90 shadow-lg transition disabled:opacity-50 mt-4">
                                 <span x-show="!isSubmitting">Send Inquiry</span>
                                 <span x-show="isSubmitting" class="flex items-center justify-center">
@@ -402,70 +482,58 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-4 md:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 items-start">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 items-start text-left">
                 <div class="col-span-1">
-                    <div class="flex items-center space-x-2 mb-6 justify-start">
+                    <div class="flex items-center space-x-2 mb-6">
                         <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-secondary font-black italic">M</div>
                         <span class="text-2xl font-bold">Marketing<span class="text-secondary">UB</span></span>
                     </div>
-                    <p class="text-gray-400 text-left">Your Growth Partner for modern digital marketing and high-conversion automation strategies.</p>
+                    <p class="text-gray-400">Your Growth Partner for modern digital marketing and high-conversion automation strategies.</p>
                 </div>
                 
-                <div class="text-left">
+                <div>
                     <h4 class="font-bold mb-6 text-lg">Links</h4>
                     <ul class="space-y-3 text-gray-400">
                         <li><a href="#home" class="hover:text-secondary transition">Home</a></li>
-                        <li><a href="#about" class="hover:text-secondary transition">Founder</a></li>
-                        <li><a href="#services" class="hover:text-secondary transition">Services</a></li>
-                        <!-- ADDED IN FOOTER LINKS -->
-                        <li><a href="https://marketingub.in/portfolio" class="hover:text-secondary transition">Portfolio</a></li>
+                        <li><a href="#portfolio" class="hover:text-secondary transition">Portfolio</a></li>
+                        <li><a href="#about" class="hover:text-secondary transition">About</a></li>
                         <li><a href="#contact" class="hover:text-secondary transition">Inquiry</a></li>
                     </ul>
                 </div>
 
-                <div class="text-left">
-                    <h4 class="font-bold mb-6 text-lg text-secondary">Sales & Growth</h4>
+                <div>
+                    <h4 class="font-bold mb-6 text-lg text-secondary">Sales</h4>
                     <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-center shrink-0">
+                        <li class="flex items-center">
                             <i data-lucide="phone" class="w-4 h-4 mr-3 text-secondary"></i>
                             <a href="tel:+919355650312" class="hover:text-white transition">+91 9355650312</a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="text-left">
-                    <h4 class="font-bold mb-6 text-lg text-primary">Technical Support</h4>
+                <div>
+                    <h4 class="font-bold mb-6 text-lg text-primary">Support</h4>
                     <ul class="space-y-4 text-gray-400">
-                        <li class="flex items-center shrink-0">
-                            <i data-lucide="settings" class="w-4 h-4 mr-3 text-primary"></i>
-                            <a href="tel:+919355250312" class="hover:text-white transition">+91 9355250312</a>
-                        </li>
-                        <li class="flex items-center shrink-0">
-                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-gray-300"></i>
-                            <a href="mailto:inquiry.MarketingUb@gmail.com" class="hover:text-white transition text-xs xl:text-sm">inquiry.MarketingUb@gmail.com</a>
+                        <li class="flex items-center">
+                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-primary"></i>
+                            <a href="mailto:inquiry.MarketingUb@gmail.com" class="hover:text-white transition text-sm">inquiry.MarketingUb@gmail.com</a>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 pt-8 text-left">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-y-4">
-                    <div class="text-gray-500 text-xs text-left">
-                        &copy; <span id="year"></span> MarketingUB. All rights reserved. | Founded by Manohar Ray (Mano)
-                    </div>
-                    <div class="flex space-x-6 text-gray-500 text-xs">
-                        <a href="privacy-policy.html" target="_blank" class="hover:text-secondary transition">Privacy Policy</a>
-                        <a href="terms-of-service.html" target="_blank" class="hover:text-secondary transition">Terms of Service</a>
-                    </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs">
+                <div>&copy; <span x-text="currentYear"></span> MarketingUB. All rights reserved. | Founded by Manohar Ray (Mano)</div>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="privacy-policy.html" target="_blank" class="hover:text-secondary transition">Privacy Policy</a>
+                    <a href="terms-of-service.html" target="_blank" class="hover:text-secondary transition">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        lucide.createIcons();
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // lucide.createIcons is handled within Alpine's fetch function after data load as well
     </script>
 </body>
 </html>
-
