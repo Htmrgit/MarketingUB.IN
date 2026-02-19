@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-
-Point Google to your sitemap
-
-Sitemap: https://www.google.com/search?q=https://marketingub.in/sitemap.xml
