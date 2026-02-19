@@ -2,31 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     
-    <!-- Primary Meta Tags from index.html -->
-    <title>Our Portfolio | MarketingUB - Digital Marketing & Business Automation</title>
-    <meta name="title" content="Our Portfolio | MarketingUB - Digital Marketing & Business Automation">
-    <meta name="description" content="MarketingUB helps small businesses grow faster with smart marketing, high-intent lead generation, and business automation. Founded by Manohar Ray (Mano).">
-    <meta name="keywords" content="Digital Marketing & Business Automation Agency, lead generation India, WhatsApp automation, business consulting, Manohar Ray, small business growth, sales automation">
-    <meta name="author" content="Manohar Ray (Mano)">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://marketingub.in/portfolio.html">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://marketingub.in/portfolio.html">
-    <meta property="og:title" content="Our Portfolio | MarketingUB">
-    <meta property="og:description" content="Check out how we've helped small businesses scale using smart marketing and high-intent automation.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&h=630&q=80">
-
-    <!-- Theme Color & iOS Safari optimization -->
+    <!-- SEO & Metadata -->
+    <title>Portfolio | MarketingUB - Our Success Stories</title>
+    <meta name="description" content="Explore our latest business automation and lead generation projects at MarketingUB.">
     <meta name="theme-color" content="#003366">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
+
     <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -40,251 +25,179 @@
                 }
             }
         }
-
-        /**
-         * Alpine.js App Logic
-         */
-        function portfolioApp() {
-            return {
-                loading: true,
-                error: false,
-                errorMessage: '',
-                mobileMenu: false, // Mobile menu state
-                projects: [],
-                waMessage: 'Hi%20Mano,%20I%20visited%20the%20MarketingUB%20Portfolio.I%20want%20to%20discuss%20a%20project.',
-                // Web App URL
-                apiUrl: 'https://script.google.com/macros/s/AKfycbw--qrSUaDe14oGriyzbI_bhf8WHjSjGsB-W593Iu4zjbLMb67JwwUMC8YkFKRWrTHsOQ/exec',
-
-                async fetchData() {
-                    this.loading = true;
-                    this.error = false;
-                    this.errorMessage = '';
-                    
-                    try {
-                        const res = await fetch(this.apiUrl, {
-                            method: 'GET',
-                            redirect: 'follow'
-                        });
-                        
-                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                        
-                        const data = await res.json();
-                        
-                        if (data.error) {
-                            this.error = true;
-                            this.errorMessage = data.error;
-                        } else if (Array.isArray(data)) {
-                            this.projects = data.map(project => ({
-                                ...project,
-                                imageUrls: Array.isArray(project.imageUrls) 
-                                    ? project.imageUrls 
-                                    : (typeof project.imageUrls === 'string' ? project.imageUrls.split(',').map(s => s.trim()).filter(s => s !== '') : [])
-                            }));
-                        }
-                    } catch (e) {
-                        this.error = true;
-                        this.errorMessage = "Connection error. Please check permissions.";
-                    } finally {
-                        this.loading = false;
-                        this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
-                    }
-                },
-                init() { 
-                    this.fetchData(); 
-                    const yearEl = document.getElementById('year');
-                    if (yearEl) yearEl.textContent = new Date().getFullYear();
-                }
-            }
-        }
     </script>
-    
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-        
-        /* General Mobile & Browser Fixes */
         body { 
             font-family: 'Inter', sans-serif; 
-            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
+        [x-cloak] { display: none !important; }
+        .gradient-hero { background: linear-gradient(135deg, #003366 0%, #001f3f 100%); }
         
-        .gradient-bg { background: linear-gradient(135deg, #003366 0%, #001f3f 100%); }
-        
-        /* Better touch highlight for iPhone */
-        a, button { -webkit-tap-highlight-color: transparent; }
-        
-        /* Service card animation */
-        .project-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        /* Floating WA bounce animation */
-        .floating-wa { 
-            bottom: 20px; 
-            right: 20px; 
-            animation: bounce 2s infinite; 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        /* Skeleton Shimmer Animation */
+        .skeleton {
+            background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite linear;
         }
-        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .floating-wa { bottom: 25px; right: 20px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         
-        /* Alpine x-cloak utility */
-        [x-cloak] { display: none !important; }
-
-        /* iPhone notch safe area padding */
-        .safe-pb { padding-bottom: env(safe-area-inset-bottom); }
+        /* iPhone Safari smooth scrolling fix */
+        .no-tap { -webkit-tap-highlight-color: transparent; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 antialiased" x-data="portfolioApp()">
+<body class="bg-slate-50 text-slate-900" x-data="portfolioManager()">
 
     <!-- WhatsApp Floating Button -->
-    <a :href="'https://wa.me/919355650312?text=' + waMessage" target="_blank" class="fixed floating-wa z-[60] bg-green-500 text-white p-4 rounded-full flex items-center justify-center">
+    <a href="https://wa.me/919355650312" target="_blank" class="fixed floating-wa z-[60] bg-green-500 text-white p-4 rounded-full shadow-2xl flex items-center justify-center no-tap">
         <i data-lucide="message-circle" class="w-6 h-6"></i>
     </a>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation (Same as Index) -->
     <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div class="container mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2">
-                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-md">
+        <div class="container mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2 no-tap">
+                <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
                     <span class="text-secondary font-bold text-xl italic">M</span>
                 </div>
-                <span class="text-xl md:text-2xl font-bold text-primary tracking-tight">Marketing<span class="text-secondary">UB</span></span>
+                <span class="text-2xl font-bold text-primary tracking-tight">Marketing<span class="text-secondary">UB</span></span>
             </a>
             
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8 font-semibold text-gray-600 text-sm">
-                <a href="index.html#home" class="hover:text-secondary transition-colors">Home</a>
-                <a href="index.html#about" class="hover:text-secondary transition-colors">About</a>
-                <a href="index.html#services" class="hover:text-secondary transition-colors">Services</a>
-                <a href="portfolio.html" class="text-secondary border-b-2 border-secondary pb-1">Portfolio</a>
-                <a href="index.html#contact" class="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-opacity-90 transition-all shadow-sm">Contact Now</a>
+            <div class="hidden md:flex items-center space-x-8 font-semibold text-gray-600">
+                <a href="index.html#home" class="hover:text-secondary transition">Home</a>
+                <a href="index.html#services" class="hover:text-secondary transition">Services</a>
+                <a href="#" class="text-secondary border-b-2 border-secondary pb-1">Portfolio</a>
+                <a href="index.html#contact" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-opacity-95 transition shadow-md">Contact</a>
             </div>
 
-            <!-- Mobile Menu Toggle -->
-            <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-primary focus:outline-none" aria-label="Toggle Menu">
-                <i data-lucide="menu" x-show="!mobileMenu" class="w-6 h-6"></i>
-                <i data-lucide="x" x-show="mobileMenu" class="w-6 h-6"></i>
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 text-primary no-tap">
+                <i data-lucide="menu" x-show="!mobileMenu"></i>
+                <i data-lucide="x" x-show="mobileMenu"></i>
             </button>
         </div>
 
-        <!-- Mobile Menu Dropdown -->
+        <!-- Mobile Menu -->
         <div x-show="mobileMenu" 
              x-transition:enter="transition ease-out duration-200"
              x-transition:enter-start="opacity-0 -translate-y-4"
              x-transition:enter-end="opacity-100 translate-y-0"
              @click.away="mobileMenu = false" 
              x-cloak 
-             class="md:hidden bg-white border-t border-gray-100 shadow-xl absolute w-full left-0 z-50 overflow-hidden">
-            <div class="flex flex-col p-4 space-y-3 font-semibold text-gray-700">
-                <a href="index.html#home" @click="mobileMenu = false" class="px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors">Home</a>
-                <a href="index.html#about" @click="mobileMenu = false" class="px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors">About Us</a>
-                <a href="index.html#services" @click="mobileMenu = false" class="px-4 py-3 hover:bg-gray-50 rounded-xl transition-colors">Our Services</a>
-                <a href="portfolio.html" @click="mobileMenu = false" class="px-4 py-3 text-secondary bg-orange-50 rounded-xl">Portfolio</a>
-                <a href="index.html#contact" @click="mobileMenu = false" class="px-4 py-3.5 bg-primary text-white text-center rounded-xl shadow-md">Contact Now</a>
-            </div>
+             class="md:hidden bg-white border-t p-4 space-y-3 shadow-2xl absolute w-full left-0 z-50">
+            <a href="index.html" @click="mobileMenu = false" class="block p-3 font-semibold text-gray-700 hover:bg-slate-50 rounded-xl">Home</a>
+            <a href="index.html#services" @click="mobileMenu = false" class="block p-3 font-semibold text-gray-700 hover:bg-slate-50 rounded-xl">Our Services</a>
+            <a href="#" @click="mobileMenu = false" class="block p-3 font-semibold text-secondary bg-orange-50 rounded-xl">Portfolio</a>
+            <a href="index.html#contact" @click="mobileMenu = false" class="block p-4 bg-primary text-white text-center font-bold rounded-xl shadow-lg">Contact Now</a>
         </div>
     </nav>
 
-    <!-- Header -->
-    <header class="gradient-bg text-white py-14 md:py-24 relative overflow-hidden">
-        <div class="absolute -top-10 -right-10 w-64 h-64 bg-secondary/10 rounded-full blur-3xl opacity-50"></div>
+    <!-- Hero Header -->
+    <header class="gradient-hero text-white py-16 md:py-28 relative overflow-hidden">
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-secondary/10 rounded-full blur-[100px] opacity-40"></div>
         <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-3xl md:text-6xl font-extrabold mb-4 tracking-tight leading-tight">Our <span class="text-secondary">Success Stories</span></h1>
-            <p class="text-blue-100 max-w-2xl mx-auto text-base md:text-lg opacity-90 px-2 leading-relaxed">
-                Empowering businesses through custom automation, high-converting lead generation, and strategic growth.
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-tight">Our <span class="text-secondary">Success Stories</span></h1>
+            <p class="text-blue-100 max-w-2xl mx-auto text-base md:text-xl opacity-90 leading-relaxed px-4">
+                We empower small businesses with smart automation systems that handle leads, follow-ups, and sales 24/7.
             </p>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 md:px-8 py-10 md:py-20">
-        <!-- Loading State -->
-        <div x-show="loading" class="flex flex-col items-center justify-center py-24">
-            <div class="w-12 h-12 border-4 border-gray-200 border-t-secondary rounded-full animate-spin mb-6"></div>
-            <p class="text-gray-500 font-bold tracking-widest text-xs uppercase animate-pulse">Loading Projects...</p>
+    <!-- Main Portfolio Section -->
+    <main class="container mx-auto px-4 md:px-8 py-16">
+        
+        <!-- SKELETON LOADER (Shown during fetch) -->
+        <div x-show="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <template x-for="i in 3">
+                <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100">
+                    <div class="h-64 skeleton w-full"></div>
+                    <div class="p-8 space-y-5">
+                        <div class="h-8 skeleton w-3/4 rounded-xl"></div>
+                        <div class="h-4 skeleton w-full rounded-lg"></div>
+                        <div class="h-24 skeleton w-full rounded-3xl"></div>
+                        <div class="h-10 skeleton w-1/2 rounded-full"></div>
+                    </div>
+                </div>
+            </template>
         </div>
 
-        <!-- Error State -->
-        <div x-show="error && !loading" x-cloak class="max-w-md mx-auto bg-white p-8 rounded-[2rem] shadow-2xl text-center border border-red-50">
-            <div class="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="alert-circle" class="w-10 h-10"></i>
+        <!-- ERROR STATE -->
+        <div x-show="error && !loading" x-cloak class="max-w-lg mx-auto bg-white p-12 rounded-[3rem] shadow-2xl text-center border border-red-50">
+            <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i data-lucide="cloud-off" class="w-10 h-10"></i>
             </div>
-            <h3 class="font-bold text-xl mb-2 text-gray-800">Connection Failed</h3>
-            <p class="text-gray-500 text-sm mb-6 leading-relaxed" x-text="errorMessage"></p>
-            <button @click="fetchData()" class="w-full bg-primary text-white font-bold py-4 rounded-2xl hover:bg-opacity-95 transition shadow-lg">Retry Connection</button>
+            <h3 class="font-bold text-2xl mb-3 text-slate-800">Unable to Fetch</h3>
+            <p class="text-slate-500 mb-8 text-sm leading-relaxed" x-text="errorMessage"></p>
+            <button @click="fetchData()" class="w-full bg-primary text-white font-bold py-4 rounded-2xl shadow-xl active:scale-95 transition-all">Try Syncing Again</button>
         </div>
 
-        <!-- Portfolio Grid -->
-        <div x-show="!loading && !error" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12" x-cloak>
+        <!-- PORTFOLIO GRID -->
+        <div x-show="!loading && !error" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
             <template x-for="(project, idx) in projects" :key="idx">
-                <div class="project-card bg-white rounded-[2rem] shadow-lg overflow-hidden flex flex-col h-full border border-gray-100 hover:shadow-2xl">
+                <div class="group bg-white rounded-[2.5rem] shadow-xl overflow-hidden flex flex-col h-full border border-gray-100 hover:shadow-2xl hover:border-secondary/20 transition-all duration-500">
                     
-                    <!-- Slider Container -->
-                    <div class="h-60 md:h-64 relative group bg-gray-100" x-data="{ active: 0 }">
+                    <!-- Multi-Image Slider -->
+                    <div class="h-64 md:h-72 relative overflow-hidden bg-slate-100" x-data="{ active: 0 }">
                         <template x-for="(img, i) in project.imageUrls" :key="i">
                             <img x-show="active === i" 
                                  :src="img" 
-                                 class="w-full h-full object-cover transition-all duration-700" 
+                                 class="w-full h-full object-cover transition-opacity duration-700" 
                                  loading="lazy"
                                  onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'">
                         </template>
 
-                        <!-- Slider Controls (Accessible for Touch) -->
-                        <template x-if="project.imageUrls && project.imageUrls.length > 1">
-                            <div class="absolute inset-0 flex items-center justify-between px-2 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-                                <button @click="active = active === 0 ? project.imageUrls.length - 1 : active - 1" class="bg-white/95 p-3 rounded-full shadow-lg text-primary active:bg-secondary active:text-white transition-colors" aria-label="Previous image">
-                                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                                </button>
-                                <button @click="active = active === project.imageUrls.length - 1 ? 0 : active + 1" class="bg-white/95 p-3 rounded-full shadow-lg text-primary active:bg-secondary active:text-white transition-colors" aria-label="Next image">
-                                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                                </button>
+                        <!-- Controls -->
+                        <template x-if="project.imageUrls.length > 1">
+                            <div class="absolute inset-0 flex items-center justify-between px-3 md:opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button @click="active = active === 0 ? project.imageUrls.length - 1 : active - 1" class="bg-white/95 p-3 rounded-full shadow-lg text-primary no-tap"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                                <button @click="active = active === project.imageUrls.length - 1 ? 0 : active + 1" class="bg-white/95 p-3 rounded-full shadow-lg text-primary no-tap"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
                             </div>
                         </template>
 
-                        <!-- Slider Indicators -->
-                        <template x-if="project.imageUrls && project.imageUrls.length > 1">
-                            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/10 backdrop-blur-sm p-1.5 rounded-full">
-                                <template x-for="(img, i) in project.imageUrls" :key="i">
-                                    <div @click="active = i" :class="active === i ? 'w-5 bg-secondary' : 'w-2 bg-white/60'" class="h-1.5 rounded-full transition-all cursor-pointer"></div>
-                                </template>
-                            </div>
-                        </template>
+                        <!-- Client Label -->
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-primary/90 backdrop-blur-md text-white text-[10px] px-4 py-2 rounded-full font-bold shadow-lg uppercase tracking-widest" x-text="project.clientName"></span>
+                        </div>
                     </div>
 
-                    <!-- Card Body -->
-                    <div class="p-6 md:p-8 flex-grow flex flex-col">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl md:text-2xl font-extrabold text-primary leading-tight" x-text="project.projectName"></h3>
+                    <!-- Project Content -->
+                    <div class="p-8 md:p-10 flex-grow flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <h3 class="text-2xl font-black text-primary leading-tight tracking-tight" x-text="project.projectName"></h3>
                             <template x-if="project.projectUrl">
-                                <a :href="project.projectUrl" target="_blank" class="text-secondary p-2.5 bg-orange-50 rounded-xl hover:scale-110 transition shadow-sm active:scale-95">
-                                    <i data-lucide="external-link" class="w-5 h-5"></i>
-                                </a>
+                                <a :href="project.projectUrl" target="_blank" class="p-3 bg-orange-50 text-secondary rounded-2xl hover:bg-secondary hover:text-white transition-all shadow-sm no-tap"><i data-lucide="external-link" class="w-5 h-5"></i></a>
                             </template>
                         </div>
 
-                        <!-- Tech Stack Tags -->
-                        <div class="flex flex-wrap gap-2 mb-6">
+                        <!-- Tech Used -->
+                        <div class="flex flex-wrap gap-2 mb-8">
                             <template x-for="tech in (project.techUsed ? project.techUsed.split(',') : [])">
-                                <span class="text-[10px] bg-blue-50 text-primary border border-blue-100 px-3 py-1.5 rounded-lg font-bold uppercase tracking-wider" x-text="tech.trim()"></span>
+                                <span class="bg-slate-50 text-slate-500 border border-slate-200 text-[10px] px-3 py-1.5 rounded-lg font-bold uppercase tracking-wider" x-text="tech.trim()"></span>
                             </template>
                         </div>
 
                         <!-- Review Text -->
-                        <div class="bg-slate-50 p-5 md:p-6 rounded-2xl italic text-gray-600 text-sm md:text-base border-l-4 border-secondary mb-8 shadow-inner relative">
-                            <i data-lucide="quote" class="absolute -top-2 -left-1 w-8 h-8 text-blue-100 fill-current opacity-30"></i>
+                        <div class="bg-slate-50 p-6 md:p-8 rounded-[2rem] italic text-slate-700 text-sm md:text-base border-l-4 border-secondary mb-8 shadow-inner relative overflow-hidden">
+                            <i data-lucide="quote" class="absolute -top-1 -left-1 w-12 h-12 text-blue-100 fill-current opacity-30"></i>
                             <p class="relative z-10 leading-relaxed" x-text="project.review"></p>
                         </div>
 
-                        <!-- Card Footer -->
-                        <div class="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-primary/5 rounded-lg flex items-center justify-center">
-                                    <i data-lucide="award" class="w-4 h-4 text-primary opacity-40"></i>
-                                </div>
-                                <span class="text-xs md:text-sm font-bold text-gray-400" x-text="project.clientName"></span>
+                        <!-- ID & Status -->
+                        <div class="mt-auto pt-6 border-t border-slate-100 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Live Automation</span>
                             </div>
-                            <span class="text-[9px] text-gray-300 font-black uppercase tracking-widest">Verified Work</span>
+                            <span class="text-[10px] text-slate-300 font-bold" x-text="'Case ID: #' + project.clientId"></span>
                         </div>
                     </div>
                 </div>
@@ -292,48 +205,54 @@
         </div>
     </main>
 
-    <!-- Detailed Footer from index.html -->
-    <footer class="bg-gray-900 text-white pt-20 pb-10 safe-pb">
+    <!-- Detailed Footer (Same as index.html) -->
+    <footer class="bg-gray-900 text-white pt-20 pb-10">
         <div class="container mx-auto px-4 md:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 items-start">
                 <div class="col-span-1">
                     <div class="flex items-center space-x-2 mb-6 justify-start">
-                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-secondary font-black italic">M</div>
+                        <div class="w-10 h-10 bg-primary rounded flex items-center justify-center text-secondary font-black italic shadow-lg">M</div>
                         <span class="text-2xl font-bold">Marketing<span class="text-secondary">UB</span></span>
                     </div>
-                    <p class="text-gray-400 text-left text-sm leading-relaxed">Your Growth Partner for modern digital marketing and high-conversion automation strategies.</p>
+                    <p class="text-gray-400 text-left text-sm leading-relaxed max-w-xs">
+                        Founded by Manohar Ray (Mano). We help small businesses scale with high-intent lead generation and 24/7 automation systems.
+                    </p>
                 </div>
                 
                 <div class="text-left">
-                    <h4 class="font-bold mb-6 text-lg">Links</h4>
-                    <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="index.html#home" class="hover:text-secondary transition-colors">Home</a></li>
-                        <li><a href="index.html#about" class="hover:text-secondary transition-colors">Founder</a></li>
-                        <li><a href="index.html#services" class="hover:text-secondary transition-colors">Services</a></li>
-                        <li><a href="index.html#contact" class="hover:text-secondary transition-colors">Inquiry</a></li>
+                    <h4 class="font-bold mb-6 text-lg text-white border-b border-gray-800 pb-2 inline-block">Quick Links</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="index.html#home" class="hover:text-secondary transition">Home</a></li>
+                        <li><a href="index.html#about" class="hover:text-secondary transition">Founder (Mano)</a></li>
+                        <li><a href="index.html#services" class="hover:text-secondary transition">Our Services</a></li>
+                        <li><a href="index.html#contact" class="hover:text-secondary transition">Inquiry</a></li>
                     </ul>
                 </div>
 
                 <div class="text-left">
-                    <h4 class="font-bold mb-6 text-lg text-secondary">Sales & Growth</h4>
-                    <ul class="space-y-4 text-gray-400 text-sm">
-                        <li class="flex items-center">
-                            <i data-lucide="phone" class="w-4 h-4 mr-3 text-secondary"></i>
-                            <a href="tel:+919355650312" class="hover:text-white transition-colors">+91 9355650312</a>
+                    <h4 class="font-bold mb-6 text-lg text-secondary border-b border-gray-800 pb-2 inline-block">Sales & Growth</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm font-medium">
+                        <li class="flex items-center group">
+                            <i data-lucide="phone" class="w-4 h-4 mr-3 text-secondary group-hover:scale-110 transition"></i>
+                            <a href="tel:+919355650312" class="hover:text-white transition">+91 9355650312</a>
+                        </li>
+                        <li class="flex items-center group">
+                            <i data-lucide="message-circle" class="w-4 h-4 mr-3 text-green-500 group-hover:scale-110 transition"></i>
+                            <a href="https://wa.me/919355650312" class="hover:text-white transition">Chat on WhatsApp</a>
                         </li>
                     </ul>
                 </div>
 
                 <div class="text-left">
-                    <h4 class="font-bold mb-6 text-lg text-primary">Technical Support</h4>
+                    <h4 class="font-bold mb-6 text-lg text-primary border-b border-gray-800 pb-2 inline-block">Technical Support</h4>
                     <ul class="space-y-4 text-gray-400 text-sm">
-                        <li class="flex items-center">
-                            <i data-lucide="settings" class="w-4 h-4 mr-3 text-primary"></i>
-                            <a href="tel:+919355250312" class="hover:text-white transition-colors">+91 9355250312</a>
+                        <li class="flex items-center group">
+                            <i data-lucide="settings" class="w-4 h-4 mr-3 text-primary group-hover:rotate-90 transition duration-500"></i>
+                            <a href="tel:+919355250312" class="hover:text-white transition">+91 9355250312</a>
                         </li>
-                        <li class="flex items-center">
-                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-gray-300"></i>
-                            <a href="mailto:inquiry.MarketingUb@gmail.com" class="hover:text-white transition-colors truncate">inquiry.MarketingUb@gmail.com</a>
+                        <li class="flex items-center group">
+                            <i data-lucide="mail" class="w-4 h-4 mr-3 text-gray-300 group-hover:translate-x-1 transition"></i>
+                            <a href="mailto:inquiry.MarketingUb@gmail.com" class="hover:text-white transition break-all">inquiry.MarketingUb@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -342,22 +261,56 @@
             <div class="border-t border-gray-800 pt-8 text-left">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-y-4">
                     <div class="text-gray-500 text-xs text-left">
-                        &copy; <span id="year"></span> MarketingUB. All rights reserved. | Founded by Manohar Ray (Mano)
+                        &copy; <span id="year"></span> MarketingUB. All rights reserved. | Built for Small Businesses.
                     </div>
-                    <div class="flex space-x-6 text-gray-500 text-xs">
-                        <a href="privacy-policy.html" target="_blank" class="hover:text-secondary transition-colors">Privacy Policy</a>
-                        <a href="terms-of-service.html" target="_blank" class="hover:text-secondary transition-colors">Terms of Service</a>
+                    <div class="flex space-x-6 text-gray-500 text-xs font-bold">
+                        <a href="privacy-policy.html" target="_blank" class="hover:text-secondary transition">Privacy Policy</a>
+                        <a href="terms-of-service.html" target="_blank" class="hover:text-secondary transition">Terms of Service</a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Logic -->
     <script>
-        // Start Lucide icons for any static DOM elements immediately
-        window.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) lucide.createIcons();
-        });
+        function portfolioManager() {
+            return {
+                loading: true,
+                error: false,
+                errorMessage: '',
+                mobileMenu: false,
+                projects: [],
+                apiUrl: 'https://script.google.com/macros/s/AKfycbw--qrSUaDe14oGriyzbI_bhf8WHjSjGsB-W593Iu4zjbLMb67JwwUMC8YkFKRWrTHsOQ/exec',
+
+                async fetchData() {
+                    this.loading = true;
+                    this.error = false;
+                    try {
+                        const res = await fetch(this.apiUrl, { method: 'GET', redirect: 'follow' });
+                        if (!res.ok) throw new Error('Could not connect to database.');
+                        const data = await res.json();
+                        
+                        // Formatting image array safely
+                        this.projects = data.map(p => ({
+                            ...p,
+                            imageUrls: typeof p.imageUrls === 'string' ? p.imageUrls.split(',').map(s => s.trim()).filter(s => s !== "") : (Array.isArray(p.imageUrls) ? p.imageUrls : [])
+                        }));
+                    } catch (e) {
+                        this.error = true;
+                        this.errorMessage = "Database access failed. Please check your internet or Google Script deployment.";
+                    } finally {
+                        this.loading = false;
+                        this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+                    }
+                },
+                init() {
+                    this.fetchData();
+                    if (window.lucide) lucide.createIcons();
+                    document.getElementById('year').textContent = new Date().getFullYear();
+                }
+            }
+        }
     </script>
 </body>
 </html>
