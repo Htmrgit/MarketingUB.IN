@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>Demo Restaurant | Premium Digital Menu</title>
+    <meta name="description" content="Premium dining experience at Demo Restaurant. Exclusive digital menu with easy WhatsApp ordering.">
+    <meta name="author" content="Manohar Ray">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600;800&display=swap');
+        
+        :root {
+            --accent: #fbbf24; /* Gold */
+            --bg-dark: #09090b;
+            --card-bg: #18181b;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: #f4f4f5; scroll-behavior: smooth; }
+        h1, h2, h3, .brand-font { font-family: 'Cinzel', serif; }
+        
+        /* Premium Background Overlay */
+        .luxury-overlay {
+            background: linear-gradient(rgba(9,9,11,0.7), rgba(9,9,11,0.9)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Hide Scrollbars */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .category-pill.active {
+            background-color: var(--accent);
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        /* Skeleton Shimmer */
+        @keyframes shimmer {
+            0% { background-position: -468px 0; }
+            100% { background-position: 468px 0; }
+        }
+        .skeleton {
+            background: #27272a;
+            background-image: linear-gradient(to right, #27272a 0%, #3f3f46 20%, #27272a 40%, #27272a 100%);
+            background-repeat: no-repeat;
+            background-size: 800px 104px;
+            animation: shimmer 1.2s linear infinite forwards;
+        }
+
+        /* Glassmorphism Sidebar */
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(12px);
+            border-left: 1px solid rgba(251, 191, 36, 0.1);
+        }
+
+        .cart-sidebar {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+        .cart-sidebar.open { transform: translateX(0); }
+
+        /* Veg/Non-Veg */
+        .type-veg { border: 1px solid #22c55e; padding: 2px; display: inline-flex; }
+        .type-veg::after { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+        .type-non { border: 1px solid #ef4444; padding: 2px; display: inline-flex; }
+        .type-non::after { content: ''; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; }
+
+        .scroll-mt { scroll-margin-top: 160px; }
+
+        /* Fade In Animation */
+        .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-[60] bg-black/60 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+            <a href="#" class="brand-font text-2xl tracking-widest text-amber-500">Demo<span class="text-white">One</span></a>
+            
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex gap-6 text-xs font-bold uppercase tracking-widest text-gray-400 mr-4">
+                    <a href="#home" class="hover:text-amber-500 transition-colors">Home</a>
+                    <a href="#menu" class="hover:text-amber-500 transition-colors">Menu</a>
+                    <a href="#about" class="hover:text-amber-500 transition-colors">About</a>
+                    <a href="#contact" class="hover:text-amber-500 transition-colors">Contact</a>
+                </div>
+                
+                <button onclick="toggleCart()" class="relative p-2 text-amber-500">
+                    <i class="fas fa-shopping-bag text-2xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-white text-black text-[10px] font-black rounded-full h-5 w-5 flex items-center justify-center border-2 border-black hidden">0</span>
+                </button>
+
+                <!-- Mobile Hamburger Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-amber-500">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-zinc-950 z-[100] hidden flex-col items-center justify-center gap-8 transform transition-transform duration-300">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-amber-500 text-3xl">&times;</button>
+        <a href="#home" onclick="toggleMobileMenu()" class="brand-font text-3xl text-white hover:text-amber-500">Home</a>
+        <a href="#menu" onclick="toggleMobileMenu()" class="brand-font text-3xl text-white hover:text-amber-500">Menu</a>
+        <a href="#about" onclick="toggleMobileMenu()" class="brand-font text-3xl text-white hover:text-amber-500">About Us</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="brand-font text-3xl text-white hover:text-amber-500">Contact</a>
+        <div class="mt-4 flex gap-6 text-gray-400 text-xl">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/919355650312"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section id="home" class="luxury-overlay min-h-screen flex items-center justify-center text-center px-4 pt-20">
+        <div class="max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tighter animate-fadeIn">The Art of <br><span class="text-amber-500">Fine Dining</span></h1>
+            <p class="text-gray-300 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed">Indulge in a world of flavors where every dish tells a story of passion and tradition.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#menu" class="bg-amber-500 text-black px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white transition-all">Explore Menu</a>
+                <a href="#contact" class="border border-white/20 px-10 py-4 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all">Find Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-zinc-950 scroll-mt">
+        <div class="max-w-6xl mx-auto px-4">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+                <div class="text-left">
+                    <h2 class="text-4xl font-bold text-white mb-2">Our Menu</h2>
+                    <div class="w-20 h-1 bg-amber-500"></div>
+                </div>
+                
+                <!-- Search -->
+                <div class="w-full md:w-80 relative">
+                    <input type="text" id="menu-search" onkeyup="filterMenu()" placeholder="Search your favorites..." 
+                           class="w-full bg-zinc-900 border border-white/5 p-4 rounded-2xl outline-none focus:border-amber-500 transition-all text-sm">
+                    <i class="fas fa-search absolute right-5 top-1/2 -translate-y-1/2 text-gray-600"></i>
+                </div>
+            </div>
+
+            <!-- Categories Slider -->
+            <div class="sticky top-20 z-40 bg-zinc-950/80 backdrop-blur-md py-4 mb-12 overflow-hidden border-b border-white/5">
+                <div id="category-nav" class="flex gap-3 overflow-x-auto no-scrollbar px-1">
+                    <!-- Skeletons while loading -->
+                    <div class="w-24 h-10 skeleton rounded-full"></div>
+                    <div class="w-24 h-10 skeleton rounded-full"></div>
+                    <div class="w-24 h-10 skeleton rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="h-80 skeleton rounded-3xl"></div>
+                <div class="h-80 skeleton rounded-3xl"></div>
+                <div class="h-80 skeleton rounded-3xl"></div>
+            </div>
+
+            <!-- No Results -->
+            <div id="no-results" class="hidden text-center py-20">
+                <p class="text-gray-500 font-bold uppercase tracking-widest">No matching dishes found</p>
+            </div>
+
+            <!-- Menu Content -->
+            <div id="menu-content" class="space-y-24">
+                <!-- Grouped Items -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-zinc-900 border-y border-white/5 scroll-mt">
+        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-4 bg-amber-500/10 rounded-[3rem] blur-xl group-hover:bg-amber-500/20 transition-all"></div>
+                <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80" alt="Chef" class="relative rounded-[3rem] shadow-2xl">
+            </div>
+            <div class="space-y-6">
+                <span class="text-amber-500 font-bold uppercase tracking-widest text-xs">Our Heritage</span>
+                <h3 class="text-4xl font-bold">A Legacy of Flavors</h3>
+                <p class="text-gray-400 leading-loose">At DemoOne, we believe that food is a universal language. Our journey began with a single flame and a passion for authentic Indian spices. Today, we bring you a curated collection of recipes that have been passed down through generations, reimagined for the modern palate.</p>
+                <div class="pt-6">
+                    <a href="#contact" class="inline-block border-b border-amber-500 pb-2 text-amber-500 font-bold uppercase tracking-widest text-xs hover:text-white hover:border-white transition-all">Learn more about us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-zinc-950 scroll-mt">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-12">Get In Touch</h2>
+            <div class="bg-zinc-900 border border-white/5 p-8 md:p-12 rounded-[3rem] shadow-2xl">
+                <form onsubmit="sendContactMessage(event)" class="grid gap-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <input type="text" id="contact-name" placeholder="Name" required class="bg-zinc-950 border border-white/5 p-4 rounded-2xl outline-none focus:border-amber-500 transition-all">
+                        <input type="text" id="contact-subject" placeholder="Subject" class="bg-zinc-950 border border-white/5 p-4 rounded-2xl outline-none focus:border-amber-500 transition-all">
+                    </div>
+                    <textarea id="contact-message" placeholder="Your Message..." required rows="4" class="bg-zinc-950 border border-white/5 p-4 rounded-2xl outline-none focus:border-amber-500 transition-all"></textarea>
+                    <button type="submit" class="bg-amber-500 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.02] transition-all flex items-center justify-center gap-3">
+                        <i class="fab fa-whatsapp text-lg"></i> Send via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h2 class="brand-font text-3xl text-amber-500 mb-8">DemoOne</h2>
+            <div class="flex justify-center gap-8 mb-12">
+                <a href="#" class="text-gray-500 hover:text-amber-500 transition-colors text-xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-gray-500 hover:text-amber-500 transition-colors text-xl"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/919355650312" class="text-gray-500 hover:text-amber-500 transition-colors text-xl"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="text-[10px] text-gray-600 uppercase tracking-[0.2em] space-y-4">
+                <p>&copy; 2024 DemoOne Restaurant Management.</p>
+                <p>Designed & Developed by <a href="https://htmrgit.github.io/MANOHARRAYRESUME/" target="_blank" class="text-amber-500 font-bold hover:underline transition-colors">Manohar Ray</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/80 z-[70] hidden backdrop-blur-sm"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[450px] z-[80] glass-panel cart-sidebar shadow-2xl flex flex-col">
+        <div class="p-8 border-b border-white/5 flex justify-between items-center">
+            <div>
+                <h3 class="text-2xl font-bold text-amber-500">Your Basket</h3>
+                <p id="cart-items-count" class="text-[10px] font-bold text-gray-500 tracking-widest uppercase">0 items selected</p>
+            </div>
+            <button onclick="toggleCart()" class="text-gray-400 hover:text-white text-3xl">&times;</button>
+        </div>
+        
+        <div id="cart-items" class="flex-grow overflow-y-auto p-8 space-y-6 no-scrollbar">
+            <div class="text-center py-20 opacity-20"><i class="fas fa-shopping-bag text-6xl mb-4"></i><p>Basket is empty</p></div>
+        </div>
+
+        <div class="p-8 bg-black/40 border-t border-white/5">
+            <div class="mb-6 grid grid-cols-2 gap-2 p-1 bg-white/5 rounded-2xl">
+                <button onclick="setOrderType('Pickup')" id="btn-pickup" class="py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all bg-amber-500 text-black">Pickup</button>
+                <button onclick="setOrderType('Delivery')" id="btn-delivery" class="py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all text-gray-400">Delivery</button>
+            </div>
+            
+            <div id="delivery-address-box" class="mb-6 hidden">
+                <textarea id="order-address" placeholder="Delivery Address..." class="w-full bg-zinc-900 border border-white/5 p-4 rounded-2xl text-sm h-24 outline-none focus:border-amber-500 transition-all"></textarea>
+            </div>
+
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-gray-500 font-bold text-xs uppercase tracking-widest">Total Bill</span>
+                <span id="cart-total" class="text-3xl font-bold text-white tracking-tighter">&#8377;0</span>
+            </div>
+            
+            <button onclick="sendOrder()" class="w-full bg-amber-500 text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white transition-all shadow-xl shadow-amber-500/10">
+                Place WhatsApp Order
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Sticky Cart -->
+    <div id="mobile-cart-btn" onclick="toggleCart()" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] bg-amber-500 text-black p-4 rounded-2xl shadow-2xl flex justify-between items-center z-[50] hidden transition-all active:scale-95">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="mobile-cart-text" class="font-black text-xs uppercase">0 Items Added</span>
+        </div>
+        <span id="mobile-cart-total" class="font-black text-lg bg-black/10 px-4 py-1 rounded-lg">&#8377;0</span>
+    </div>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwsljkDbxPr9vZISpFIGk8ZvxheQ5l6LD_VVWTkVau7K0Ta51aDIiQ-QzIeoMOIZeg0/exec';
+        const WHATSAPP_NUMBER = '919355650312';
+        
+        let menuData = [];
+        let cart = [];
+        let orderType = 'Pickup';
+
+        async function fetchMenu() {
+            try {
+                const res = await fetch(API_URL);
+                menuData = await res.json();
+                renderMenu();
+            } catch (e) {
+                document.getElementById('loading').innerHTML = '<p class="text-amber-500 text-center col-span-full py-10 font-bold uppercase">Connection Error. Please refresh.</p>';
+            }
+        }
+
+        function getVariants(item) {
+            let v = {};
+            try { v = typeof item.variants === 'object' ? item.variants : JSON.parse(item.variants); }
+            catch(e) { v = {"Standard": "0"}; }
+            return v;
+        }
+
+        function renderMenu() {
+            const container = document.getElementById('menu-content');
+            const nav = document.getElementById('category-nav');
+            document.getElementById('loading').classList.add('hidden');
+
+            const groups = menuData.reduce((acc, item) => {
+                const cat = item.category || 'Specials';
+                if (!acc[cat]) acc[cat] = [];
+                acc[cat].push(item);
+                return acc;
+            }, {});
+
+            const cats = Object.keys(groups).sort();
+            
+            nav.innerHTML = cats.map((cat, i) => `
+                <button onclick="scrollToCategory('${cat.replace(/\s+/g, '-').toLowerCase()}', this)" 
+                        class="category-pill whitespace-nowrap px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all border border-white/10 ${i===0 ? 'active' : 'text-gray-500 hover:text-white'}">
+                    ${cat}
+                </button>
+            `).join('');
+
+            container.innerHTML = cats.map(cat => {
+                const catId = cat.replace(/\s+/g, '-').toLowerCase();
+                return `
+                    <section id="${catId}" class="scroll-mt menu-group animate-fadeIn">
+                        <div class="flex items-center gap-6 mb-12">
+                            <h3 class="text-2xl font-bold tracking-widest uppercase text-white">${cat}</h3>
+                            <div class="flex-grow h-px bg-white/5"></div>
+                        </div>
+                        <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                            ${groups[cat].map(item => createItemCard(item)).join('')}
+                        </div>
+                    </section>
+                `;
+            }).join('');
+        }
+
+        function createItemCard(item) {
+            const variants = getVariants(item);
+            const varKeys = Object.keys(variants);
+            const cardId = item.name.replace(/[^a-z0-9]/gi, '');
+            const defaultPrice = variants[varKeys[0]];
+            const isNonVeg = (item.type || "").toLowerCase().includes('non') || (item.category || "").toLowerCase().includes('chicken') || (item.category || "").toLowerCase().includes('egg');
+
+            let variantSelector = varKeys.length > 1 ? `
+                <div class="mt-6 flex flex-wrap gap-2">
+                    ${varKeys.map((k, i) => `
+                        <button onclick="selectVariant(this, '${k}', '${variants[k]}')" 
+                                class="variant-btn text-[9px] border border-white/10 px-3 py-2 rounded-xl font-bold uppercase transition-all ${i===0 ? 'active' : 'text-gray-500'}">
+                            ${k} - &#8377;${variants[k]}
+                        </button>
+                    `).join('')}
+                </div>
+            ` : `<p class="mt-4 font-bold text-amber-500 text-2xl tracking-tighter">&#8377;${defaultPrice}</p>`;
+
+            return `
+                <div class="bg-zinc-900 p-8 rounded-[2.5rem] border border-white/5 hover:border-amber-500/30 transition-all group flex flex-col justify-between h-full shadow-lg" 
+                     id="card-${cardId}" data-name="${item.name.toLowerCase()}" data-cat="${item.category.toLowerCase()}">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="${isNonVeg ? 'type-non' : 'type-veg'}"></div>
+                        </div>
+                        <h4 class="text-xl font-bold text-white group-hover:text-amber-500 transition-colors tracking-tight mb-2 uppercase">${item.name}</h4>
+                        <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">${item.desc || 'A premium preparation from our chefs.'}</p>
+                        ${variantSelector}
+                    </div>
+                    <button onclick="addToCart('${item.name.replace(/'/g, "\\'")}', '${cardId}')" 
+                            data-variant="${varKeys[0]}" data-price="${defaultPrice}"
+                            class="add-btn mt-8 w-full bg-white/5 text-white border border-white/10 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-500 hover:text-black transition-all transform active:scale-95 shadow-inner">
+                        Add to Basket
+                    </button>
+                </div>
+            `;
+        }
+
+        function selectVariant(btn, variant, price) {
+            const card = btn.closest('.bg-zinc-900');
+            const addBtn = card.querySelector('.add-btn');
+            card.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            addBtn.dataset.variant = variant;
+            addBtn.dataset.price = price;
+        }
+
+        function addToCart(name, id) {
+            const btn = document.querySelector(`#card-${id} .add-btn`);
+            const variant = btn.dataset.variant;
+            const price = parseFloat(btn.dataset.price);
+
+            const item = cart.find(i => i.name === name && i.variant === variant);
+            if (item) item.qty++;
+            else cart.push({ name, variant, price, qty: 1 });
+            
+            updateCartUI();
+            
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> ADDED TO BASKET';
+            btn.classList.add('bg-white', 'text-black');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('bg-white', 'text-black');
+            }, 1000);
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            const mobBtn = document.getElementById('mobile-cart-btn');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="text-center py-20 opacity-20 text-xs font-bold uppercase tracking-widest"><i class="fas fa-shopping-bag text-5xl mb-4"></i><p>Basket Empty</p></div>';
+                totalEl.innerHTML = "&#8377;0";
+                document.getElementById('cart-count').classList.add('hidden');
+                mobBtn.classList.add('hidden');
+                return;
+            }
+
+            const totalQty = cart.reduce((a, b) => a + b.qty, 0);
+            document.getElementById('cart-count').innerText = totalQty;
+            document.getElementById('cart-count').classList.remove('hidden');
+            mobBtn.classList.remove('hidden');
+            document.getElementById('mobile-cart-text').innerText = `${totalQty} Items in Basket`;
+            document.getElementById('cart-items-count').innerText = `${totalQty} ITEMS SELECTED`;
+
+            let total = 0;
+            container.innerHTML = cart.map((item, idx) => {
+                total += item.price * item.qty;
+                return `
+                    <div class="bg-zinc-900/50 p-5 rounded-3xl border border-white/5 flex justify-between items-center animate-fadeIn">
+                        <div>
+                            <p class="font-bold text-white text-sm leading-tight">${item.name}</p>
+                            <p class="text-[9px] text-amber-500 font-bold uppercase tracking-widest mt-1">${item.variant}</p>
+                            <p class="text-sm font-black mt-2 text-white">&#8377;${item.price * item.qty}</p>
+                        </div>
+                        <div class="flex items-center gap-3 bg-black p-2 rounded-xl border border-white/5 shadow-inner">
+                            <button onclick="changeQty(${idx}, -1)" class="w-8 h-8 hover:bg-amber-500 hover:text-black rounded-lg transition-colors flex items-center justify-center">-</button>
+                            <span class="font-bold text-sm w-4 text-center">${item.qty}</span>
+                            <button onclick="changeQty(${idx}, 1)" class="w-8 h-8 hover:bg-amber-500 hover:text-black rounded-lg transition-colors flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            totalEl.innerHTML = `&#8377;${total}`;
+            document.getElementById('mobile-cart-total').innerHTML = `&#8377;${total}`;
+        }
+
+        function filterMenu() {
+            const query = document.getElementById('menu-search').value.toLowerCase();
+            const items = document.querySelectorAll('.bg-zinc-900[id^="card-"]');
+            const groups = document.querySelectorAll('.menu-group');
+            const noRes = document.getElementById('no-results');
+
+            let totalVisible = 0;
+            items.forEach(item => {
+                const name = item.getAttribute('data-name');
+                const cat = item.getAttribute('data-cat');
+                const match = name.includes(query) || cat.includes(query);
+                item.classList.toggle('hidden', !match);
+                if(match) totalVisible++;
+            });
+
+            groups.forEach(group => {
+                const visibleInGroup = group.querySelectorAll('.bg-zinc-900[id^="card-"]:not(.hidden)');
+                group.classList.toggle('hidden', visibleInGroup.length === 0);
+            });
+            noRes.classList.toggle('hidden', totalVisible > 0);
+        }
+
+        function scrollToCategory(id, btn) {
+            document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const nav = document.getElementById('category-nav');
+            nav.scrollLeft = btn.offsetLeft - (nav.offsetWidth / 2) + (btn.offsetWidth / 2);
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        function changeQty(i, d) {
+            cart[i].qty += d;
+            if (cart[i].qty <= 0) cart.splice(i, 1);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-sidebar').classList.toggle('open');
+            document.getElementById('cart-overlay').classList.toggle('hidden');
+        }
+
+        function setOrderType(t) {
+            orderType = t;
+            const pBtn = document.getElementById('btn-pickup');
+            const dBtn = document.getElementById('btn-delivery');
+            if(t === 'Pickup') {
+                pBtn.className = "py-3 rounded-xl font-bold text-xs uppercase tracking-widest bg-amber-500 text-black";
+                dBtn.className = "py-3 rounded-xl font-bold text-xs uppercase tracking-widest text-gray-400";
+            } else {
+                dBtn.className = "py-3 rounded-xl font-bold text-xs uppercase tracking-widest bg-amber-500 text-black";
+                pBtn.className = "py-3 rounded-xl font-bold text-xs uppercase tracking-widest text-gray-400";
+            }
+            document.getElementById('delivery-address-box').classList.toggle('hidden', t === 'Pickup');
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) return;
+            const address = document.getElementById('order-address').value;
+            if (orderType === 'Delivery' && !address) return alert("Please enter delivery address!");
+
+            let total = 0;
+            let itemsText = cart.map(i => {
+                total += i.price * i.qty;
+                return `🍷 *${i.name}* [${i.variant}] x${i.qty} = ₹${i.price * i.qty}`;
+            }).join('\n');
+
+            const msg = encodeURIComponent(
+                `👑 *ROYAL ORDER - DEMO ONE*\n` +
+                `━━━━━━━━━━━━━━━━━━━━\n` +
+                `📍 *Type:* ${orderType.toUpperCase()}\n` +
+                `━━━━━━━━━━━━━━━━━━━━\n` +
+                `${itemsText}\n` +
+                `━━━━━━━━━━━━━━━━━━━━\n` +
+                `💰 *TOTAL BILL: ₹${total}*\n` +
+                (orderType === 'Delivery' ? `🏠 *Address:* ${address}` : '')
+            );
+            window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+        }
+
+        function sendContactMessage(e) {
+            e.preventDefault();
+            const n = document.getElementById('contact-name').value;
+            const s = document.getElementById('contact-subject').value;
+            const m = document.getElementById('contact-message').value;
+            const final = encodeURIComponent(`🛎️ *NEW INQUIRY - DEMO ONE*\n\n👤 *Client:* ${n}\n📌 *Subject:* ${s}\n💬 *Message:* ${m}`);
+            window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${final}`;
+        }
+
+        window.onload = fetchMenu;
+    </script>
+</body>
+</html>

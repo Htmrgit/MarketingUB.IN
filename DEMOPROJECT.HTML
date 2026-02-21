@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketingUB | Demo Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        :root {
+            --brand-navy: #001e3c;
+            --brand-orange: #ff6600;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f8fafc;
+        }
+
+        .bg-navy { background-color: var(--brand-navy); }
+        .text-orange { color: var(--brand-orange); }
+        .bg-orange { background-color: var(--brand-orange); }
+        .border-orange { border-color: var(--brand-orange); }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #001e3c 0%, #001021 100%);
+        }
+
+        .demo-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .orange-glow:hover {
+            box-shadow: 0 0 20px rgba(255, 102, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <!-- Navigation (Based on Screenshot) -->
+    <nav class="fixed w-full z-50 bg-white border-b border-gray-100 py-4 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-navy rounded flex items-center justify-center">
+                    <span class="text-orange font-black text-2xl">M</span>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-navy">Marketing<span class="text-orange">UB</span></span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#" class="hover:text-orange transition">Home</a>
+                <a href="#" class="hover:text-orange transition">About</a>
+                <a href="#" class="hover:text-orange transition">Services</a>
+                <a href="#" class="hover:text-orange transition">Portfolio</a>
+                <a href="#" class="hover:text-orange transition">Why Us</a>
+                <a href="#contact" class="bg-navy text-white px-6 py-2.5 rounded-full hover:bg-slate-800 transition shadow-lg">Contact Now</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <div class="lg:hidden text-navy text-2xl">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Themed to Image) -->
+    <section class="hero-gradient pt-32 pb-20 md:pt-48 md:pb-32 px-4 relative overflow-hidden">
+        <!-- Abstract Decorative Circles -->
+        <div class="absolute bottom-0 right-0 w-64 h-64 border-2 border-orange opacity-20 rounded-full translate-x-1/2 translate-y-1/2"></div>
+        <div class="absolute top-1/2 left-0 w-32 h-32 border border-white opacity-10 rounded-full -translate-x-1/2"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
+                    We Help Businesses Grow Faster with <span class="text-orange">Smart Marketing</span> & Automation
+                </h1>
+                <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl">
+                    Discover our collection of high-performance automation systems and specialized industry demos designed to scale your business.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#demos" class="bg-orange text-white px-8 py-4 rounded-xl font-bold text-lg orange-glow transition-all">
+                        View Live Demos
+                    </a>
+                    <a href="https://wa.me/919355650312" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/20 transition">
+                        Speak with Mano
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Grid (Redirector) -->
+    <section id="demos" class="py-24 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div class="max-w-xl">
+                    <h2 class="text-orange font-bold tracking-widest uppercase text-sm mb-3 italic">Portfolio Showcase</h2>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-navy">Live Project Demos</h2>
+                    <p class="text-slate-500 mt-4 text-lg leading-relaxed">Select a project to see our smart automation and marketing systems in action.</p>
+                </div>
+                <div class="hidden md:block">
+                    <span class="text-slate-400 font-medium">Scroll to explore <i class="fa-solid fa-arrow-down ml-2 animate-bounce"></i></span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Demo 1 -->
+                <a href="demo1.html" class="demo-card group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 text-navy group-hover:opacity-10 transition">
+                        <i class="fa-solid fa-1 text-8xl font-black"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-orange text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orange/30 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-2">Project Demo 01</h3>
+                    <p class="text-slate-500 mb-6">Advanced Landing Page with automated lead capture & tracking.</p>
+                    <div class="flex items-center text-orange font-bold group-hover:translate-x-2 transition-transform">
+                        Launch Demo <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- Demo 2 -->
+                <a href="demo2.html" class="demo-card group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 text-navy group-hover:opacity-10 transition">
+                        <i class="fa-solid fa-2 text-8xl font-black"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-navy text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-navy/30 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-shop"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-2">Project Demo 02</h3>
+                    <p class="text-slate-500 mb-6">Local business appointment booking & sales pipeline demo.</p>
+                    <div class="flex items-center text-orange font-bold group-hover:translate-x-2 transition-transform">
+                        Launch Demo <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- Demo 3 -->
+                <a href="demo3.html" class="demo-card group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 text-navy group-hover:opacity-10 transition">
+                        <i class="fa-solid fa-3 text-8xl font-black"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-orange text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orange/30 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-2">Project Demo 03</h3>
+                    <p class="text-slate-500 mb-6">AI-Powered customer support & instant enquiry response UI.</p>
+                    <div class="flex items-center text-orange font-bold group-hover:translate-x-2 transition-transform">
+                        Launch Demo <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- DEMO 4 -->
+                <a href="DEMO4.html" class="demo-card group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 text-navy group-hover:opacity-10 transition">
+                        <i class="fa-solid fa-4 text-8xl font-black"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-navy text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-navy/30 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-2">Project Demo 04</h3>
+                    <p class="text-slate-500 mb-6">Performance marketing dashboard & conversion tracking setup.</p>
+                    <div class="flex items-center text-orange font-bold group-hover:translate-x-2 transition-transform">
+                        Launch Demo <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- DEMO 5 -->
+                <a href="DEMO5.html" class="demo-card group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5 text-navy group-hover:opacity-10 transition">
+                        <i class="fa-solid fa-5 text-8xl font-black"></i>
+                    </div>
+                    <div class="w-14 h-14 bg-orange text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orange/30 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy mb-2">Project Demo 05</h3>
+                    <p class="text-slate-500 mb-6">Premium brand identity & storytelling layout implementation.</p>
+                    <div class="flex items-center text-orange font-bold group-hover:translate-x-2 transition-transform">
+                        Launch Demo <i class="fa-solid fa-arrow-right-long ml-2"></i>
+                    </div>
+                </a>
+
+                <!-- Future Placeholder -->
+                <div class="border-4 border-dashed border-slate-200 p-8 rounded-3xl flex flex-col items-center justify-center text-center text-slate-400 bg-slate-50/50">
+                    <div class="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <p class="font-bold">New Demo Coming Soon</p>
+                    <p class="text-sm mt-1">We're constantly building...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple WhatsApp CTA -->
+    <section class="bg-navy py-12 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">Need a custom solution for your business?</h2>
+            <a href="https://wa.me/919355650312" class="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform">
+                <i class="fa-brands fa-whatsapp text-2xl"></i> Message Manohar Ray (Mano)
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-slate-100 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-navy rounded flex items-center justify-center">
+                    <span class="text-orange font-black text-lg">M</span>
+                </div>
+                <span class="font-bold text-navy">Marketing<span class="text-orange">UB</span></span>
+            </div>
+            
+            <p class="text-slate-500 text-sm font-medium">
+                © 2026 MarketingUB | Built by Manohar Ray (Mano)
+            </p>
+
+            <div class="flex space-x-6 text-slate-400 text-lg">
+                <a href="#" class="hover:text-orange transition"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-orange transition"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="hover:text-orange transition"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
