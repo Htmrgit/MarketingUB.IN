@@ -5,307 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- SEO Meta Tags -->
-    <title>Demo Restaurant - Best Food & Digital Menu</title>
-    <meta name="description" content="Experience authentic flavors at Demo Restaurant. Browse our digital menu and order via WhatsApp for quick delivery.">
-    <meta name="keywords" content="Restaurant, Digital Menu, Indian Food, Order Food Online, WhatsApp Ordering">
+    <title>Demo 1 - Deepanshu Restaurant | Order Online</title>
+    <meta name="description" content="Authentic taste at Demo 1 Restaurant. Browse our menu and order fresh food via WhatsApp.">
     <meta name="author" content="Manohar Ray">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
         
-        body { font-family: 'Poppins', sans-serif; background-color: #ffffff; scroll-behavior: smooth; }
-        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
         
-        .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .cat-btn.active {
+            background-color: #ef4444;
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
         }
 
-        /* Category Horizontal Scroll styling */
-        .category-tab::-webkit-scrollbar { display: none; }
-        .category-tab { 
-            -ms-overflow-style: none; 
-            scrollbar-width: none; 
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .scroll-mt-section { scroll-margin-top: 140px; }
-        
         .cart-sidebar {
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(100%);
         }
         .cart-sidebar.open { transform: translateX(0); }
+
+        .carousel-container { position: relative; width: 100%; height: 200px; border-radius: 1rem; overflow: hidden; margin-bottom: 1rem; background: #eee; }
+        .carousel-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-slide { flex: 0 0 100%; height: 100%; scroll-snap-align: center; cursor: pointer; }
+        .carousel-img { width: 100%; height: 100%; object-fit: cover; }
         
-        .variant-btn.active {
-            background-color: #c2410c;
-            color: white;
-            border-color: #c2410c;
-        }
-
-        .category-btn.active {
-            background-color: #c2410c;
-            color: white;
-            box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
-            border-color: #c2410c;
-        }
-
-        /* Skeleton Animation */
-        @keyframes shimmer {
-            0% { background-position: -468px 0; }
-            100% { background-position: 468px 0; }
-        }
-        .skeleton {
-            background: #f6f7f8;
-            background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
-            background-repeat: no-repeat;
-            background-size: 800px 104px;
-            display: inline-block;
-            position: relative;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-            animation-iteration-count: infinite;
-            animation-name: shimmer;
-            animation-timing-function: linear;
-        }
-
-        .fade-in { animation: fadeIn 0.5s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Veg/Non-Veg Indicators */
-        .indicator-veg { border: 1.5px solid #16a34a; padding: 2px; display: inline-flex; }
-        .indicator-veg::after { content: ''; width: 8px; height: 8px; background: #16a34a; border-radius: 50%; }
+        .dot { width: 6px; height: 6px; background: rgba(0,0,0,0.2); border-radius: 50%; transition: 0.3s; }
+        .dot.active { background: #ef4444; width: 12px; border-radius: 4px; }
         
-        .indicator-nonveg { border: 1.5px solid #dc2626; padding: 2px; display: inline-flex; }
-        .indicator-nonveg::after { content: ''; width: 8px; height: 8px; background: #dc2626; border-radius: 50%; }
+        .variant-pill.active { background-color: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+
+        #lightbox-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
+        .scroll-mt-fix { scroll-margin-top: 150px; }
+        
+        .type-veg { border: 1px solid #22c55e; padding: 2px; display: inline-flex; }
+        .type-veg::after { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+        .type-non { border: 1px solid #ef4444; padding: 2px; display: inline-flex; }
+        .type-non::after { content: ''; width: 6px; height: 6px; background: #ef4444; border-radius: 50%; }
     </style>
 </head>
-<body class="text-gray-800">
+<body>
 
-    <!-- Navigation -->
-    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-black text-orange-700 tracking-tighter italic">DEMO<span class="text-gray-900 not-italic">RESTAURANT</span></a>
-            
-            <div class="hidden md:flex gap-8 font-semibold text-sm uppercase tracking-wider text-gray-600">
-                <a href="#home" class="hover:text-orange-700 transition-colors">Home</a>
-                <a href="#top-dishes" class="hover:text-orange-700 transition-colors">Must Try</a>
-                <a href="#menu" class="hover:text-orange-700 transition-colors">Menu</a>
-                <a href="#about" class="hover:text-orange-700 transition-colors">About</a>
-                <a href="#contact" class="hover:text-orange-700 transition-colors">Contact</a>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCart()" class="relative p-2 text-gray-700 hover:text-orange-700 transition-colors">
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full z-[60] bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-red-600 tracking-tighter uppercase italic">Demo<span class="text-gray-800">One</span></a>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCart()" class="relative p-2 text-gray-700">
                     <i class="fas fa-shopping-basket text-2xl"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center hidden border-2 border-white">0</span>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center border-2 border-white hidden">0</span>
                 </button>
-                <button class="md:hidden text-gray-700 text-2xl" onclick="toggleMobileMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-700 text-xl"><i class="fas fa-bars"></i></button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-bg h-[75vh] flex items-center justify-center text-center text-white px-4">
-        <div class="max-w-3xl">
-            <span class="bg-orange-600 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 inline-block">Authentic Indian Flavors</span>
-            <h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">Tasty Food, Happy Mood</h1>
-            <div class="flex flex-wrap justify-center gap-4 mt-8">
-                <a href="#menu" class="bg-orange-700 hover:bg-orange-800 text-white px-8 py-3 rounded-full font-bold transition-all shadow-xl">Order Online</a>
-                <a href="#contact" class="bg-white text-gray-900 px-8 py-3 rounded-full font-bold transition-all shadow-xl">Contact Us</a>
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[100] hidden flex-col items-center justify-center gap-8 text-2xl font-bold p-10">
+        <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-gray-400 text-3xl">&times;</button>
+        <a href="#home" onclick="toggleMobileMenu()">HOME</a>
+        <a href="#menu" onclick="toggleMobileMenu()">MENU</a>
+        <a href="#contact" onclick="toggleMobileMenu()">CONTACT</a>
+    </div>
+
+    <!-- Hero -->
+    <section id="home" class="pt-24 pb-12 px-4 bg-white">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+            <div class="flex-1 space-y-6">
+                <h1 class="text-5xl md:text-7xl font-bold text-gray-900 leading-tight">Tasty Food, <br><span class="text-red-600">Fast Delivery.</span></h1>
+                <p class="text-gray-500 text-lg">Freshly made with secret spices and lots of love. Order now!</p>
+                <a href="#menu" class="bg-red-600 text-white px-8 py-4 rounded-xl font-bold inline-block shadow-lg shadow-red-100 hover:bg-red-700 transition-all">Order Online</a>
+            </div>
+            <div class="flex-1">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80" alt="Pizza" class="rounded-[3rem] shadow-2xl">
             </div>
         </div>
     </section>
 
-    <!-- Top Dishes -->
-    <section id="top-dishes" class="py-16 bg-white scroll-mt-section">
-        <div class="max-w-6xl mx-auto px-4 text-center mb-10">
-            <h2 class="text-3xl font-bold mb-2">Our Signature Dishes</h2>
-            <p class="text-gray-400 text-sm">Har thali mein ek naya swad.</p>
-        </div>
-        <div id="featured-dishes" class="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="h-48 skeleton rounded-3xl"></div>
-            <div class="h-48 skeleton rounded-3xl"></div>
-            <div class="h-48 skeleton rounded-3xl"></div>
-        </div>
-    </section>
-
-    <!-- Full Menu Section -->
-    <section id="menu" class="py-16 bg-gray-50 scroll-mt-section">
+    <!-- Menu -->
+    <section id="menu" class="py-16 bg-gray-50 scroll-mt-fix">
         <div class="max-w-6xl mx-auto px-4">
-            
-            <!-- Search Bar -->
-            <div class="max-w-xl mx-auto mb-8">
-                <div class="relative group">
-                    <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-orange-600 transition-colors"></i>
-                    <input type="text" id="menu-search" onkeyup="filterMenu()" placeholder="Search dishes (e.g. Paneer, Soup)..." 
-                           class="w-full pl-12 pr-5 py-4 rounded-2xl border-none shadow-lg focus:ring-2 focus:ring-orange-300 outline-none transition-all text-sm">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+                <h2 class="text-3xl font-bold">Our Menu</h2>
+                <div class="w-full md:w-80 relative">
+                    <input type="text" id="menu-search" onkeyup="filterMenu()" placeholder="Search dishes..." class="w-full p-4 pl-12 rounded-2xl border-none shadow-sm focus:ring-2 focus:ring-red-500 outline-none">
+                    <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-300"></i>
                 </div>
             </div>
 
-            <!-- Scrollable Category Tabs -->
-            <div class="sticky top-20 bg-white shadow-md rounded-2xl mb-12 z-40 border border-gray-100 p-2 overflow-hidden">
-                <div id="category-nav" class="category-tab flex gap-2 items-center">
-                    <!-- Loading categories -->
-                    <div class="w-24 h-8 skeleton rounded-full"></div>
-                    <div class="w-24 h-8 skeleton rounded-full"></div>
-                    <div class="w-24 h-8 skeleton rounded-full"></div>
+            <div class="sticky top-16 z-40 bg-gray-50/95 backdrop-blur py-4 mb-8 overflow-hidden">
+                <div id="category-nav" class="flex gap-2 overflow-x-auto no-scrollbar">
+                    <div class="w-24 h-10 skeleton rounded-full"></div>
                 </div>
             </div>
 
-            <!-- Loader / Skeletons -->
             <div id="loading" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <div class="h-64 skeleton rounded-[2rem]"></div>
-                <div class="h-64 skeleton rounded-[2rem]"></div>
-                <div class="h-64 skeleton rounded-[2rem]"></div>
-                <div class="h-64 skeleton rounded-[2rem]"></div>
-                <div class="h-64 skeleton rounded-[2rem]"></div>
-                <div class="h-64 skeleton rounded-[2rem]"></div>
+                <div class="h-80 skeleton rounded-3xl"></div>
             </div>
 
-            <!-- Empty Search Result -->
-            <div id="no-results" class="hidden text-center py-20">
-                <i class="fas fa-search text-5xl text-gray-200 mb-4"></i>
-                <p class="text-xl font-bold text-gray-400 uppercase">Item nahi mila!</p>
-                <p class="text-sm text-gray-400">Kripya kuch aur dhoondhein.</p>
-            </div>
+            <div id="no-results" class="hidden text-center py-20 text-gray-400 font-bold uppercase tracking-widest">No Items Found</div>
 
-            <div id="menu-content" class="space-y-20">
-                <!-- Grouped items -->
-            </div>
+            <div id="menu-content" class="space-y-16"></div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-white scroll-mt-section">
-        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-            <div class="order-2 md:order-1">
-                <h3 class="text-4xl font-bold mb-6">Our Journey</h3>
-                <p class="text-gray-500 leading-loose mb-6">Demo Restaurant 2010 mein shuru hua tha ek sapne ke saath - pure aur swadisht ghar jaisa khana parosne ka sapna. Aaj hum aapke pyaar ki wajah se is shehar ka ek mashhoor naam hain.</p>
-                <div class="flex gap-10">
-                    <div>
-                        <p class="text-3xl font-black text-orange-700">10k+</p>
-                        <p class="text-xs font-bold uppercase text-gray-400">Happy Clients</p>
+    <!-- Contact -->
+    <section id="contact" class="py-16 bg-white scroll-mt-fix">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-gray-50 p-8 md:p-12 rounded-[2rem] border border-gray-100 shadow-sm text-center">
+                <h2 class="text-3xl font-bold mb-8">Get In Touch</h2>
+                <form onsubmit="sendContactMessage(event)" class="grid gap-4 text-left">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <input type="text" id="contact-name" placeholder="Name" required class="p-4 rounded-xl border-gray-200 outline-none focus:ring-2 focus:ring-red-500">
+                        <input type="text" id="contact-subject" placeholder="Subject" class="p-4 rounded-xl border-gray-200 outline-none focus:ring-2 focus:ring-red-500">
                     </div>
-                    <div>
-                        <p class="text-3xl font-black text-orange-700">50+</p>
-                        <p class="text-xs font-bold uppercase text-gray-400">Master Chefs</p>
-                    </div>
-                </div>
+                    <textarea id="contact-message" placeholder="Message..." required rows="4" class="p-4 rounded-xl border-gray-200 outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                    <button type="submit" class="bg-red-600 text-white py-4 rounded-xl font-bold hover:bg-red-700 transition-all flex items-center justify-center gap-3">
+                        <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                    </button>
+                </form>
             </div>
-            <div class="order-1 md:order-2 rounded-[3rem] overflow-hidden shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Restaurant Interior">
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50 scroll-mt-section">
-        <div class="max-w-4xl mx-auto px-4 bg-white p-10 rounded-[3rem] shadow-xl">
-            <h2 class="text-3xl font-bold text-center mb-8 font-serif">Send Us a Message</h2>
-            <form onsubmit="sendContactMessage(event)" class="space-y-6">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <input type="text" id="contact-name" placeholder="Full Name" required class="w-full bg-gray-50 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-orange-200">
-                    <input type="text" id="contact-subject" placeholder="Subject" class="w-full bg-gray-50 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-orange-200">
-                </div>
-                <textarea id="contact-message" placeholder="Aapka message..." required rows="4" class="w-full bg-gray-50 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-orange-200"></textarea>
-                <button type="submit" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-orange-700 transition-colors flex items-center justify-center gap-3">
-                    <i class="fab fa-whatsapp"></i> Send on WhatsApp
-                </button>
-            </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-950 text-white pt-16 pb-8">
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
         <div class="max-w-6xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-black tracking-tighter text-orange-600 mb-8 uppercase italic">Demo Restaurant</h2>
-            <div class="flex justify-center gap-6 mb-10">
-                <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-orange-600 transition-all"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-orange-600 transition-all"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/919355650312" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-orange-600 transition-all"><i class="fab fa-whatsapp"></i></a>
+            <h2 class="text-2xl font-bold text-red-500 mb-6 uppercase">Demo One</h2>
+            <div class="flex justify-center gap-8 mb-12">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="https://wa.me/919355650312" class="text-gray-400 hover:text-white"><i class="fab fa-whatsapp text-xl"></i></a>
             </div>
-            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
-                <p>&copy; 2024 Demo Restaurant. All rights reserved.</p>
-                <div class="font-bold text-gray-400 uppercase tracking-widest text-[10px]">
-                    Developed by <a href="https://htmrgit.github.io/MANOHARRAYRESUME/" target="_blank" class="text-orange-500 hover:text-orange-400 transition-colors">Manohar Ray</a>
-                </div>
-            </div>
+            <p class="text-[10px] text-gray-500 tracking-widest uppercase">
+                Designed & Developed by <a href="https://htmrgit.github.io/MANOHARRAYRESUME/" target="_blank" class="text-red-500 font-bold hover:underline">Manohar Ray</a>
+            </p>
         </div>
     </footer>
 
     <!-- Cart Sidebar -->
-    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 z-[60] hidden backdrop-blur-sm"></div>
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-white z-[70] cart-sidebar shadow-2xl flex flex-col">
-        <div class="p-6 border-b flex justify-between items-center bg-gray-900 text-white">
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/60 z-[70] hidden backdrop-blur-sm"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[450px] z-[80] bg-white cart-sidebar shadow-2xl flex flex-col">
+        <div class="p-6 border-b flex justify-between items-center bg-white flex-shrink-0">
             <div>
-                <h3 class="text-2xl font-bold">Your Basket</h3>
-                <p id="cart-items-count" class="text-[10px] text-orange-400 font-bold tracking-widest">0 ITEMS SELECTED</p>
+                <h3 class="text-xl font-bold text-gray-900">Your Basket</h3>
+                <p id="cart-items-count" class="text-[10px] font-bold text-red-600 uppercase">0 items</p>
             </div>
-            <button onclick="toggleCart()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xl">&times;</button>
+            <div class="flex items-center gap-3">
+                <button onclick="clearCart()" class="text-[10px] font-bold text-red-500 uppercase px-2 py-1 border border-red-500 rounded hidden" id="clear-cart-btn">Clear</button>
+                <button onclick="toggleCart()" class="text-gray-400 text-2xl">&times;</button>
+            </div>
         </div>
-        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4">
-            <p class="text-center text-gray-400 mt-20">Basket khali hai!</p>
+        
+        <div class="flex-grow overflow-y-auto p-6 space-y-6 no-scrollbar bg-gray-50">
+            <div id="cart-items" class="space-y-4">
+                <div class="text-center py-20 opacity-20"><i class="fas fa-shopping-basket text-5xl mb-4"></i><p>Basket Empty</p></div>
+            </div>
+            <div id="order-form-container" class="space-y-6 pt-6 border-t hidden">
+                <div class="grid grid-cols-2 gap-2 p-1 bg-gray-200 rounded-xl shadow-inner">
+                    <button onclick="setOrderType('Pickup')" id="btn-pickup" class="py-2 rounded-lg font-bold text-xs uppercase bg-red-600 text-white shadow">Pickup</button>
+                    <button onclick="setOrderType('Delivery')" id="btn-delivery" class="py-2 rounded-lg font-bold text-xs uppercase text-gray-500">Delivery</button>
+                </div>
+                <div id="delivery-address-box" class="hidden space-y-3">
+                    <input type="text" id="order-name" placeholder="YOUR NAME" class="w-full p-4 rounded-xl border border-gray-100 text-sm font-bold uppercase outline-none focus:ring-2 focus:ring-red-500 shadow-sm">
+                    <input type="tel" id="order-phone" placeholder="PHONE NUMBER" class="w-full p-4 rounded-xl border border-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-red-500 shadow-sm">
+                    <textarea id="order-address" placeholder="ADDRESS..." class="w-full p-4 rounded-xl border border-gray-100 text-sm h-24 outline-none focus:ring-2 focus:ring-red-500 shadow-sm uppercase"></textarea>
+                </div>
+            </div>
         </div>
-        <div class="p-6 border-t bg-gray-50">
-            <div class="mb-4 bg-gray-200 p-1 rounded-xl grid grid-cols-2 gap-1">
-                <button onclick="setOrderType('Pickup')" id="btn-pickup" class="py-2 rounded-lg font-bold text-sm transition-all bg-orange-700 text-white shadow-md">Pickup</button>
-                <button onclick="setOrderType('Delivery')" id="btn-delivery" class="py-2 rounded-lg font-bold text-sm transition-all text-gray-500">Delivery</button>
-            </div>
-            <div id="delivery-address-box" class="mb-4 hidden animate-fadeIn">
-                <textarea id="order-address" placeholder="Enter Full Address..." class="w-full p-3 border border-gray-200 rounded-xl text-sm h-20 outline-none focus:ring-2 focus:ring-orange-200 shadow-inner"></textarea>
-            </div>
+
+        <div class="p-6 bg-white border-t flex-shrink-0">
             <div class="flex justify-between items-center mb-6 px-1">
-                <span class="font-bold text-gray-500 tracking-wider">TOTAL AMOUNT</span>
-                <span id="cart-total" class="text-3xl font-black text-gray-900 tracking-tighter">&#8377;0</span>
+                <span class="text-gray-400 font-bold text-xs uppercase tracking-widest">Total Bill</span>
+                <span id="cart-total" class="text-3xl font-bold text-gray-900">&#8377;0</span>
             </div>
-            <button onclick="sendOrder()" class="w-full bg-green-600 text-white py-5 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all">
-                <i class="fab fa-whatsapp text-2xl"></i> Place Order Now
-            </button>
+            <button onclick="sendOrder()" class="w-full bg-red-600 text-white py-4 rounded-xl font-bold text-sm uppercase shadow-lg active:scale-95 transform">Confirm Order</button>
         </div>
     </div>
 
-    <!-- Mobile Sticky Cart -->
-    <div id="mobile-cart-btn" onclick="toggleCart()" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] bg-orange-700 text-white p-4 rounded-3xl shadow-2xl flex justify-between items-center z-40 hidden transition-all active:scale-95">
+    <!-- Lightbox -->
+    <div id="lightbox-modal" onclick="this.style.display='none'">
+        <button class="absolute top-6 right-6 text-white text-3xl">&times;</button>
+        <img id="lightbox-img" src="" class="max-w-[95%] max-h-[85vh] rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Mobile Button -->
+    <div id="mobile-cart-btn" onclick="toggleCart()" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] bg-red-600 text-white p-4 rounded-2xl shadow-2xl flex justify-between items-center z-[50] hidden transition-all active:scale-95 border-b-4 border-red-800">
         <div class="flex items-center gap-3">
             <i class="fas fa-shopping-basket"></i>
-            <span id="mobile-cart-text" class="font-bold text-sm">0 Items</span>
+            <span id="mobile-cart-text" class="font-bold text-[10px] uppercase">0 Items</span>
         </div>
-        <span id="mobile-cart-total" class="font-black text-lg">&#8377;0</span>
-    </div>
-
-    <!-- Mobile Menu Toggle Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-gray-900/95 z-[100] hidden flex-col items-center justify-center text-white gap-8 text-2xl font-bold">
-        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-3xl">&times;</button>
-        <a href="#home" onclick="toggleMobileMenu()">Home</a>
-        <a href="#menu" onclick="toggleMobileMenu()">Menu</a>
-        <a href="#about" onclick="toggleMobileMenu()">About</a>
-        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+        <span id="mobile-cart-total" class="font-bold text-lg bg-black/10 px-4 py-1 rounded-xl">&#8377;0</span>
     </div>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwsljkDbxPr9vZISpFIGk8ZvxheQ5l6LD_VVWTkVau7K0Ta51aDIiQ-QzIeoMOIZeg0/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzi_hYsE9SG4nRKCg5hjyrjP98jzrT3R5mAHYUPyOXU-iYzk0IaUCOb47C9DwcfD2kqAA/exec';
         const WHATSAPP_NUMBER = '919355650312';
         
         let menuData = [];
         let cart = [];
         let orderType = 'Pickup';
+        let autoPlayIntervals = {};
 
         async function fetchMenu() {
             try {
                 const res = await fetch(API_URL);
                 menuData = await res.json();
                 renderMenu();
-                renderFeatured();
             } catch (e) {
-                document.getElementById('loading').innerHTML = '<p class="text-red-500 p-10 text-center font-bold">Connection Error. Please refresh the page.</p>';
+                document.getElementById('loading').innerHTML = '<p class="text-red-500 text-center col-span-full font-bold uppercase py-10">Error Loading Menu</p>';
             }
         }
 
@@ -314,24 +228,6 @@
             try { v = typeof item.variants === 'object' ? item.variants : JSON.parse(item.variants); }
             catch(e) { v = {"Standard": "0"}; }
             return v;
-        }
-
-        function renderFeatured() {
-            const container = document.getElementById('featured-dishes');
-            const featured = menuData.slice(0, 3);
-            container.innerHTML = featured.map(item => {
-                const variants = getVariants(item);
-                const price = Object.values(variants)[0];
-                return `
-                    <div class="bg-white border border-gray-100 p-6 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all text-center group">
-                        <div class="w-16 h-16 bg-orange-100 text-orange-700 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl group-hover:scale-110 transition-transform"><i class="fas fa-star"></i></div>
-                        <h4 class="font-bold text-xl mb-1">${item.name}</h4>
-                        <p class="text-xs text-gray-400 mb-4 line-clamp-1 italic">${item.desc || 'Signature Item'}</p>
-                        <p class="text-2xl font-black text-orange-700 mb-4">&#8377;${price}</p>
-                        <a href="#menu" class="text-xs font-black uppercase tracking-widest border-b-2 border-orange-600 pb-1">Order Now</a>
-                    </div>
-                `;
-            }).join('');
         }
 
         function renderMenu() {
@@ -347,10 +243,9 @@
             }, {});
 
             const cats = Object.keys(groups).sort();
-            
             nav.innerHTML = cats.map((cat, i) => `
                 <button onclick="scrollToCategory('${cat.replace(/\s+/g, '-').toLowerCase()}', this)" 
-                        class="category-btn whitespace-nowrap px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all border border-gray-100 shadow-sm ${i===0 ? 'active' : 'bg-gray-50 text-gray-500'}">
+                        class="cat-btn whitespace-nowrap px-6 py-2 rounded-full text-[10px] font-bold uppercase transition-all border border-gray-100 ${i===0 ? 'active' : 'bg-white text-gray-400'}">
                     ${cat}
                 </button>
             `).join('');
@@ -358,230 +253,197 @@
             container.innerHTML = cats.map(cat => {
                 const catId = cat.replace(/\s+/g, '-').toLowerCase();
                 return `
-                    <section id="${catId}" class="scroll-mt-section menu-category-group">
-                        <div class="flex items-center gap-4 mb-8">
-                            <h3 class="text-2xl font-black tracking-tighter uppercase text-gray-900">${cat}</h3>
-                            <div class="flex-grow h-[2px] bg-orange-100/50"></div>
-                        </div>
-                        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <section id="${catId}" class="scroll-mt-fix menu-group">
+                        <h3 class="text-2xl font-bold uppercase text-gray-800 mb-8 flex items-center gap-3">
+                            <span class="w-2 h-8 bg-red-600 rounded-full"></span> ${cat}
+                        </h3>
+                        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                             ${groups[cat].map(item => createItemCard(item)).join('')}
                         </div>
                     </section>
                 `;
             }).join('');
+
+            menuData.forEach(item => {
+                const cardId = item.itemid || item.name.replace(/[^a-z0-9]/gi, '');
+                const images = item.image ? item.image.split(',') : [];
+                if (images.length > 1) startAutoPlay(cardId);
+            });
         }
 
         function createItemCard(item) {
             const variants = getVariants(item);
             const varKeys = Object.keys(variants);
-            const cardId = item.name.replace(/[^a-z0-9]/gi, '');
+            const cardId = item.itemid || item.name.replace(/[^a-z0-9]/gi, '');
             const defaultPrice = variants[varKeys[0]];
+            const isNonVeg = (item.type || "").toLowerCase().includes('non') || (item.name || "").toLowerCase().includes('chicken');
 
-            // Check if item is Veg or Non-Veg (assuming data has a type field, else default to Veg icon)
-            const isNonVeg = (item.type || "").toLowerCase().includes('non') || (item.category || "").toLowerCase().includes('chicken') || (item.category || "").toLowerCase().includes('egg');
-            const indicatorClass = isNonVeg ? 'indicator-nonveg' : 'indicator-veg';
+            const images = item.image ? item.image.split(',') : [];
+            let imageHtml = '';
+            
+            if (images.length > 0) {
+                imageHtml = `
+                    <div class="carousel-container shadow-sm border border-gray-100">
+                        <div class="carousel-track no-scrollbar" id="track-${cardId}" onscroll="updateDots('${cardId}')">
+                            ${images.map(img => `<div class="carousel-slide" onclick="openLightbox('${img.trim()}')"><img src="${img.trim()}" class="carousel-img"></div>`).join('')}
+                        </div>
+                        ${images.length > 1 ? `
+                            <div class="carousel-dots" id="dots-${cardId}">${images.map((_, i) => `<div class="dot ${i===0 ? 'active' : ''}"></div>`).join('')}</div>
+                        ` : ''}
+                    </div>
+                `;
+            }
 
             let variantSelector = varKeys.length > 1 ? `
                 <div class="mt-4 flex flex-wrap gap-2">
-                    ${varKeys.map((k, i) => `
-                        <button onclick="selectVariant(this, '${k}', '${variants[k]}')" 
-                                class="variant-btn text-[9px] border border-gray-200 px-3 py-1.5 rounded-xl font-bold uppercase transition-all ${i===0 ? 'active' : ''}">
-                            ${k} - &#8377;${variants[k]}
-                        </button>
-                    `).join('')}
+                    ${varKeys.map((k, i) => `<button onclick="selectVariant(this, '${k}', '${variants[k]}')" class="variant-pill text-[9px] border border-gray-100 px-3 py-2 rounded-xl font-bold uppercase transition-all ${i===0 ? 'active' : 'text-gray-400'}">${k} - &#8377;${variants[k]}</button>`).join('')}
                 </div>
-            ` : `<p class="mt-3 font-black text-orange-700 text-xl tracking-tighter">&#8377;${defaultPrice}</p>`;
+            ` : `<p class="mt-4 font-bold text-red-600 text-xl">&#8377;${defaultPrice}</p>`;
 
             return `
-                <div class="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm flex flex-col justify-between group hover:shadow-xl transition-all" 
-                     id="card-${cardId}" data-name="${item.name.toLowerCase()}" data-cat="${item.category.toLowerCase()}">
+                <div class="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col justify-between h-full" id="card-${cardId}" data-name="${item.name.toLowerCase()}" data-cat="${item.category.toLowerCase()}">
                     <div>
-                        <div class="flex justify-between items-start">
-                            <div class="space-y-1">
-                                <div class="${indicatorClass} mb-1"></div>
-                                <h4 class="font-bold text-lg leading-tight group-hover:text-orange-700 transition-colors uppercase tracking-tight">${item.name}</h4>
-                            </div>
-                            <div class="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0"></div>
+                        ${imageHtml}
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="${isNonVeg ? 'type-non' : 'type-veg'}"></div>
                         </div>
-                        <p class="text-xs text-gray-400 mt-2 line-clamp-2 leading-relaxed">${item.desc || 'Freshly prepared with authentic flavors.'}</p>
+                        <h4 class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors uppercase leading-tight mb-2">${item.name}</h4>
+                        <p class="text-xs text-gray-400 font-medium leading-relaxed line-clamp-2">${item.desc || 'Prepared fresh with authentic spices.'}</p>
                         ${variantSelector}
                     </div>
-                    <button onclick="addToCart('${item.name.replace(/'/g, "\\'")}', '${cardId}')" 
-                            data-variant="${varKeys[0]}" data-price="${defaultPrice}"
-                            class="add-btn mt-6 w-full bg-gray-100 text-gray-900 border border-transparent py-4 rounded-3xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-700 hover:text-white transition-all transform active:scale-95 shadow-inner">
+                    <button onclick="addToCart('${item.name.replace(/'/g, "\\'")}', '${cardId}')" data-variant="${varKeys[0]}" data-price="${defaultPrice}"
+                            class="add-btn mt-6 w-full bg-gray-100 text-gray-900 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all transform active:scale-95 shadow-inner">
                         Add to Basket
                     </button>
                 </div>
             `;
         }
 
+        function startAutoPlay(cardId) {
+            autoPlayIntervals[cardId] = setInterval(() => {
+                const track = document.getElementById(`track-${cardId}`);
+                if (!track) return;
+                let next = track.scrollLeft + track.offsetWidth;
+                if (next >= track.scrollWidth) track.scrollTo({ left: 0, behavior: 'smooth' });
+                else track.scrollTo({ left: next, behavior: 'smooth' });
+            }, 3500);
+        }
+
+        window.updateDots = function(cardId) {
+            const track = document.getElementById(`track-${cardId}`);
+            const dots = document.getElementById(`dots-${cardId}`);
+            if (!track || !dots) return;
+            const index = Math.round(track.scrollLeft / track.offsetWidth);
+            Array.from(dots.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
+        };
+
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox-modal').style.display = 'flex'; }
         function selectVariant(btn, variant, price) {
-            const card = btn.closest('.bg-white');
+            const card = btn.closest('[id^="card-"]');
             const addBtn = card.querySelector('.add-btn');
-            card.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+            card.querySelectorAll('.variant-pill').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             addBtn.dataset.variant = variant;
             addBtn.dataset.price = price;
         }
 
         function addToCart(name, id) {
-            const btn = document.querySelector(`#card-${id} .add-btn`);
+            const card = document.getElementById(`card-${id}`);
+            const btn = card.querySelector('.add-btn');
             const variant = btn.dataset.variant;
             const price = parseFloat(btn.dataset.price);
-
             const item = cart.find(i => i.name === name && i.variant === variant);
-            if (item) item.qty++;
-            else cart.push({ name, variant, price, qty: 1 });
-            
+            if (item) item.qty++; else cart.push({ id, name, variant, price, qty: 1 });
             updateCartUI();
-            
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check text-sm"></i> ADDED';
-            btn.classList.add('bg-green-600', 'text-white');
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.remove('bg-green-600', 'text-white');
-            }, 1000);
+            const old = btn.innerHTML; btn.innerHTML = 'Added ?'; btn.classList.add('bg-green-600', 'text-white');
+            setTimeout(() => { btn.innerHTML = old; btn.classList.remove('bg-green-600', 'text-white'); }, 800);
         }
 
         function updateCartUI() {
             const container = document.getElementById('cart-items');
             const totalEl = document.getElementById('cart-total');
-            const countEl = document.getElementById('cart-count');
             const mobBtn = document.getElementById('mobile-cart-btn');
-            const mobTotal = document.getElementById('mobile-cart-total');
+            const form = document.getElementById('order-form-container');
+            const clear = document.getElementById('clear-cart-btn');
 
             if (cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 opacity-30 text-xl font-bold uppercase tracking-widest">Basket Empty</div>';
-                totalEl.innerHTML = "&#8377;0";
-                countEl.classList.add('hidden');
-                mobBtn.classList.add('hidden');
-                return;
+                container.innerHTML = '<div class="text-center py-20 opacity-20"><i class="fas fa-shopping-basket text-5xl mb-4"></i><p>Basket Empty</p></div>';
+                totalEl.innerHTML = "&#8377;0"; document.getElementById('cart-count').classList.add('hidden');
+                mobBtn.classList.add('hidden'); form.classList.add('hidden'); clear.classList.add('hidden'); return;
             }
 
+            form.classList.remove('hidden'); clear.classList.remove('hidden');
             const totalQty = cart.reduce((a, b) => a + b.qty, 0);
-            countEl.innerText = totalQty;
-            countEl.classList.remove('hidden');
+            document.getElementById('cart-count').innerText = totalQty;
+            document.getElementById('cart-count').classList.remove('hidden');
             mobBtn.classList.remove('hidden');
             document.getElementById('mobile-cart-text').innerText = `${totalQty} Items Added`;
-            document.getElementById('cart-items-count').innerText = `${totalQty} ITEMS SELECTED`;
+            document.getElementById('cart-items-count').innerText = `${totalQty} Items in Basket`;
 
             let total = 0;
             container.innerHTML = cart.map((item, idx) => {
                 total += item.price * item.qty;
-                return `
-                    <div class="bg-gray-50 p-4 rounded-[2rem] border border-gray-100 flex justify-between items-center shadow-inner animate-fadeIn">
-                        <div>
-                            <p class="font-bold text-gray-800 text-sm leading-tight">${item.name}</p>
-                            <p class="text-[9px] text-orange-600 font-black uppercase tracking-widest mt-1">${item.variant}</p>
-                            <p class="text-sm font-black mt-1 text-gray-900">&#8377;${item.price * item.qty}</p>
-                        </div>
-                        <div class="flex items-center gap-3 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm">
-                            <button onclick="changeQty(${idx}, -1)" class="w-7 h-7 bg-gray-100 rounded-lg text-lg font-bold flex items-center justify-center">-</button>
-                            <span class="font-bold w-4 text-center">${item.qty}</span>
-                            <button onclick="changeQty(${idx}, 1)" class="w-7 h-7 bg-gray-100 rounded-lg text-lg font-bold flex items-center justify-center">+</button>
-                        </div>
-                    </div>
-                `;
+                return `<div class="bg-white p-4 rounded-2xl border border-gray-100 flex justify-between items-center shadow-sm">
+                        <div class="pr-4"><p class="font-bold text-gray-800 text-sm leading-tight">${item.name}</p><p class="text-[9px] text-red-600 font-bold mt-1 uppercase">${item.variant}</p><p class="text-sm font-bold mt-2 text-gray-900">&#8377;${item.price * item.qty}</p></div>
+                        <div class="flex items-center gap-3 bg-gray-50 p-2 rounded-xl border border-gray-100"><button onclick="changeQty(${idx}, -1)" class="w-7 h-7 bg-white rounded-lg flex items-center justify-center shadow-sm">-</button><span class="font-bold text-sm w-4 text-center">${item.qty}</span><button onclick="changeQty(${idx}, 1)" class="w-7 h-7 bg-white rounded-lg flex items-center justify-center shadow-sm">+</button></div>
+                    </div>`;
             }).join('');
             totalEl.innerHTML = `&#8377;${total}`;
-            mobTotal.innerHTML = `&#8377;${total}`;
+            document.getElementById('mobile-cart-total').innerHTML = `&#8377;${total}`;
         }
 
+        function clearCart() { if(confirm("Empty Basket?")) { cart = []; updateCartUI(); } }
         function filterMenu() {
             const query = document.getElementById('menu-search').value.toLowerCase();
-            const items = document.querySelectorAll('.bg-white[id^="card-"]');
-            const groups = document.querySelectorAll('.menu-category-group');
-            const noRes = document.getElementById('no-results');
-
-            let totalVisible = 0;
-
+            const items = document.querySelectorAll('[id^="card-"]');
+            const groups = document.querySelectorAll('.menu-group');
+            let found = 0;
             items.forEach(item => {
-                const name = item.getAttribute('data-name');
-                const cat = item.getAttribute('data-cat');
-                const match = name.includes(query) || cat.includes(query);
-                item.classList.toggle('hidden', !match);
-                if(match) totalVisible++;
+                const match = item.getAttribute('data-name').includes(query) || item.getAttribute('data-cat').includes(query);
+                item.classList.toggle('hidden', !match); if(match) found++;
             });
-
-            groups.forEach(group => {
-                const visibleInGroup = group.querySelectorAll('.bg-white[id^="card-"]:not(.hidden)');
-                group.classList.toggle('hidden', visibleInGroup.length === 0);
-            });
-
-            noRes.classList.toggle('hidden', totalVisible > 0);
+            groups.forEach(g => { g.classList.toggle('hidden', g.querySelectorAll('[id^="card-"]:not(.hidden)').length === 0); });
+            document.getElementById('no-results').classList.toggle('hidden', found > 0);
         }
 
         function scrollToCategory(id, btn) {
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const nav = document.getElementById('category-nav');
-            const offset = btn.offsetLeft - (nav.offsetWidth / 2) + (btn.offsetWidth / 2);
-            nav.scrollLeft = offset;
-
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+            const nav = document.getElementById('category-nav'); nav.scrollLeft = btn.offsetLeft - (nav.offsetWidth / 2) + (btn.offsetWidth / 2);
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        function changeQty(i, d) {
-            cart[i].qty += d;
-            if (cart[i].qty <= 0) cart.splice(i, 1);
-            updateCartUI();
-        }
-
-        function toggleCart() {
-            document.getElementById('cart-sidebar').classList.toggle('open');
-            document.getElementById('cart-overlay').classList.toggle('hidden');
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
+        function toggleMobileMenu() { const m = document.getElementById('mobile-menu'); m.classList.toggle('hidden'); m.classList.toggle('flex'); }
+        function changeQty(i, d) { cart[i].qty += d; if (cart[i].qty <= 0) cart.splice(i, 1); updateCartUI(); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); document.getElementById('cart-overlay').classList.toggle('hidden'); }
         function setOrderType(t) {
-            orderType = t;
-            document.getElementById('btn-pickup').className = t === 'Pickup' ? 'py-2 rounded-lg font-bold text-sm bg-orange-700 text-white shadow-md' : 'py-2 rounded-lg font-bold text-sm text-gray-500';
-            document.getElementById('btn-delivery').className = t === 'Delivery' ? 'py-2 rounded-lg font-bold text-sm bg-orange-700 text-white shadow-md' : 'py-2 rounded-lg font-bold text-sm text-gray-500';
+            orderType = t; const p = document.getElementById('btn-pickup'); const d = document.getElementById('btn-delivery');
+            if(t === 'Pickup') { p.className = "py-2 rounded-lg font-bold text-xs bg-red-600 text-white shadow"; d.className = "py-2 rounded-lg font-bold text-xs text-gray-500"; }
+            else { d.className = "py-2 rounded-lg font-bold text-xs bg-red-600 text-white shadow"; p.className = "py-2 rounded-lg font-bold text-xs text-gray-500"; }
             document.getElementById('delivery-address-box').classList.toggle('hidden', t === 'Pickup');
         }
 
         function sendOrder() {
             if (cart.length === 0) return;
+            const name = document.getElementById('order-name').value;
+            const phone = document.getElementById('order-phone').value;
             const address = document.getElementById('order-address').value;
-            if (orderType === 'Delivery' && !address) return alert("Pura Address toh likho bhaiya!");
-
+            if (orderType === 'Delivery' && (!name || !phone || !address)) return alert("Fill delivery details!");
             let total = 0;
-            let itemsText = cart.map(i => {
-                total += i.price * i.qty;
-                return ` *${i.name}* [${i.variant}] x${i.qty} = ?${i.price * i.qty}`;
-            }).join('\n');
-
-            const msg = encodeURIComponent(
-                `?? *NEW RESTAURANT ORDER*\n` +
-                `????????????????????\n` +
-                `?? *Type:* ${orderType.toUpperCase()}\n` +
-                `????????????????????\n` +
-                `${itemsText}\n` +
-                `????????????????????\n` +
-                `?? *TOTAL BILL: ?${total}*\n` +
-                (orderType === 'Delivery' ? `?? *Address:* ${address}` : '')
-            );
+            let items = cart.map(i => { total += i.price * i.qty; return `??? *${i.name}* [ID: ${i.id}] (${i.variant}) x${i.qty} = ?${i.price * i.qty}`; }).join('\n');
+            let details = orderType === 'Delivery' ? `????????????????????\n?? *Customer:* ${name.toUpperCase()}\n?? *Phone:* ${phone}\n?? *Address:* ${address.toUpperCase()}\n` : '';
+            const msg = encodeURIComponent(`?? *NEW ORDER - DEMO 1*\n????????????????????\n?? *Type:* ${orderType.toUpperCase()}\n????????????????????\n${items}\n????????????????????\n?? *BILL: ?${total}*\n${details}\nKindly confirm!`);
             window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
         }
 
         function sendContactMessage(e) {
             e.preventDefault();
-            const name = document.getElementById('contact-name').value;
-            const subject = document.getElementById('contact-subject').value;
-            const msg = document.getElementById('contact-message').value;
-            const final = encodeURIComponent(`?? *Inquiry from Website*\n\n?? *Name:* ${name}\n?? *Subject:* ${subject}\n?? *Message:* ${msg}`);
-            window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${final}`;
+            const n = document.getElementById('contact-name').value;
+            const s = document.getElementById('contact-subject').value;
+            const m = document.getElementById('contact-message').value;
+            window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`?? *Web Inquiry*\n\n?? *Client:* ${n}\n?? *Subject:* ${s}\n?? *Message:* ${m}`)}`;
         }
 
         window.onload = fetchMenu;
     </script>
 </body>
-
 </html>
