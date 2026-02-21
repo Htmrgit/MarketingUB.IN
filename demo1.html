@@ -555,7 +555,7 @@
             let total = 0;
             let itemsText = cart.map(i => {
                 total += i.price * i.qty;
-                return `• *${i.name}* [${i.variant}] x${i.qty} = ?${i.price * i.qty}`;
+                return `Â• *${i.name}* [${i.variant}] x${i.qty} = ?${i.price * i.qty}`;
             }).join('\n');
 
             const msg = encodeURIComponent(
@@ -583,4 +583,5 @@
         window.onload = fetchMenu;
     </script>
 </body>
+
 </html>
