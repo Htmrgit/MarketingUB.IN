@@ -1,1 +1,609 @@
 
+
+AI Overview
+Content details two business websites, one for Rawat Properties in Ghaziabad real estate and another for S.R. Coaching Centre in Indirapuram.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Advanced SEO - Ghaziabad Property Market optimized -->
+    <title>Rawat Properties | Luxury Real Estate Ghaziabad - Vasundhara & Indirapuram</title>
+    <meta name="description" content="Rawat Properties offers premium residential and commercial properties in Ghaziabad. 15+ years of expertise. Find 2BHK, 3BHK flats and shops.">
+    <meta name="keywords" content="Rawat Properties Ghaziabad, Property Dealer Vasundhara, Real Estate Agent Indirapuram, MarketingUB">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* COLOR PALETTE: BLUE, WHITE, ORANGE */
+            --brand-blue: #1e3a8a;      
+            --brand-orange: #f97316;    
+            --brand-white: #ffffff;
+            --brand-light-blue: #eff6ff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-main: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; background-color: var(--brand-white); }
+        body { color: var(--text-dark); overflow-x: hidden; background-color: #fcfcfc; }
+
+        /* Custom Progress Bar (Orange) */
+        #page-loader-bar {
+            position: fixed; top: 0; left: 0; height: 4px; background: var(--brand-orange);
+            width: 0; z-index: 10001; transition: width 0.4s ease;
+        }
+
+        /* Navigation - Right Aligned Menu */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .nav-inner {
+            max-width: 1400px; margin: 0 auto; display: flex;
+            justify-content: space-between; align-items: center; padding: 1rem 1.5rem;
+        }
+        .brand { font-size: 1.5rem; font-weight: 800; color: var(--brand-blue); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .brand span { color: var(--brand-orange); }
+
+        .nav-links { display: flex; gap: 0.5rem; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.9rem; 
+            padding: 10px 18px; border-radius: 50px; transition: var(--transition);
+        }
+        .nav-links a.active { background: var(--brand-blue); color: #fff; }
+        .nav-links a:hover:not(.active) { color: var(--brand-orange); background: var(--brand-light-blue); }
+
+        .menu-btn { cursor: pointer; color: var(--brand-blue); font-size: 1.8rem; display: none; }
+
+        /* Right Sidebar Drawer */
+        .drawer { 
+            position: fixed; top: 0; right: -100%; width: 320px; height: 100vh; 
+            background: var(--brand-white); z-index: 2000; transition: var(--transition); padding: 3rem 2rem;
+            display: flex; flex-direction: column; gap: 1.2rem; box-shadow: -15px 0 50px rgba(0,0,0,0.1);
+        }
+        .drawer.active { right: 0; }
+        .drawer-overlay { position: fixed; inset: 0; background: rgba(30, 58, 138, 0.4); z-index: 1999; display: none; backdrop-filter: blur(8px); }
+        .drawer-overlay.active { display: block; }
+        .drawer a { text-decoration: none; color: var(--brand-blue); font-weight: 800; font-size: 1.2rem; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+
+        /* Dynamic View Container */
+        .view { display: none; padding-top: 85px; min-height: 100vh; animation: viewFade 0.6s ease; }
+        .view.active { display: block; }
+        @keyframes viewFade { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Hero */
+        .hero { padding: 60px 1.5rem; text-align: center; max-width: 1200px; margin: 0 auto; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.2rem); font-weight: 900; line-height: 1; margin-bottom: 1.5rem; color: var(--brand-blue); letter-spacing: -2.5px; }
+        .hero h1 mark { background: none; color: var(--brand-orange); }
+        .hero p { color: var(--text-muted); font-size: 1.25rem; margin-bottom: 3.5rem; max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+
+        .search-pill {
+            max-width: 700px; margin: 0 auto 3rem; display: flex; background: #fff;
+            padding: 6px; border-radius: 100px; border: 2px solid var(--brand-blue); box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1);
+        }
+        .search-pill input { flex: 1; border: none; outline: none; padding: 0 25px; font-size: 1.1rem; color: var(--brand-blue); font-weight: 600; }
+        .search-pill button { background: var(--brand-orange); color: white; border: none; padding: 15px 40px; border-radius: 100px; font-weight: 800; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3); }
+
+        /* Property Cards Grid */
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2.5rem; padding: 2rem 1.5rem; max-width: 1400px; margin: 0 auto;
+        }
+        .card { border-radius: var(--radius-main); overflow: hidden; background: white; border: 1px solid var(--border-color); transition: var(--transition); position: relative; }
+        .card:hover { transform: translateY(-12px); border-color: var(--brand-orange); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+        .card-img { width: 100%; height: 250px; overflow: hidden; position: relative; background: #f0f4f8; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .card:hover .card-img img { transform: scale(1.1); }
+        .card-tag { position: absolute; top: 15px; left: 15px; background: var(--brand-blue); color: white; padding: 6px 14px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; z-index: 2; }
+
+        .card-body { padding: 2rem; }
+        .card-body h3 { color: var(--brand-blue); font-size: 1.4rem; margin-bottom: 12px; font-weight: 800; line-height: 1.2; }
+        .card-body p { font-size: 0.95rem; color: var(--text-light); display: flex; align-items: center; gap: 8px; }
+        .card-price { font-size: 1.6rem; color: var(--brand-blue); font-weight: 900; margin-top: 1.2rem; display: block; }
+        
+        .btn-card { width: 100%; margin-top: 1.5rem; padding: 16px; border: none; background: var(--brand-blue); color: white; border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-card:hover { background: var(--brand-orange); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25); }
+
+        /* Category Filters */
+        .filter-scroller { display: flex; gap: 12px; overflow-x: auto; padding: 1.2rem 1.5rem; background: #fff; position: sticky; top: 75px; z-index: 901; border-bottom: 1px solid var(--border-color); scrollbar-width: none; }
+        .filter-scroller::-webkit-scrollbar { display: none; }
+        .chip { padding: 10px 24px; background: var(--brand-light-blue); color: var(--brand-blue); border-radius: 50px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.3s; white-space: nowrap; border: 1.5px solid transparent; }
+        .chip.active { background: var(--brand-orange); color: white; border-color: var(--brand-orange); }
+
+        /* CONNECT MODAL */
+        .modal { position: fixed; inset: 0; background: rgba(30, 58, 138, 0.4); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 1.5rem; backdrop-filter: blur(10px); }
+        .modal.active { display: flex; }
+        .modal-content { background: white; width: 100%; max-width: 480px; border-radius: 32px; padding: 3rem; position: relative; animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 40px 100px rgba(0,0,0,0.2); }
+        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-close { position: absolute; top: 25px; right: 25px; cursor: pointer; color: var(--text-muted); }
+        .modal-h { font-size: 1.8rem; font-weight: 900; color: var(--brand-blue); margin-bottom: 0.75rem; letter-spacing: -1px; }
+        .modal-p { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.6; }
+
+        /* PROCESS TIMELINE */
+        .timeline-section { padding: 100px 1.5rem; background: var(--brand-blue); color: white; border-radius: 40px; margin: 3rem 1.5rem; text-align: center; }
+        .timeline-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3.5rem; max-width: 1200px; margin: 5rem auto 0; }
+        .step-num { width: 65px; height: 65px; background: var(--brand-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; margin: 0 auto 2rem; border: 6px solid rgba(255,255,255,0.15); }
+
+        /* FORM SECTION */
+        .connect-box { max-width: 1100px; margin: 5rem auto; background: #fff; border-radius: 40px; border: 1px solid var(--border-color); overflow: hidden; display: grid; grid-template-columns: 1fr 1.3fr; box-shadow: 0 50px 100px -20px rgba(30, 58, 138, 0.15); }
+        .connect-info { background: var(--brand-blue); color: white; padding: 5rem 4rem; }
+        .connect-form { padding: 5rem 4rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-label { font-weight: 800; font-size: 0.85rem; color: var(--brand-blue); text-transform: uppercase; margin-bottom: 10px; display: block; letter-spacing: 0.5px; }
+        .input-box { width: 100%; padding: 16px; border-radius: 14px; border: 2px solid #f1f5f9; margin-bottom: 1.8rem; font-size: 1rem; outline: none; transition: 0.3s; background: #f8fafc; font-weight: 600; color: var(--text-dark); }
+        .input-box:focus { border-color: var(--brand-orange); background: #fff; box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1); }
+        select.input-box { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231e3a8a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; }
+
+        /* MODERN PREMIUM CTA BUTTON (WHATSAPP) */
+        .btn-orange { 
+            width: 100%; 
+            padding: 18px 30px; 
+            background: linear-gradient(135deg, var(--brand-orange) 0%, #ea580c 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 14px; 
+            font-weight: 800; 
+            font-size: 1.1rem; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+        .btn-orange::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.6s ease;
+        }
+        .btn-orange:hover { 
+            transform: translateY(-4px) scale(1.01); 
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.3);
+            filter: brightness(1.05);
+        }
+        .btn-orange:hover::before {
+            left: 100%;
+        }
+        .btn-orange:active {
+            transform: translateY(-1px);
+        }
+
+        /* Floating Contact */
+        .contact-stack { position: fixed; bottom: 35px; right: 35px; display: flex; flex-direction: column; gap: 15px; z-index: 1001; }
+        .fab { width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 35px rgba(30, 58, 138, 0.2); transition: 0.4s; color: white; text-decoration: none; }
+        .fab-wa { background: #25d366; }
+        .fab-blue { background: var(--brand-blue); }
+        .fab:hover { transform: scale(1.15) rotate(10deg); }
+
+        /* Footer */
+        footer { padding: 100px 1.5rem 50px; background: #0a0f1d; color: white; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 5rem; }
+        .footer-col h4 { color: var(--brand-orange); margin-bottom: 2.5rem; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; }
+        .footer-col p { opacity: 0.6; margin-bottom: 12px; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .footer-col p:hover { opacity: 1; color: var(--brand-orange); padding-left: 5px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 7rem; padding-top: 35px; text-align: center; font-size: 0.95rem; opacity: 0.4; }
+        .mub-link { color: var(--brand-orange); text-decoration: none; font-weight: 800; }
+
+        @media (max-width: 1024px) {
+            .connect-box { grid-template-columns: 1fr; border-radius: 0; }
+            .nav-links { display: none; }
+            .menu-btn { display: block; }
+            .hero { padding-top: 40px; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.2rem; }
+            .grid { grid-template-columns: 1fr; padding: 1rem; }
+            .connect-info, .connect-form { padding: 3.5rem 2rem; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .footer-grid { grid-template-columns: 1fr; gap: 4rem; }
+        }
+    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div id="page-loader-bar"></div>
+
+    <!-- Right Drawer -->
+    <div class="drawer-overlay" id="overlay" onclick="toggleDrawer()"></div>
+    <div class="drawer" id="drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem;">
+            <div class="brand">RAWAT <span>PROPERTIES</span></div>
+            <i data-lucide="x" onclick="toggleDrawer()" style="cursor: pointer; color: var(--brand-orange);"></i>
+        </div>
+        <a onclick="navigate('home')">Home Page</a>
+        <a onclick="navigate('inventory')">Verified Inventory</a>
+        <a onclick="navigate('reviews')">Customer Reviews</a>
+        <a onclick="navigate('contact')">Connect with Us</a>
+        <a href="tel:+919999102678" style="background: var(--brand-orange); color: white; border-radius: 12px; margin-top: 2rem; text-align: center; padding: 16px;">Call Office</a>
+    </div>
+
+    <!-- LEAD MODAL -->
+    <div class="modal" id="leadModal">
+        <div class="modal-content">
+            <i data-lucide="x" class="modal-close" onclick="closeModal()"></i>
+            <h2 class="modal-h">Property Details</h2>
+            <p class="modal-p" id="modalPropTitle">Please share your contact to receive the floor plan and pricing on WhatsApp.</p>
+            
+            <form id="modalLeadForm">
+                <input type="hidden" id="hiddenPropName">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="m-name" class="input-box" placeholder="Enter Name" required>
+                
+                <label class="form-label">WhatsApp Number</label>
+                <input type="tel" id="m-phone" class="input-box" placeholder="+91 XXXXX XXXXX" required>
+                
+                <button type="submit" class="btn-orange">
+                    <i data-lucide="message-circle"></i> GET DETAILS ON WHATSAPP
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <nav>
+        <div class="nav-inner">
+            <a onclick="navigate('home')" class="brand">RAWAT <span>PROPERTIES</span></a>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <div class="nav-links">
+                    <a onclick="navigate('home')" id="nav-home" class="active">Home</a>
+                    <a onclick="navigate('inventory')" id="nav-inventory">Inventory</a>
+                    <a onclick="navigate('reviews')" id="nav-reviews">Reviews</a>
+                    <a onclick="navigate('contact')" id="nav-contact">Contact</a>
+                </div>
+                <div class="menu-btn" onclick="toggleDrawer()"><i data-lucide="menu" size="28"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME VIEW -->
+    <div id="home-view" class="view active">
+        <header class="hero">
+            <h1>Sahi Property <br><mark>Sahi Daam.</mark></h1>
+            <p>Direct verified properties in Ghaziabad's prime sectors. We simplify property buying with 100% transparency and zero hidden brokerages.</p>
+            <div class="search-pill">
+                <input type="text" id="homeSearchInput" placeholder="Vasundhara, 3BHK, Indirapuram...">
+                <button onclick="handleSearch()">Search</button>
+            </div>
+        </header>
+
+        <section style="background: var(--brand-light-blue); padding: 100px 0;">
+            <div style="max-width: 1400px; margin: 0 auto; padding: 0 1.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3.5rem;">
+                    <h2 style="font-size: 2.2rem; font-weight: 900; color: var(--brand-blue); letter-spacing: -1.5px;">Premium Deals</h2>
+                    <button onclick="navigate('inventory')" style="background: none; border: none; color: var(--brand-orange); font-weight: 800; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">Explore All <i data-lucide="chevron-right"></i></button>
+                </div>
+                <div class="grid" id="featuredGrid"></div>
+            </div>
+        </section>
+
+        <!-- Process Timeline -->
+        <section class="timeline-section">
+            <h2 style="font-size: 2.8rem; font-weight: 900;">Modern Home Buying</h2>
+            <div class="timeline-container">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <h4 style="color:var(--brand-orange); font-size:1.5rem; margin-bottom:12px; font-weight: 800;">Select Property</h4>
+                    <p>Browse our 100% verified and legally checked inventory list.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <h4 style="color:var(--brand-orange); font-size:1.5rem; margin-bottom:12px; font-weight: 800;">Site Visit</h4>
+                    <p>Schedule a private tour with our senior property consultants.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <h4 style="color:var(--brand-orange); font-size:1.5rem; margin-bottom:12px; font-weight: 800;">Transparent Deal</h4>
+                    <p>Documentation support and smooth closing for your dream home.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Scrolling Lead Form Container -->
+        <div id="quick-contact-home"></div>
+    </div>
+
+    <!-- INVENTORY VIEW -->
+    <div id="inventory-view" class="view">
+        <div class="filter-scroller">
+            <div class="chip active" onclick="filterData('All', this)">All Listings</div>
+            <div class="chip" onclick="filterData('Sale', this)">For Purchase</div>
+            <div class="chip" onclick="filterData('Rent', this)">For Rent</div>
+            <div class="chip" onclick="filterData('Luxury', this)">Luxury Collection</div>
+            <div class="chip" onclick="filterData('Vasundhara', this)">Vasundhara</div>
+            <div class="chip" onclick="filterData('Indirapuram', this)">Indirapuram</div>
+        </div>
+        <div class="grid" id="mainInventoryGrid"></div>
+    </div>
+
+    <!-- REVIEWS VIEW -->
+    <div id="reviews-view" class="view">
+        <section style="text-align: center; padding: 100px 1.5rem; background: #fff;">
+            <h2 style="font-size: 3rem; font-weight: 900; color: var(--brand-blue); letter-spacing: -2px;">Trust in Action</h2>
+            <div style="display: flex; justify-content: center; gap: 8px; color: #fbbf24; margin: 2rem 0;">
+                <i data-lucide="star" fill="currentColor" size="28"></i><i data-lucide="star" fill="currentColor" size="28"></i><i data-lucide="star" fill="currentColor" size="28"></i><i data-lucide="star" fill="currentColor" size="28"></i><i data-lucide="star" fill="currentColor" size="28"></i>
+                <span style="color: var(--text-dark); font-weight: 900; margin-left: 15px; font-size: 1.5rem;">5.0</span>
+            </div>
+            <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 4rem;">Verified feedback from 60+ families in Ghaziabad</p>
+
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));">
+                <div class="review-card">
+                    <div class="stars"><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i></div>
+                    <p style="font-style: italic; line-height: 1.8; font-size: 1.15rem; color: var(--text-dark);">"Best service, Best communication, and best guidance. Lowest price and all. Highly recommend Rawat Properties for a smooth deal."</p>
+                    <strong style="display: block; margin-top: 2rem; color: var(--brand-blue); font-size: 1.1rem;">BOOK BHARAT YATRA</strong>
+                    <span style="color: var(--brand-orange); font-size: 0.85rem; font-weight: 800;">Local Guide • Google Verified</span>
+                </div>
+                <div class="review-card">
+                    <div class="stars"><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i><i data-lucide="star" size="18" fill="currentColor"></i></div>
+                    <p style="font-style: italic; line-height: 1.8; font-size: 1.15rem; color: var(--text-dark);">"Really happy with the services. Highly professional team. They helped me find my dream home in Indirapuram in no time."</p>
+                    <strong style="display: block; margin-top: 2rem; color: var(--brand-blue); font-size: 1.1rem;">Md. Faraz</strong>
+                    <span style="color: var(--brand-orange); font-size: 0.85rem; font-weight: 800;">Verified Homeowner</span>
+                </div>
+            </div>
+
+            <a href="https://www.google.com/search?q=RAWAT+PROPERTIES&rlz=1C1VDKB_enIN1146IN1146&sourceid=chrome&ie=UTF-8&lqi=ChBSQVdBVCBQUk9QRVJUSUVTSKKsqP_GvoCACFoaEAAQARgAGAEiEHJhd2F0IHByb3BlcnRpZXOSARJyZWFsX2VzdGF0ZV9hZ2VuY3k#rlimm=8583817723045240689" target="_blank" style="display: inline-flex; align-items: center; gap: 12px; margin-top: 5rem; padding: 20px 45px; background: #4285F4; color: white; border-radius: 100px; text-decoration: none; font-weight: 900; box-shadow: 0 20px 40px rgba(66, 133, 244, 0.3); transition: 0.3s;">
+                <i data-lucide="external-link"></i> VIEW RAWAT PROPERTIES ON GOOGLE
+            </a>
+        </section>
+    </div>
+
+    <!-- CONTACT VIEW (FRONT AND CENTER CONNECT) -->
+    <div id="contact-view" class="view">
+        <div class="connect-box">
+            <div class="connect-info">
+                <h2 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 2rem; line-height: 1.1; letter-spacing: -2px;">Connect with <br>Senior Advisors</h2>
+                <p style="opacity: 0.85; line-height: 1.8; font-size: 1.15rem; margin-bottom: 4rem;">Get professional guidance on property valuation, site visits, and the latest market rates in Ghaziabad NCR.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 25px;">
+                    <p style="display:flex; align-items:center; gap:12px; font-weight: 600;"><i data-lucide="map-pin" color="var(--brand-orange)"></i> GF 17, Reliable City Centre, Vasundhara</p>
+                    <p style="display:flex; align-items:center; gap:12px; font-weight: 600;"><i data-lucide="phone-call" color="var(--brand-orange)"></i> +91 99991 02678</p>
+                    <p style="display:flex; align-items:center; gap:12px; font-weight: 600;"><i data-lucide="clock-4" color="var(--brand-orange)"></i> Daily: 10:00 AM - 08:00 PM</p>
+                </div>
+            </div>
+            <div class="connect-form" id="main-contact-form">
+                <form id="directLeadForm">
+                    <div class="form-row">
+                        <div style="flex:1">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="dl-name" class="input-box" placeholder="Your Name" required>
+                        </div>
+                        <div style="flex:1">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="tel" id="dl-phone" class="input-box" placeholder="99999 XXXXX" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div style="flex:1">
+                            <label class="form-label">Property Type</label>
+                            <select id="dl-type" class="input-box">
+                                <option value="2BHK Flat">2BHK Apartment</option>
+                                <option value="3BHK Flat">3BHK Apartment</option>
+                                <option value="Independent Floor">Independent Floor</option>
+                                <option value="Commercial Shop">Commercial Shop</option>
+                                <option value="Office Space">Office Space</option>
+                            </select>
+                        </div>
+                        <div style="flex:1">
+                            <label class="form-label">Locality Preference</label>
+                            <select id="dl-loc" class="input-box">
+                                <option value="Vasundhara">Vasundhara</option>
+                                <option value="Indirapuram">Indirapuram</option>
+                                <option value="Vaishali">Vaishali</option>
+                                <option value="Siddharth Vihar">Siddharth Vihar</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="form-label">Budget & Specific Requirements</label>
+                    <textarea id="dl-msg" class="input-box" rows="3" placeholder="e.g. Budget 80L, near Metro..."></textarea>
+                    
+                    <button type="submit" class="btn-orange">
+                        <i data-lucide="message-circle"></i> SUBMIT & CHAT ON WHATSAPP
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact-stack">
+        <a href="tel:+919999102678" class="fab fab-blue"><i data-lucide="phone"></i></a>
+        <a href="https://wa.me/919999102678" class="fab fab-wa"><i data-lucide="message-circle"></i></a>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand" style="color:#fff">RAWAT <span>PROPERTIES</span></div>
+                <p style="opacity: 0.6; line-height: 2; margin-top: 1.5rem; font-size: 1rem;">Building legacies in Ghaziabad real estate since 2007. Trusted by over 500 families for transparent and legally verified deals.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Access</h4>
+                <p onclick="navigate('home')">Home Page</p>
+                <p onclick="navigate('inventory')">Latest Inventory</p>
+                <p onclick="navigate('reviews')">Customer Feedbacks</p>
+                <p onclick="navigate('contact')">Book Visit</p>
+            </div>
+            <div class="footer-col">
+                <h4>Top Localities</h4>
+                <p>Vasundhara Sector 6</p>
+                <p>Indirapuram Niti Khand</p>
+                <p>Vaishali Sector 4</p>
+                <p>Siddharth Vihar</p>
+            </div>
+            <div class="footer-col">
+                <h4>Property Support</h4>
+                <p>Sell My Property</p>
+                <p>Rent My Flat</p>
+                <p>Property Valuation</p>
+                <p>Documentation Check</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy;2026 Rawat Properties. All Rights Reserved |Licensed Real Estate Agency Ghaziabad. <br> 
+            Developed by <a href="https://marketingub.in/#home" class="mub-link" target="_blank">MarketingUB</a></p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // High Resolution Indian Property Data (Aesthetic selection)
+        const propertyList = [
+            { id: 1, title: "Modern 3BHK Penthouse with Private Terrace", loc: "Vasundhara Sector 6", price: "₹95 Lacs", type: "Sale", cat: "Luxury", img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800" },
+            { id: 2, title: "Designer 2BHK Independent Floor - Zero Brokerage", loc: "Indirapuram, Niti Khand", price: "₹62 Lacs", type: "Sale", cat: "Sale", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800" },
+            { id: 3, title: "High-Rise 3BHK Apartment - Semi Furnished", loc: "Vaishali Sector 4", price: "₹82 Lacs", type: "Sale", cat: "Sale", img: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800" },
+            { id: 4, title: "High-Street Commercial Shop - Near Entrance", loc: "Reliable City Centre", price: "₹45k /mo", type: "Rent", cat: "Commercial", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800" },
+            { id: 5, title: "Fully Furnished Modern Executive Office", loc: "Navyug Market", price: "₹1.5 Cr", type: "Sale", cat: "Commercial", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800" },
+            { id: 6, title: "Luxury 4BHK Villa in Gated Community", loc: "Rajnagar Extension", price: "₹2.15 Cr", type: "Sale", cat: "Luxury", img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=800" }
+        ];
+
+        function navigate(viewName) {
+            const bar = document.getElementById('page-loader-bar');
+            bar.style.width = '50%';
+            setTimeout(() => {
+                bar.style.width = '100%';
+                document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+                document.getElementById(viewName + '-view').classList.add('active');
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                const link = document.getElementById('nav-' + viewName);
+                if(link) link.classList.add('active');
+                window.scrollTo(0, 0);
+                setTimeout(() => bar.style.width = '0', 300);
+            }, 150);
+            if(document.getElementById('drawer').classList.contains('active')) toggleDrawer();
+        }
+
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function handleSearch() {
+            const q = document.getElementById('homeSearchInput').value;
+            navigate('inventory');
+            const filtered = propertyList.filter(p => p.title.toLowerCase().includes(q.toLowerCase()) || p.loc.toLowerCase().includes(q.toLowerCase()));
+            renderCards('mainInventoryGrid', filtered);
+        }
+
+        function filterData(tag, btn) {
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            const results = tag === 'All' ? propertyList : propertyList.filter(p => p.cat === tag || p.type === tag || p.loc.includes(tag));
+            renderCards('mainInventoryGrid', results);
+        }
+
+        function renderCards(gridId, data) {
+            const grid = document.getElementById(gridId);
+            if(!grid) return;
+            grid.innerHTML = '';
+            data.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="card-img" onclick="openLeadModal('${p.title}')">
+                            <img src="${p.img}" alt="${p.title}" loading="lazy">
+                            <div class="card-tag">${p.type}</div>
+                        </div>
+                        <div class="card-body">
+                            <h3>${p.title}</h3>
+                            <p><i data-lucide="map-pin" size="16"></i> ${p.loc}</p>
+                            <span class="card-price">${p.price}</span>
+                            <button class="btn-card" onclick="openLeadModal('${p.title}')">GET FULL DETAILS</button>
+                        </div>
+                    </div>
+                `;
+            });
+            lucide.createIcons();
+        }
+
+        function openLeadModal(title) {
+            document.getElementById('modalPropTitle').innerText = "Requesting details for: " + title;
+            document.getElementById('hiddenPropName').value = title;
+            document.getElementById('leadModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('leadModal').classList.remove('active');
+        }
+
+        // Home view contact form setup
+        function setupHomeContact() {
+            const formContainer = document.getElementById('quick-contact-home');
+            if(formContainer) {
+                const clone = document.getElementById('main-contact-form').cloneNode(true);
+                clone.id = "home-scrolled-contact";
+                formContainer.appendChild(clone);
+                
+                const header = document.createElement('h2');
+                header.innerHTML = "Start Your Property Search";
+                header.style.textAlign = "center";
+                header.style.fontSize = "2.5rem";
+                header.style.fontWeight = "900";
+                header.style.marginBottom = "3rem";
+                header.style.color = "var(--brand-blue)";
+                header.style.marginTop = "4rem";
+                formContainer.prepend(header);
+                
+                const clonedForm = clone.querySelector('#directLeadForm');
+                clonedForm.id = "clonedDirectLeadForm";
+                clonedForm.addEventListener('submit', handleDirectSubmit);
+            }
+        }
+
+        function handleDirectSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('[id*="-name"]').value;
+            const phone = form.querySelector('[id*="-phone"]').value;
+            const type = form.querySelector('[id*="-type"]')?.value || "General";
+            const loc = form.querySelector('[id*="-loc"]')?.value || "General";
+            const msg = form.querySelector('[id*="-msg"]').value;
+
+            const finalMsg = `*General Inquiry*%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Interested In:* ${type}%0A*Preferred Locality:* ${loc}%0A*Notes:* ${msg}`;
+            window.open(`https://wa.me/919999102678?text=${encodeURIComponent(finalMsg)}`, '_blank');
+        }
+
+        // Modal lead form submission
+        document.getElementById('modalLeadForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('m-name').value;
+            const phone = document.getElementById('m-phone').value;
+            const prop = document.getElementById('hiddenPropName').value;
+            const msg = `*New Property Inquiry*%0A*Property:* ${prop}%0A*Name:* ${name}%0A*Phone:* ${phone}`;
+            window.open(`https://wa.me/919999102678?text=${encodeURIComponent(msg)}`, '_blank');
+            closeModal();
+        });
+
+        document.getElementById('directLeadForm').addEventListener('submit', handleDirectSubmit);
+
+        window.onload = () => {
+            renderCards('featuredGrid', propertyList.slice(0, 3));
+            renderCards('mainInventoryGrid', propertyList);
+            setupHomeContact();
+            lucide.createIcons(); // Final icon refresh
+        };
+    </script>
+</body>
+</html>
