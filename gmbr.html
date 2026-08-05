@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Leave a Review | Marketing Hub Ghaziabad - Instant Google Review</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Share your dining experience in under 30 seconds! Use our AI review assistant to post your Google review instantly.">
+    <meta name="theme-color" content="#16A34A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Leave a Review - Express Feedback">
+    <meta property="og:description" content="Rate your experience and generate a quick review in 1-click.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Marketing Hub Cafe & Bistro",
+      "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
+      "telephone": "+919876543210",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ghaziabad",
+        "addressRegion": "UP",
+        "addressCountry": "IN"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "1250"
+      }
+    }
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            DEFAULT: '#16A34A',
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d'
+                        },
+                        accent: {
+                            DEFAULT: '#F59E0B',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        },
+                        darkbg: '#0F172A'
+                    },
+                    borderRadius: {
+                        '18': '18px',
+                        '24': '24px'
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.02)',
+                        'glow': '0 0 25px -5px rgba(22, 163, 74, 0.3)',
+                        'amber-glow': '0 0 25px -5px rgba(245, 158, 11, 0.4)'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 4s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .dark .glass-pill {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Animated Star Styling */
+        .star-btn {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .star-btn:active {
+            transform: scale(1.3) rotate(12deg);
+        }
+        .star-active {
+            color: #F59E0B;
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] dark:bg-darkbg text-[#111827] dark:text-gray-100 min-h-screen transition-colors duration-300 pb-20 selection:bg-primary-100 selection:text-primary-700">
+
+    <!-- Top Utility Bar / Header Sticky Navigation -->
+    <header class="sticky top-0 z-40 w-full glass-card border-b border-slate-200/50 dark:border-slate-800/50 px-4 py-3 shadow-xs">
+        <div class="max-w-md mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center justify-center h-8 w-8 rounded-full bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-400 font-bold text-xs">
+                    <i class="fa-solid fa-utensils"></i>
+                </span>
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Marketing Hub Cafe</span>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <!-- Dark Mode Toggle Button -->
+                <button id="themeToggle" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all text-sm flex items-center justify-center w-9 h-9" aria-label="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- PWA Install Button (Hidden by default, shown if installable) -->
+                <button id="pwaInstallBtn" class="hidden px-3 py-1.5 rounded-xl bg-primary-600 text-white font-medium text-xs flex items-center gap-1.5 shadow-sm hover:bg-primary-700 transition">
+                    <i class="fa-solid fa-download"></i>
+                    <span>App</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container (Mobile First Layout) -->
+    <main class="max-w-md mx-auto px-4 pt-5 space-y-6">
+
+        <!-- TOP SECTION: Restaurant Brand Profile -->
+        <section class="text-center pt-2 pb-1">
+            <div class="relative inline-block mb-3">
+                <!-- Restaurant Logo Avatar -->
+                <div class="w-24 h-24 rounded-2xl mx-auto shadow-md overflow-hidden bg-white dark:bg-slate-800 p-1.5 border-2 border-primary-500/30">
+                    <img id="restaurantLogo" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=200&h=200&q=80" 
+                         alt="Restaurant Logo" 
+                         class="w-full h-full object-cover rounded-xl"
+                         onerror="this.src='https://placehold.co/200x200/16a34a/ffffff?text=CAFE'">
+                </div>
+                <!-- Verified Badge -->
+                <span class="absolute -bottom-1 -right-1 bg-primary-600 text-white text-xs p-1.5 rounded-full shadow-lg flex items-center justify-center w-7 h-7 border-2 border-white dark:border-slate-900" title="Google Verified Venue">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+            </div>
+
+            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Marketing Hub Cafe
+            </h1>
+            <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">Ghaziabad • Fine Dining & Coffee</p>
+
+            <!-- Overall Rating Stars & Count Badge -->
+            <div class="flex items-center justify-center gap-1.5 mt-2.5">
+                <div class="flex text-amber-400 text-sm">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 bg-amber-500/10 dark:bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-500/20">4.9 (1.2k+ reviews)</span>
+            </div>
+
+            <!-- Warm Greeting Message -->
+            <div class="mt-4 p-3.5 rounded-18 glass-card shadow-soft text-center border-l-4 border-l-primary-600">
+                <p class="text-sm font-semibold text-slate-800 dark:text-slate-100 flex items-center justify-center gap-1.5">
+                    Thank You for Visiting <span class="animate-pulse text-red-500 text-base">❤️</span>
+                </p>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                    Your feedback means a lot to us! Help us grow with a quick review.
+                </p>
+            </div>
+        </section>
+
+        <!-- HERO ILLUSTRATION SECTION -->
+        <section class="relative rounded-24 overflow-hidden bg-gradient-to-br from-primary-500/10 via-amber-500/5 to-slate-100 dark:from-primary-950/40 dark:via-slate-900 dark:to-slate-900 p-5 border border-slate-200/60 dark:border-slate-800/80 shadow-soft">
+            <div class="flex flex-col items-center text-center relative z-10">
+                <!-- SVG Vector Illustration: QR Code + Happy Customer + Phone -->
+                <div class="w-full max-w-[260px] h-48 relative my-1 flex items-center justify-center">
+                    <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-md">
+                        <!-- Background Glow Circle -->
+                        <circle cx="160" cy="110" r="85" fill="#16A34A" fill-opacity="0.12"/>
+                        <circle cx="230" cy="60" r="45" fill="#F59E0B" fill-opacity="0.15"/>
+                        
+                        <!-- Table Surface -->
+                        <path d="M40 180C40 170 80 165 160 165C240 165 280 170 280 180L290 210H30L40 180Z" fill="#CBD5E1" class="dark:fill-slate-700" opacity="0.6"/>
+                        
+                        <!-- Coffee Cup on Table -->
+                        <rect x="70" y="145" width="22" height="24" rx="4" fill="#F59E0B"/>
+                        <path d="M92 150C95 150 97 153 97 157C97 161 95 164 92 164" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M75 140C75 137 77 135 79 135C81 135 81 138 83 138C85 138 85 135 87 135" stroke="#94A3B8" stroke-width="1.5" stroke-linecap="round"/>
+
+                        <!-- Phone Frame Holding Scan Result -->
+                        <rect x="115" y="25" width="90" height="160" rx="16" fill="#0F172A" stroke="#334155" stroke-width="3"/>
+                        <rect x="120" y="35" width="80" height="140" rx="10" fill="#FFFFFF" class="dark:fill-slate-800"/>
+                        <!-- Phone Notch -->
+                        <rect x="145" y="28" width="30" height="4" rx="2" fill="#334155"/>
+
+                        <!-- Inside Phone: Scanning Effect & Google Badge -->
+                        <rect x="130" y="45" width="60" height="60" rx="8" fill="#F0FDF4" stroke="#22C55E" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        <!-- QR Code Graphics inside Phone -->
+                        <rect x="138" y="53" width="18" height="18" fill="#16A34A" rx="2"/>
+                        <rect x="164" y="53" width="18" height="18" fill="#16A34A" rx="2"/>
+                        <rect x="138" y="79" width="18" height="18" fill="#16A34A" rx="2"/>
+                        <rect x="164" y="79" width="8" height="8" fill="#F59E0B" rx="1"/>
+                        <rect x="174" y="89" width="8" height="8" fill="#16A34A" rx="1"/>
+
+                        <!-- Floating Review Pop-up Card -->
+                        <g class="animate-float">
+                            <rect x="160" y="105" width="130" height="60" rx="12" fill="#FFFFFF" class="shadow-lg" filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.12))"/>
+                            <!-- Google 'G' Icon SVG -->
+                            <path d="M175 125C175 120 179 117 184 117C186.5 117 188.5 118 190 119.5L187.5 122C186.8 121.3 185.6 120.5 184 120.5C181.2 120.5 179 122.8 179 125.5C179 128.2 181.2 130.5 184 130.5C187.2 130.5 188.5 128.2 188.7 126.8H184V123.8H192C192.1 124.3 192.2 125 192.2 125.8C192.2 129.8 189.5 133.5 184 133.5C179 133.5 175 129.5 175 125Z" fill="#4285F4"/>
+                            <text x="196" y="127" font-family="sans-serif" font-weight="bold" font-size="9" fill="#111827">5 Stars Customer</text>
+                            <text x="175" y="142" font-family="sans-serif" font-size="12" fill="#F59E0B">★★★★★</text>
+                            <rect x="175" y="148" width="85" height="4" rx="2" fill="#DCFCE7"/>
+                            <rect x="175" y="148" width="55" height="4" rx="2" fill="#16A34A"/>
+                        </g>
+
+                        <!-- Sparkles -->
+                        <path d="M60 50L63 40L66 50L76 53L66 56L63 66L60 56L50 53L60 50Z" fill="#F59E0B"/>
+                        <path d="M260 30L261.5 25L263 30L268 31.5L263 33L261.5 38L260 33L255 31.5L260 30Z" fill="#22C55E"/>
+                    </svg>
+                </div>
+
+                <div class="mt-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-600/10 dark:bg-primary-500/20 text-primary-700 dark:text-primary-300 text-xs font-bold tracking-wide uppercase">
+                        <i class="fa-solid fa-bolt text-amber-500 animate-pulse"></i> Fast 30-Sec Review
+                    </span>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                        Scan, tap your rating, let AI draft your review, and post in seconds!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP SECTION: 3 Easy Steps Cards -->
+        <section class="space-y-3">
+            <h2 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest px-1">How it Works</h2>
+            
+            <div class="grid grid-cols-3 gap-2.5">
+                <!-- STEP 1 -->
+                <div class="glass-card rounded-18 p-3 text-center border border-slate-200/80 dark:border-slate-800 shadow-soft relative overflow-hidden group hover:border-primary-500/50 transition">
+                    <div class="absolute -top-2 -right-2 bg-primary-600 text-white font-extrabold text-[10px] w-6 h-6 rounded-full flex items-center justify-center shadow-xs">
+                        1
+                    </div>
+                    <div class="w-9 h-9 mx-auto rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-2 text-base group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <h3 class="text-xs font-bold text-slate-800 dark:text-slate-200">Rate Us</h3>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-tight">Tap 5 Stars below</p>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="glass-card rounded-18 p-3 text-center border border-slate-200/80 dark:border-slate-800 shadow-soft relative overflow-hidden group hover:border-primary-500/50 transition">
+                    <div class="absolute -top-2 -right-2 bg-primary-600 text-white font-extrabold text-[10px] w-6 h-6 rounded-full flex items-center justify-center shadow-xs">
+                        2
+                    </div>
+                    <div class="w-9 h-9 mx-auto rounded-xl bg-primary-500/10 text-primary-600 dark:text-primary-400 flex items-center justify-center mb-2 text-base group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="text-xs font-bold text-slate-800 dark:text-slate-200">AI Draft</h3>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-tight">Generate text</p>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="glass-card rounded-18 p-3 text-center border border-slate-200/80 dark:border-slate-800 shadow-soft relative overflow-hidden group hover:border-primary-500/50 transition">
+                    <div class="absolute -top-2 -right-2 bg-primary-600 text-white font-extrabold text-[10px] w-6 h-6 rounded-full flex items-center justify-center shadow-xs">
+                        3
+                    </div>
+                    <div class="w-9 h-9 mx-auto rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-2 text-base group-hover:scale-110 transition-transform">
+                        <i class="fa-brands fa-google"></i>
+                    </div>
+                    <h3 class="text-xs font-bold text-slate-800 dark:text-slate-200">Copy & Post</h3>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 leading-tight">Paste on Google</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RATING SECTION: Five Animated Stars -->
+        <section id="ratingSection" class="glass-card rounded-24 p-5 text-center shadow-soft border border-slate-200/80 dark:border-slate-800 relative">
+            <span class="text-xs font-bold text-primary-700 dark:text-primary-400 uppercase tracking-wider bg-primary-100 dark:bg-primary-950/60 px-3 py-1 rounded-full">
+                Step 1 of 2
+            </span>
+            <h2 class="text-lg font-extrabold text-slate-900 dark:text-white mt-2">
+                Rate Your Experience
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Tap a star to give us your score
+            </p>
+
+            <!-- 5 Large Interactive Stars -->
+            <div id="starsContainer" class="flex justify-center items-center gap-2 sm:gap-3 my-5 py-2">
+                <button data-star="1" class="star-btn text-3xl sm:text-4xl text-slate-300 dark:text-slate-700 focus:outline-none" aria-label="1 Star">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+                <button data-star="2" class="star-btn text-3xl sm:text-4xl text-slate-300 dark:text-slate-700 focus:outline-none" aria-label="2 Stars">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+                <button data-star="3" class="star-btn text-3xl sm:text-4xl text-slate-300 dark:text-slate-700 focus:outline-none" aria-label="3 Stars">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+                <button data-star="4" class="star-btn text-3xl sm:text-4xl text-slate-300 dark:text-slate-700 focus:outline-none" aria-label="4 Stars">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+                <button data-star="5" class="star-btn text-3xl sm:text-4xl text-slate-300 dark:text-slate-700 focus:outline-none" aria-label="5 Stars">
+                    <i class="fa-solid fa-star"></i>
+                </button>
+            </div>
+
+            <!-- Dynamic Rating Reaction Badge -->
+            <div id="ratingFeedback" class="h-8 flex items-center justify-center">
+                <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 italic">Tap a star to select...</span>
+            </div>
+        </section>
+
+        <!-- AI REVIEW GENERATOR SECTION -->
+        <section id="aiSection" class="glass-card rounded-24 p-5 shadow-soft border border-slate-200/80 dark:border-slate-800 space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-primary-600 to-amber-500 text-white flex items-center justify-center text-sm shadow-sm">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base font-extrabold text-slate-900 dark:text-white leading-tight">
+                            AI Review Assistant
+                        </h2>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400">Generate a custom review in 1-click</p>
+                    </div>
+                </div>
+                <span class="bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/20">
+                    Smart AI
+                </span>
+            </div>
+
+            <!-- Question 1: What did you enjoy? (Interactive Chips / Multi-select) -->
+            <div>
+                <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">
+                    1. What did you enjoy the most? <span class="text-slate-400 font-normal">(Tap multiple)</span>
+                </label>
+                <div id="enjoyChips" class="flex flex-wrap gap-2">
+                    <button type="button" data-value="Food" class="chip-btn px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 transition flex items-center gap-1.5 shadow-2xs">
+                        <span>🍔</span> Food
+                    </button>
+                    <button type="button" data-value="Service" class="chip-btn px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 transition flex items-center gap-1.5 shadow-2xs">
+                        <span>🤝</span> Service
+                    </button>
+                    <button type="button" data-value="Ambience" class="chip-btn px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 transition flex items-center gap-1.5 shadow-2xs">
+                        <span>✨</span> Ambience
+                    </button>
+                    <button type="button" data-value="Cleanliness" class="chip-btn px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 transition flex items-center gap-1.5 shadow-2xs">
+                        <span>🧼</span> Cleanliness
+                    </button>
+                    <button type="button" data-value="Pricing" class="chip-btn px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 transition flex items-center gap-1.5 shadow-2xs">
+                        <span>💰</span> Value / Pricing
+                    </button>
+                    <button type="button" data-value="Overall" class="chip-btn px-3 py-1.5 rounded-xl text-xs font-medium border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-500 transition flex items-center gap-1.5 shadow-2xs">
+                        <span>❤️</span> Overall Experience
+                    </button>
+                </div>
+            </div>
+
+            <!-- Question 2 & Question 3 Grid: Language & Tone -->
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Question 2: Language -->
+                <div>
+                    <label for="langSelect" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                        2. Language
+                    </label>
+                    <div class="relative">
+                        <select id="langSelect" class="w-full appearance-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-xl px-3 py-2.5 pr-8 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 font-medium transition">
+                            <option value="English" selected>🇬🇧 English</option>
+                            <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+                            <option value="Hinglish">🇮🇳 Hinglish</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400 text-xs">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3: Tone -->
+                <div>
+                    <label for="toneSelect" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                        3. Tone
+                    </label>
+                    <div class="relative">
+                        <select id="toneSelect" class="w-full appearance-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs rounded-xl px-3 py-2.5 pr-8 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 font-medium transition">
+                            <option value="Short" selected>⚡ Short & Crisp</option>
+                            <option value="Friendly">😊 Friendly & Warm</option>
+                            <option value="Professional">👔 Professional</option>
+                            <option value="Luxury">🌟 Luxury / Gourmet</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400 text-xs">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <div>
+                <button id="generateBtn" class="w-full py-3.5 px-4 bg-gradient-to-r from-primary-600 via-primary-500 to-amber-500 text-white font-extrabold text-sm rounded-18 shadow-glow hover:opacity-95 active:scale-[0.98] transition-all flex items-center justify-center gap-2 relative overflow-hidden group">
+                    <span class="absolute inset-0 w-1/2 h-full bg-white/20 skew-x-12 -translate-x-full group-hover:translate-x-[300%] transition-transform duration-1000 ease-out"></span>
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-300 animate-spin-slow"></i>
+                    <span id="generateBtnText">Generate Review with AI</span>
+                </button>
+            </div>
+
+            <!-- AI GENERATED OUTPUT TEXTAREA SECTION -->
+            <div id="outputContainer" class="space-y-3 pt-2">
+                <div class="flex items-center justify-between">
+                    <label for="reviewTextarea" class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-regular fa-pen-to-square text-primary-600"></i>
+                        Your Generated Review:
+                    </label>
+                    <span class="text-[10px] text-slate-400">Feel free to edit</span>
+                </div>
+
+                <div class="relative">
+                    <textarea id="reviewTextarea" rows="4" class="w-full p-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-18 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition leading-relaxed shadow-inner" placeholder="Your review will appear here..."></textarea>
+                    
+                    <!-- Copy Indicator Toast inside textarea -->
+                    <div id="copyToast" class="hidden absolute top-3 right-3 bg-slate-900/90 text-white text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1 shadow-md animate-fade">
+                        <i class="fa-solid fa-check text-green-400"></i> Copied!
+                    </div>
+                </div>
+
+                <!-- Action Buttons: Copy Review & Open Google Review -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                    <!-- Button 1: Copy Review -->
+                    <button id="copyBtn" class="w-full py-3 px-4 bg-slate-800 dark:bg-slate-700 text-white font-bold text-xs rounded-18 shadow-md hover:bg-slate-900 dark:hover:bg-slate-600 active:scale-[0.98] transition flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy text-amber-400 text-sm"></i>
+                        <span id="copyBtnText">1. Copy Review</span>
+                    </button>
+
+                    <!-- Button 2: Open Google Review (Primary Call-to-action) -->
+                    <a id="googleRedirectBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-extrabold text-xs rounded-18 shadow-glow active:scale-[0.98] transition flex items-center justify-center gap-2 text-center group">
+                        <i class="fa-brands fa-google text-white text-sm group-hover:scale-110 transition-transform"></i>
+                        <span>2. Post on Google</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-80"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTTOM SECTION -->
+        <footer class="text-center py-6 space-y-2">
+            <p class="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center justify-center gap-1">
+                <span class="text-red-500 animate-pulse">❤️</span> Thank you for supporting local businesses.
+            </p>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500">
+                Made with <span class="text-red-500">❤️</span> by <a href="https://www.google.com/search?q=MARKETING+HUB+GHAZIABAD" target="_blank" class="font-bold text-primary-600 dark:text-primary-400 hover:underline">MarketingUB</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Floating WhatsApp Quick Connect Button -->
+    <a id="whatsappBtn" href="https://wa.me/919876543210?text=Hi%20Marketing%20Hub%20Cafe,%20I%20visited%20recently!" target="_blank" class="fixed bottom-5 right-5 z-40 bg-emerald-500 text-white p-3.5 rounded-full shadow-lg hover:bg-emerald-600 active:scale-95 transition-all flex items-center justify-center text-xl w-13 h-13 border-2 border-white dark:border-slate-900" aria-label="Contact on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Toast Container for Mobile Notifications -->
+    <div id="globalToast" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 transform -translate-y-4">
+        <div class="bg-slate-900/90 backdrop-blur-md text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-white/10">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-green-400 text-sm"></i>
+            <span id="toastMessage">Action completed</span>
+        </div>
+    </div>
+
+    <script>
+        /* Modern Single Page App Logic for Google Review Generator */
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Mandatory Direct Google Review Destination URL
+            const GOOGLE_REVIEW_URL = "https://www.google.com/search?q=MARKETING+HUB+GHAZIABAD&sca_esv=a8460a9704d2110b&sxsrf=APpeQns5ebcC0jKXU5pNoIeZSgGD9h77MQ:1785933696954&udm=1&lsack=gC9zaorsObKUseMP-LfB6Qk&sa=X&ved=2ahUKEwiKrOW8wYmWAxUySmwGHfhbMJ0QjGp6BAgkEAA&biw=1024&bih=607&dpr=1#sv=CAESzQEKuQEStgEKd0FKaVQ0dElfc1I5N1k1U0tSSEx5Q0l6WGNkQzY5dUJsS2lrYlFuMGZ1ekZ1S2d2LXN6dzhldW83bjlzREhLNnFJcGJzS0U0WFpLZDh1WnJhVzNJbzZwcnQ4d0RlRFEyOWk4b1B0VmdXOEFrdHZQdTFFTWJnOHhZEhdpUzl6YXNEUEFzUFN3Y3NQZzRxajhBZxoiQURzcjlmUUVTZGVaRDBKdlZFeEJ4YjcyZlJXYlB1a2tDURIEODA1MRoBMyoAMAA4AUAAGAAgr_-djg9KAhAC";
+
+            // Bind redirect URL to button
+            const googleRedirectBtn = document.getElementById('googleRedirectBtn');
+            if (googleRedirectBtn) {
+                googleRedirectBtn.href = GOOGLE_REVIEW_URL;
+            }
+
+            // 1. Dark Mode Toggle State Management
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+
+            // System dark mode check or localStorage
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-sun text-amber-400';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-moon text-slate-600';
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    themeIcon.className = 'fa-solid fa-moon text-slate-600';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    themeIcon.className = 'fa-solid fa-sun text-amber-400';
+                }
+            });
+
+            // 2. Interactive Star Rating System
+            let currentRating = 5;
+            const starBtns = document.querySelectorAll('.star-btn');
+            const ratingFeedback = document.getElementById('ratingFeedback');
+
+            const feedbackTexts = {
+                1: { text: "Need Improvement 😕", color: "text-red-500" },
+                2: { text: "Fair Experience 😐", color: "text-amber-500" },
+                3: { text: "Good Food & Place 🙂", color: "text-amber-600" },
+                4: { text: "Very Good Experience! 😊", color: "text-primary-600" },
+                5: { text: "Outstanding & Loved It! ❤️", color: "text-primary-600 font-bold" }
+            };
+
+            function updateStars(rating) {
+                currentRating = rating;
+                starBtns.forEach((btn, idx) => {
+                    const starIcon = btn.querySelector('i');
+                    if (idx < rating) {
+                        btn.classList.add('star-active', 'text-amber-400');
+                        btn.classList.remove('text-slate-300', 'dark:text-slate-700');
+                    } else {
+                        btn.classList.remove('star-active', 'text-amber-400');
+                        btn.classList.add('text-slate-300', 'dark:text-slate-700');
+                    }
+                });
+
+                if (ratingFeedback) {
+                    const info = feedbackTexts[rating] || feedbackTexts[5];
+                    ratingFeedback.innerHTML = `<span class="text-xs ${info.color} animate-fade">${info.text}</span>`;
+                }
+            }
+
+            // Default set 5 stars
+            updateStars(5);
+
+            starBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const starVal = parseInt(btn.getAttribute('data-star'));
+                    updateStars(starVal);
+
+                    // Mobile haptic vibration
+                    if (navigator.vibrate) {
+                        navigator.vibrate(30);
+                    }
+
+                    // Auto generate default text on star click
+                    generateAIReview();
+                });
+            });
+
+            // 3. Question 1: Enjoy Category Chips Selection
+            const enjoyChips = document.querySelectorAll('#enjoyChips .chip-btn');
+            const selectedAspects = new Set(['Food', 'Ambience']); // defaults
+
+            // Initial chip state highlighting
+            enjoyChips.forEach(chip => {
+                const val = chip.getAttribute('data-value');
+                if (selectedAspects.has(val)) {
+                    chip.classList.add('border-primary-500', 'bg-primary-50', 'dark:bg-primary-950/50', 'text-primary-700', 'dark:text-primary-300', 'font-bold');
+                }
+
+                chip.addEventListener('click', () => {
+                    if (selectedAspects.has(val)) {
+                        if (selectedAspects.size > 1) { // keep at least one
+                            selectedAspects.delete(val);
+                            chip.classList.remove('border-primary-500', 'bg-primary-50', 'dark:bg-primary-950/50', 'text-primary-700', 'dark:text-primary-300', 'font-bold');
+                            chip.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                        }
+                    } else {
+                        selectedAspects.add(val);
+                        chip.classList.add('border-primary-500', 'bg-primary-50', 'dark:bg-primary-950/50', 'text-primary-700', 'dark:text-primary-300', 'font-bold');
+                        chip.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                    }
+
+                    if (navigator.vibrate) navigator.vibrate(15);
+                });
+            });
+
+            // 4. AI Review Generator Core Engine
+            const langSelect = document.getElementById('langSelect');
+            const toneSelect = document.getElementById('toneSelect');
+            const generateBtn = document.getElementById('generateBtn');
+            const generateBtnText = document.getElementById('generateBtnText');
+            const reviewTextarea = document.getElementById('reviewTextarea');
+
+            const reviewTemplates = {
+                English: {
+                    Short: [
+                        "★★★★★ Amazing food and great ambience. Service was quick and polite. Highly recommended!",
+                        "★★★★★ Had a wonderful time! The food tasted delicious and cleanliness was top notch.",
+                        "★★★★★ Excellent hospitality and great value. Will definitely visit Marketing Hub Cafe again!"
+                    ],
+                    Friendly: [
+                        "★★★★★ Loved our dining experience here! The staff made us feel so welcome. Food quality was top tier and the ambience was super cozy. Can't wait to visit again! ❤️",
+                        "★★★★★ What a charming spot! Enjoyed every bite of our meal. The presentation was gorgeous and service was genuinely warm. Highly recommend to everyone!",
+                        "★★★★★ Had a fantastic evening with family. The food was served fresh & hot, and the vibes were unmatched. A 5-star experience all around!"
+                    ],
+                    Professional: [
+                        "★★★★★ Exceptional culinary quality and professional service standard. The ambiance is well suited for both casual dining and business meets. Very clean and well maintained.",
+                        "★★★★★ Highly impressed with the prompt customer service and hygiene standards at Marketing Hub Cafe. Food was fresh and reasonably priced. 5 stars well deserved.",
+                        "★★★★★ Outstanding hospitality. The menu offers great variety, the atmosphere is sophisticated, and the staff is extremely attentive. Recommended."
+                    ],
+                    Luxury: [
+                        "★★★★★ An exquisite gourmet experience! Every dish was cooked to perfection with fine ingredients. The ambiance is elegant and luxurious. Truly top-class dining.",
+                        "★★★★★ Absolutely premium ambiance and rich culinary flavors. The attention to detail in service and cleanliness is commendable. A true 5-star gem!"
+                    ]
+                },
+                Hindi: {
+                    Short: [
+                        "★★★★★ बहुत ही स्वादिष्ट खाना और बेहतरीन माहौल! सर्विस बहुत तेज़ और अच्छी थी। ज़रूर आएं!",
+                        "★★★★★ मार्केटिंग हब कैफे में बहुत अच्छा अनुभव रहा। खाना फ्रेश था और सफाई बेहतरीन थी।",
+                        "★★★★★ शानदार सर्विस और किफायती दाम। परिवार और दोस्तों के लिए बेस्ट जगह!"
+                    ],
+                    Friendly: [
+                        "★★★★★ यहाँ आकर बहुत मज़ा आया! स्टाफ का व्यवहार बहुत विनम्र था और खाना बहुत ही लाजवाब था। एम्बियंस भी एकदम शांतिपूर्ण और खूबसूरत है। ❤️",
+                        "★★★★★ बेहतरीन अनुभव! हर डिश का स्वाद ज़बरदस्त था। यहाँ का माहौल बहुत सकारात्मक है। हम फिर से ज़रूर आएँगे!"
+                    ],
+                    Professional: [
+                        "★★★★★ मार्केटिंग हब कैफे की गुणवत्ता और सर्विस अत्यंत सराहनीय है। साफ़-सफ़ाई और भोजन का स्तर 5 स्टार के योग्य है।",
+                        "★★★★★ बहुत ही व्यावसायिक और व्यवस्थित कैफे। भोजन फ्रेश था एवं स्टाफ का बर्ताव बहुत सम्मानजनक रहा।"
+                    ],
+                    Luxury: [
+                        "★★★★★ एक अत्यंत प्रीमियम और शानदार अनुभव! एम्बियंस और खाने की गुणवत्ता दोनों ही बेहतरीन हैं। उत्कृष्ट 5-स्टार सर्विस।"
+                    ]
+                },
+                Hinglish: {
+                    Short: [
+                        "★★★★★ Food was super delicious and ambience ekdam awesome tha! Staff service fast thi. 10/10 recommended!",
+                        "★★★★★ Cleanliness and food quality both top class! Price bhi reasonable hai. Must visit Cafe in Ghaziabad!"
+                    ],
+                    Friendly: [
+                        "★★★★★ Kitna pyara place hai! Food ka taste lajawab tha and staff waale bohot friendly hain. Family ke saath aane ke liye best spot. ❤️",
+                        "★★★★★ Amazing experience at Marketing Hub Cafe! Khana fresh tha aur atmosphere ekdam cozy. Will visit again soon!"
+                    ],
+                    Professional: [
+                        "★★★★★ Great ambience and high hygiene standards. Service quick thi and food quality super rich. Completely satisfied with the experience.",
+                        "★★★★★ Very polite staff and neat cleanliness. Food menu offers good variety at reasonable pricing. 5 Stars!"
+                    ],
+                    Luxury: [
+                        "★★★★★ Truly premium experience! Quality of food, lighting and vibe ekdam top notch. Highly recommended for special occasions!"
+                    ]
+                }
+            };
+
+            function generateAIReview() {
+                const lang = langSelect.value || 'English';
+                const tone = toneSelect.value || 'Short';
+                const aspects = Array.from(selectedAspects).join(', ');
+
+                // Select template array or fallback
+                const langGroup = reviewTemplates[lang] || reviewTemplates['English'];
+                const toneGroup = langGroup[tone] || langGroup['Short'];
+                
+                // Pick random template from tone group
+                let text = toneGroup[Math.floor(Math.random() * toneGroup.length)];
+
+                // Inject selected aspect highlights if available
+                if (aspects && !text.includes(aspects)) {
+                    if (lang === 'English') {
+                        text += ` Especially loved the ${aspects.toLowerCase()}.`;
+                    } else if (lang === 'Hindi') {
+                        text += ` विशेष रूप से यहाँ की ${aspects} बहुत पसंद आई।`;
+                    } else {
+                        text += ` Special mention for ${aspects}!`;
+                    }
+                }
+
+                // Animate generate button loading
+                generateBtnText.textContent = "AI is Writing...";
+                generateBtn.disabled = true;
+
+                setTimeout(() => {
+                    reviewTextarea.value = text;
+                    generateBtnText.textContent = "Generate Review with AI";
+                    generateBtn.disabled = false;
+
+                    // Trigger toast notification
+                    showToast("AI Review Generated! Ready to Copy ✨");
+                }, 400);
+            }
+
+            // Generate initial draft on load
+            generateAIReview();
+
+            generateBtn.addEventListener('click', () => {
+                if (navigator.vibrate) navigator.vibrate(25);
+                generateAIReview();
+            });
+
+            // 5. Copy Review Button & Confetti Trigger
+            const copyBtn = document.getElementById('copyBtn');
+            const copyBtnText = document.getElementById('copyBtnText');
+            const copyToast = document.getElementById('copyToast');
+
+            copyBtn.addEventListener('click', () => {
+                const reviewContent = reviewTextarea.value;
+                if (!reviewContent) return;
+
+                // Executive copy command with fallbacks
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(reviewContent);
+                } else {
+                    reviewTextarea.select();
+                    document.execCommand('copy');
+                }
+
+                // Mobile Haptic Vibration
+                if (navigator.vibrate) {
+                    navigator.vibrate([40, 60, 40]);
+                }
+
+                // UI feedback animation
+                copyBtn.classList.remove('bg-slate-800', 'dark:bg-slate-700');
+                copyBtn.classList.add('bg-green-600');
+                copyBtnText.textContent = "Copied! Now Post below";
+
+                if (copyToast) {
+                    copyToast.classList.remove('hidden');
+                    setTimeout(() => copyToast.classList.add('hidden'), 2500);
+                }
+
+                // Confetti Burst Effect
+                if (window.confetti) {
+                    confetti({
+                        particleCount: 70,
+                        spread: 60,
+                        origin: { y: 0.8 },
+                        colors: ['#16A34A', '#F59E0B', '#3B82F6']
+                    });
+                }
+
+                showToast("Review copied to clipboard! Tap 'Post on Google'");
+
+                // Auto Scroll to Step 2 Google Button with subtle highlight
+                setTimeout(() => {
+                    if (googleRedirectBtn) {
+                        googleRedirectBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        googleRedirectBtn.classList.add('ring-4', 'ring-primary-500/50');
+                        setTimeout(() => googleRedirectBtn.classList.remove('ring-4', 'ring-primary-500/50'), 2000);
+                    }
+                }, 600);
+
+                setTimeout(() => {
+                    copyBtn.classList.remove('bg-green-600');
+                    copyBtn.classList.add('bg-slate-800', 'dark:bg-slate-700');
+                    copyBtnText.textContent = "1. Copy Review";
+                }, 3000);
+            });
+
+            // Auto-redirect click tracking for Google button
+            if (googleRedirectBtn) {
+                googleRedirectBtn.addEventListener('click', () => {
+                    if (navigator.vibrate) navigator.vibrate(30);
+                    showToast("Opening Google Review page...");
+                });
+            }
+
+            // 6. Global Toast Notification Helper
+            function showToast(msg) {
+                const toast = document.getElementById('globalToast');
+                const toastMessage = document.getElementById('toastMessage');
+                if (!toast || !toastMessage) return;
+
+                toastMessage.textContent = msg;
+                toast.classList.remove('opacity-0', '-translate-y-4');
+                toast.classList.add('opacity-100', 'translate-y-0');
+
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                    toast.classList.add('opacity-0', '-translate-y-4');
+                }, 2800);
+            }
+
+            // 7. PWA Install Prompt Handler
+            let deferredPrompt;
+            const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                if (pwaInstallBtn) {
+                    pwaInstallBtn.classList.remove('hidden');
+                }
+            });
+
+            if (pwaInstallBtn) {
+                pwaInstallBtn.addEventListener('click', async () => {
+                    if (!deferredPrompt) return;
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        pwaInstallBtn.classList.add('hidden');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
